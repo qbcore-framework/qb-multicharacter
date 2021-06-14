@@ -112,7 +112,7 @@ end)
 QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(source, cb, cid)
     local src = source
 
-    QBCore.Functions.ExecuteSql(false, "SELECT * FROM `playerskins` WHERE `citizenid` = '"..cid.."' AND `active` = 1", function(result)
+    QBCore.Functions.ExecuteSql(false, {['a'] = cid}, "SELECT * FROM `playerskins` WHERE `citizenid` = @a AND `active` = 1", function(result)
         if result[1] ~= nil then
             cb(result[1].model, result[1].skin)
         else
@@ -124,7 +124,7 @@ end)
 function loadHouseData()
     local HouseGarages = {}
     local Houses = {}
-	QBCore.Functions.ExecuteSql(false, "SELECT * FROM `houselocations`", function(result)
+	QBCore.Functions.ExecuteSql(false, nil, "SELECT * FROM `houselocations`", function(result)
 		if result[1] ~= nil then
 			for k, v in pairs(result) do
 				local owned = false
