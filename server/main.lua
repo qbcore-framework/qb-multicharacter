@@ -58,6 +58,7 @@ function GiveStarterItems(source)
             info.type = "A1-A2-A | AM-B | C1-C-CE"
         end
         Player.Functions.AddItem(v.item, 1, false, info)
+	Player.Functions.SetJob("unemployed", 0)
     end
 end
 
@@ -65,6 +66,7 @@ RegisterServerEvent('qb-multicharacter:server:deleteCharacter')
 AddEventHandler('qb-multicharacter:server:deleteCharacter', function(citizenid)
     local src = source
     QBCore.Player.DeleteCharacter(src, citizenid)
+		
 end)
 
 QBCore.Functions.CreateCallback("qb-multicharacter:server:GetUserCharacters", function(source, cb)
