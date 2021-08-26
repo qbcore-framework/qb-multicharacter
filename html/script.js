@@ -40,7 +40,7 @@ $(document).ready(function (){
                 }, 500);
             
                 setTimeout(function(){
-                    $.post('https://qb-multicharacter/setupCharacters');
+                    $.post('https://${resourceName}/setupCharacters');
                     setTimeout(function(){
                         clearInterval(DotsInterval);
                         loadingProgress = 0;
@@ -48,7 +48,7 @@ $(document).ready(function (){
                         $(".welcomescreen").fadeOut(150);
                         qbMultiCharacters.fadeInDown('.character-info', '20%', 400);
                         qbMultiCharacters.fadeInDown('.characters-list', '20%', 400);
-                        $.post('https://qb-multicharacter/removeBlur');
+                        $.post('https://${resourceName}/removeBlur');
                     }, 2000);
                 }, 2000);
             } else {
@@ -77,7 +77,7 @@ $('.continue-btn').click(function(e){
     // setTimeout(function(){
     //     qbMultiCharacters.fadeInDown('.characters-list', '20%', 400);
     //     qbMultiCharacters.fadeInDown('.character-info', '20%', 400);
-    //     $.post('https://qb-multicharacter/setupCharacters');
+    //     $.post('https://${resourceName}/setupCharacters');
     // }, 400)
 });
 
@@ -139,7 +139,7 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Create");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"none"});
-            $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
+            $.post('https://${resourceName}/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
         } else {
@@ -149,7 +149,7 @@ $(document).on('click', '.character', function(e) {
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"block"});
-            $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
+            $.post('https://${resourceName}/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
         }
@@ -162,7 +162,7 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Register");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"none"});
-            $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
+            $.post('https://${resourceName}/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
         } else {
@@ -172,7 +172,7 @@ $(document).on('click', '.character', function(e) {
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"block"});
-            $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
+            $.post('https://${resourceName}/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
         }
@@ -265,7 +265,7 @@ function refreshCharacters() {
     setTimeout(function(){
         $(selectedChar).removeClass("char-selected");
         selectedChar = null;
-        $.post('https://qb-multicharacter/setupCharacters');
+        $.post('https://${resourceName}/setupCharacters');
         $("#delete").css({"display":"none"});
         $("#play").css({"display":"none"});
         qbMultiCharacters.resetAll();
@@ -291,7 +291,7 @@ $(document).on('click', '#play', function(e) {
 
     if (selectedChar !== null) {
         if (charData !== "") {
-            $.post('https://qb-multicharacter/selectCharacter', JSON.stringify({
+            $.post('https://${resourceName}/selectCharacter', JSON.stringify({
                 cData: $(selectedChar).data('cData')
             }));
             // qbMultiCharacters.fadeInDown('.welcomescreen', WelcomePercentage, 400);
