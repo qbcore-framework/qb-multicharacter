@@ -270,8 +270,6 @@ $(document).on('click', '#play', function(e) {
             $.post('https://${resourceName}/selectCharacter', JSON.stringify({
                 cData: $(selectedChar).data('cData')
             }));
-            // qbMultiCharacters.fadeInDown('.welcomescreen', WelcomePercentage, 400);
-            // qbMultiCharacters.fadeInDown('.server-log', '25%', 400);
             setTimeout(function(){
                 qbMultiCharacters.fadeOutDown('.characters-list', "-40%", 400);
                 qbMultiCharacters.fadeOutDown('.character-info', "-40%", 400);
