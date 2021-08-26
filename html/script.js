@@ -71,21 +71,13 @@ $(document).ready(function (){
 
 $('.continue-btn').click(function(e){
     e.preventDefault();
-
-    // qbMultiCharacters.fadeOutUp('.welcomescreen', undefined, 400);
-    // qbMultiCharacters.fadeOutDown('.server-log', undefined, 400);
-    // setTimeout(function(){
-    //     qbMultiCharacters.fadeInDown('.characters-list', '20%', 400);
-    //     qbMultiCharacters.fadeInDown('.character-info', '20%', 400);
-    //     $.post('https://${resourceName}/setupCharacters');
-    // }, 400)
 });
 
 $('.disconnect-btn').click(function(e){
     e.preventDefault();
 
-    $.post('https://qb-multicharacter/closeUI');
-    $.post('https://qb-multicharacter/disconnectButton');
+    $.post('https://${resourceName}/closeUI');
+    $.post('https://${resourceName}/disconnectButton');
 });
 
 function setupCharInfo(cData) {
@@ -213,7 +205,7 @@ $(document).on('click', '#create', function (e) {
     if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(firstname) || hasWhiteSpace(lastname)|| hasWhiteSpace(nationality) ){
     console.log("FIELDS REQUIRED")
     }else{
-        $.post('https://qb-multicharacter/createNewCharacter', JSON.stringify({
+        $.post('https://${resourceName}/createNewCharacter', JSON.stringify({
             firstname: firstname,
             lastname: lastname,
             nationality: nationality,
@@ -228,25 +220,9 @@ $(document).on('click', '#create', function (e) {
         refreshCharacters()
     }
 });
-// $(document).on('click', '#create', function(e){
-//     e.preventDefault();
-//     $.post('https://qb-multicharacter/createNewCharacter', JSON.stringify({
-//         firstname: $('#first_name').val(),
-//         lastname: $('#last_name').val(),
-//         nationality: $('#nationality').val(),
-//         birthdate: $('#birthdate').val(),
-//         gender: $('select[name=gender]').val(),
-//         cid: $(selectedChar).attr('id').replace('char-', ''),
-//     }));
-//     $(".container").fadeOut(150);
-//     $('.characters-list').css("filter", "none");
-//     $('.character-info').css("filter", "none");
-//     qbMultiCharacters.fadeOutDown('.character-register', '125%', 400);
-//     refreshCharacters()
-// });
 
 $(document).on('click', '#accept-delete', function(e){
-    $.post('https://qb-multicharacter/removeCharacter', JSON.stringify({
+    $.post('https://${resourceName}/removeCharacter', JSON.stringify({
         citizenid: $(selectedChar).data("citizenid"),
     }));
     $('.character-delete').fadeOut(150);
