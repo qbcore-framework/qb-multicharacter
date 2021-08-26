@@ -322,7 +322,6 @@ qbMultiCharacters.resetAll = function() {
     $('.characters-list').css("top", "-40");
     $('.character-info').hide();
     $('.character-info').css("top", "-40");
-    // $('.welcomescreen').show();
     $('.welcomescreen').css("top", WelcomePercentage);
     $('.server-log').show();
     $('.server-log').css("top", "25%");
