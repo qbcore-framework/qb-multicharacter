@@ -40,7 +40,7 @@ $(document).ready(function (){
                 }, 500);
             
                 setTimeout(function(){
-                    $.post('https://${resourceName}/setupCharacters');
+                    $.post(`https://${GetParentResourceName()}/setupCharacters`);
                     setTimeout(function(){
                         clearInterval(DotsInterval);
                         loadingProgress = 0;
@@ -48,7 +48,7 @@ $(document).ready(function (){
                         $(".welcomescreen").fadeOut(150);
                         qbMultiCharacters.fadeInDown('.character-info', '20%', 400);
                         qbMultiCharacters.fadeInDown('.characters-list', '20%', 400);
-                        $.post('https://${resourceName}/removeBlur');
+                        $.post(`https://${GetParentResourceName()}/removeBlur`);
                     }, 2000);
                 }, 2000);
             } else {
@@ -76,8 +76,8 @@ $('.continue-btn').click(function(e){
 $('.disconnect-btn').click(function(e){
     e.preventDefault();
 
-    $.post('https://${resourceName}/closeUI');
-    $.post('https://${resourceName}/disconnectButton');
+    $.post(`https://${GetParentResourceName()}/closeUI`);
+    $.post(`https://${GetParentResourceName()}/disconnectButton`);
 });
 
 function setupCharInfo(cData) {
@@ -131,7 +131,7 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Create");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"none"});
-            $.post('https://${resourceName}/cDataPed', JSON.stringify({
+            $.post(`https://${GetParentResourceName()}/cDataPed`, JSON.stringify({
                 cData: cDataPed
             }));
         } else {
@@ -141,7 +141,7 @@ $(document).on('click', '.character', function(e) {
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"block"});
-            $.post('https://${resourceName}/cDataPed', JSON.stringify({
+            $.post(`https://${GetParentResourceName()}/cDataPed`, JSON.stringify({
                 cData: cDataPed
             }));
         }
@@ -154,7 +154,7 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Register");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"none"});
-            $.post('https://${resourceName}/cDataPed', JSON.stringify({
+            $.post(`https://${GetParentResourceName()}/cDataPed`, JSON.stringify({
                 cData: cDataPed
             }));
         } else {
@@ -164,7 +164,7 @@ $(document).on('click', '.character', function(e) {
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
             $("#delete").css({"display":"block"});
-            $.post('https://${resourceName}/cDataPed', JSON.stringify({
+            $.post(`https://${GetParentResourceName()}/cDataPed`, JSON.stringify({
                 cData: cDataPed
             }));
         }
@@ -205,7 +205,7 @@ $(document).on('click', '#create', function (e) {
     if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(firstname) || hasWhiteSpace(lastname)|| hasWhiteSpace(nationality) ){
     console.log("FIELDS REQUIRED")
     }else{
-        $.post('https://${resourceName}/createNewCharacter', JSON.stringify({
+        $.post(`https://${GetParentResourceName()}/createNewCharacter`, JSON.stringify({
             firstname: firstname,
             lastname: lastname,
             nationality: nationality,
@@ -222,7 +222,7 @@ $(document).on('click', '#create', function (e) {
 });
 
 $(document).on('click', '#accept-delete', function(e){
-    $.post('https://${resourceName}/removeCharacter', JSON.stringify({
+    $.post(`https://${GetParentResourceName()}/removeCharacter`, JSON.stringify({
         citizenid: $(selectedChar).data("citizenid"),
     }));
     $('.character-delete').fadeOut(150);
@@ -241,7 +241,7 @@ function refreshCharacters() {
     setTimeout(function(){
         $(selectedChar).removeClass("char-selected");
         selectedChar = null;
-        $.post('https://${resourceName}/setupCharacters');
+        $.post(`https://${GetParentResourceName()}/setupCharacters`);
         $("#delete").css({"display":"none"});
         $("#play").css({"display":"none"});
         qbMultiCharacters.resetAll();
@@ -267,7 +267,7 @@ $(document).on('click', '#play', function(e) {
 
     if (selectedChar !== null) {
         if (charData !== "") {
-            $.post('https://${resourceName}/selectCharacter', JSON.stringify({
+            $.post(`https://${GetParentResourceName()}/selectCharacter`, JSON.stringify({
                 cData: $(selectedChar).data('cData')
             }));
             setTimeout(function(){
