@@ -201,9 +201,9 @@ function hasWhiteSpace(s) {
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
    
-        let firstname= escapeHtml($('#first_name').val())
-        let lastname= escapeHtml($('#last_name').val())
-        let nationality= escapeHtml($('#nationality').val())
+        let firstname= escapeHtml($('#first_name').val().replace(/\s/g, ""))
+        let lastname= escapeHtml($('#last_name').val().replace(/\s/g, ""))
+        let nationality= escapeHtml($('#nationality').val().replace(/\s/g, ""))
         let birthdate= escapeHtml($('#birthdate').val())
         let gender= escapeHtml($('select[name=gender]').val())
         let cid = escapeHtml($(selectedChar).attr('id').replace('char-', ''))
