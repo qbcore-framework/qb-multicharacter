@@ -64,13 +64,14 @@ AddEventHandler('qb-multicharacter:client:chooseChar', function()
     Citizen.Wait(1000)
     local interior = GetInteriorAtCoords(-814.89, 181.95, 76.85 - 18.9)
     LoadInterior(interior)
-    while not IsInteriorReady(interior) do
-        Citizen.Wait(1000)
-    end
+    ShutdownLoadingScreen()
     FreezeEntityPosition(PlayerPedId(), true)
     SetEntityCoords(PlayerPedId(), Config.HiddenCoords.x, Config.HiddenCoords.y, Config.HiddenCoords.z)
+    while not IsInteriorReady(interior) do
+        Citizen.Wait(1000)
+        print("[Loading Selector Interior, Please Wait!]")
+    end
     Citizen.Wait(1500)
-    ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
     openCharMenu(true)
 end)
