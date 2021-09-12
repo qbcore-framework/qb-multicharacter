@@ -1,7 +1,6 @@
 RegisterServerEvent('qb-multicharacter:server:disconnect')
 AddEventHandler('qb-multicharacter:server:disconnect', function()
     local src = source
-
     DropPlayer(src, "You have disconnected from QBCore")
 end)
 
@@ -9,12 +8,9 @@ RegisterServerEvent('qb-multicharacter:server:loadUserData')
 AddEventHandler('qb-multicharacter:server:loadUserData', function(cData)
     local src = source
     if QBCore.Player.Login(src, cData.citizenid) then
-        print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
+        --print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
         QBCore.Commands.Refresh(src)
         loadHouseData()
-		--TriggerEvent('QBCore:Server:OnPlayerLoaded')-
-        --TriggerClientEvent('QBCore:Client:OnPlayerLoaded', src)
-        
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..cData.citizenid.." | "..src..") loaded..")
 	end
@@ -28,10 +24,9 @@ AddEventHandler('qb-multicharacter:server:createCharacter', function(data)
     newData.charinfo = data
     --QBCore.Player.CreateCharacter(src, data)
     if QBCore.Player.Login(src, false, newData) then
-        print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
+        --print('^2[qb-core]^7 '..GetPlayerName(src)..' has succesfully loaded!')
         QBCore.Commands.Refresh(src)
         loadHouseData()
-
         TriggerClientEvent("qb-multicharacter:client:closeNUI", src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, newData)
         GiveStarterItems(src)
@@ -90,7 +85,6 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:setupCharacters", func
             result[i].charinfo = json.decode(result[i].charinfo)
             result[i].money = json.decode(result[i].money)
             result[i].job = json.decode(result[i].job)
-
             table.insert(plyChars, result[i])
         end
         cb(plyChars)
