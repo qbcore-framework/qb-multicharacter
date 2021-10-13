@@ -446,7 +446,7 @@ input[type="date"]::-webkit-clear-button {
 #birthdate {
     color: #ededed;
     text-align: center;
-    font-family: 'Lato', monospace;
+    font-family: 'Poppins', sans-serif;
 }
 
 .character-reg-btn {
@@ -487,7 +487,7 @@ input[type="date"]::-webkit-clear-button {
 .loading-rondje > p {
     color: white;
     margin-top: 1vh;
-    font-family: 'Roboto';
+    font-family: 'Poppins', sans-serif;
     text-shadow: 1px 1px 0px #00000085;
 }
 
