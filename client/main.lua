@@ -27,6 +27,7 @@ local function skyCam(bool)
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
     else
+        TriggerEvent('qb-weathersync:client:EnableSync')
         SetTimecycleModifier('default')
         SetCamActive(cam, false)
         DestroyCam(cam, true)
