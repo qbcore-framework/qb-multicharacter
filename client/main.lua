@@ -4,9 +4,9 @@ local QBCore = exports['qb-core']:GetCoreObject()
 
 -- Main Thread
 
-Citizen.CreateThread(function()
+CreateThread(function()
 	while true do
-		Citizen.Wait(0)
+		Wait(0)
 		if NetworkIsSessionStarted() then
 			TriggerEvent('qb-multicharacter:client:chooseChar')
 			return
@@ -49,16 +49,16 @@ end
 RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This event is only for no starting apartments
     SetNuiFocus(false, false)
     DoScreenFadeOut(500)
-    Citizen.Wait(2000)
+    Wait(2000)
     SetEntityCoords(PlayerPedId(), Config.DefaultSpawn.x, Config.DefaultSpawn.y, Config.DefaultSpawn.z)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
     TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
     TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
-    Citizen.Wait(500)
+    Wait(500)
     openCharMenu()
     SetEntityVisible(PlayerPedId(), true)
-    Citizen.Wait(500)
+    Wait(500)
     DoScreenFadeIn(250)
     TriggerEvent('qb-weathersync:client:EnableSync')
     TriggerEvent('qb-clothes:client:CreateFirstCharacter')
@@ -71,15 +71,15 @@ end)
 RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     SetNuiFocus(false, false)
     DoScreenFadeOut(10)
-    Citizen.Wait(1000)
+    Wait(1000)
     local interior = GetInteriorAtCoords(Config.Interior.x, Config.Interior.y, Config.Interior.z - 18.9)
     LoadInterior(interior)
     while not IsInteriorReady(interior) do
-        Citizen.Wait(1000)
+        Wait(1000)
     end
     FreezeEntityPosition(PlayerPedId(), true)
     SetEntityCoords(PlayerPedId(), Config.HiddenCoords.x, Config.HiddenCoords.y, Config.HiddenCoords.z)
-    Citizen.Wait(1500)
+    Wait(1500)
     ShutdownLoadingScreen()
     ShutdownLoadingScreenNui()
     openCharMenu(true)
@@ -114,10 +114,10 @@ RegisterNUICallback('cDataPed', function(data)
         QBCore.Functions.TriggerCallback('qb-multicharacter:server:getSkin', function(model, data)
             model = model ~= nil and tonumber(model) or false
             if model ~= nil then
-                Citizen.CreateThread(function()
+                CreateThread(function()
                     RequestModel(model)
                     while not HasModelLoaded(model) do
-                        Citizen.Wait(0)
+                        Wait(0)
                     end
                     charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
                     SetPedComponentVariation(charPed, 0, 0, 0, 2)
@@ -129,7 +129,7 @@ RegisterNUICallback('cDataPed', function(data)
                     TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
                 end)
             else
-                Citizen.CreateThread(function()
+                CreateThread(function()
                     local randommodels = {
                         "mp_m_freemode_01",
                         "mp_f_freemode_01",
@@ -137,7 +137,7 @@ RegisterNUICallback('cDataPed', function(data)
                     local model = GetHashKey(randommodels[math.random(1, #randommodels)])
                     RequestModel(model)
                     while not HasModelLoaded(model) do
-                        Citizen.Wait(0)
+                        Wait(0)
                     end
                     charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
                     SetPedComponentVariation(charPed, 0, 0, 0, 2)
@@ -149,7 +149,7 @@ RegisterNUICallback('cDataPed', function(data)
             end
         end, cData.citizenid)
     else
-        Citizen.CreateThread(function()
+        CreateThread(function()
             local randommodels = {
                 "mp_m_freemode_01",
                 "mp_f_freemode_01",
@@ -157,7 +157,7 @@ RegisterNUICallback('cDataPed', function(data)
             local model = GetHashKey(randommodels[math.random(1, #randommodels)])
             RequestModel(model)
             while not HasModelLoaded(model) do
-                Citizen.Wait(0)
+                Wait(0)
             end
             charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
             SetPedComponentVariation(charPed, 0, 0, 0, 2)
@@ -191,7 +191,7 @@ RegisterNUICallback('createNewCharacter', function(data)
         cData.gender = 1
     end
     TriggerServerEvent('qb-multicharacter:server:createCharacter', cData)
-    Citizen.Wait(500)
+    Wait(500)
 end)
 
 RegisterNUICallback('removeCharacter', function(data)
