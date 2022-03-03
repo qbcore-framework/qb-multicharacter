@@ -125,6 +125,9 @@ RegisterNUICallback('cDataPed', function(data)
                         Wait(0)
                     end
                     charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
+                    local PlayAnim = Config.RandomAnims[math.random(#Config.RandomAnims)] 
+                    SetPedCanPlayAmbientAnims(charPed, true)
+                    TaskStartScenarioInPlace(charPed, PlayAnim, 0, true)
                     SetPedComponentVariation(charPed, 0, 0, 0, 2)
                     FreezeEntityPosition(charPed, false)
                     SetEntityInvincible(charPed, true)
