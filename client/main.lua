@@ -212,13 +212,3 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     TriggerEvent('qb-multicharacter:client:chooseChar')
     cb("ok")
 end)
-
-RegisterNUICallback('fix', function(data, cb)
-    Wait(0)
-    if NetworkIsSessionStarted() then
-        TriggerEvent('qb-multicharacter:client:chooseChar')
-        cb("ok")
-        return
-    end
-    cb(data)
-end)
