@@ -192,7 +192,11 @@ function escapeHtml(string) {
 }
 function hasWhiteSpace(s) {
     return /\s/g.test(s);
-  }
+}
+function setError(e) {
+    $('.char-register-error').text(e)
+    $('.char-register-error').css('display', 'block')
+}
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
@@ -206,12 +210,12 @@ $(document).on('click', '#create', function (e) {
     //An Ugly check of null objects
 
     if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(firstname) || hasWhiteSpace(lastname)|| hasWhiteSpace(nationality) ){
-        console.log("FIELDS REQUIRED")
+        setError("Please fill all fields")
         return false;
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        console.log("ERROR: You used a derogatory/vulgar term. Please try again!")
+        setError("You used a derogatory/vulgar term. Please try again!")
         return false;
     }
 
