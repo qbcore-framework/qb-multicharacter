@@ -20,6 +20,8 @@ local function GiveStarterItems(source)
             info.lastname = Player.PlayerData.charinfo.lastname
             info.birthdate = Player.PlayerData.charinfo.birthdate
             info.type = "Class C Driver License"
+	    info.citizenid = Player.PlayerData.citizenid
+
         end
         Player.Functions.AddItem(v.item, v.amount, false, info)
     end
