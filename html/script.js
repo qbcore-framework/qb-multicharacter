@@ -3,13 +3,14 @@ var WelcomePercentage = "30vh"
 qbMultiCharacters = {}
 var Loaded = false;
 var NChar = null;
+var EnableDeleteButton = false;
 
 $(document).ready(function (){
     window.addEventListener('message', function (event) {
         var data = event.data;
-
         if (data.action == "ui") {
 			NChar = data.nChar;
+            EnableDeleteButton = data.enableDeleteButton;
             if (data.toggle) {
                 $('.container').show();
                 $(".welcomescreen").fadeIn(150);
@@ -143,7 +144,9 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Play");
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
-            $("#delete").css({"display":"block"});
+            if (EnableDeleteButton) {
+                $("#delete").css({"display":"block"});
+            }
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
@@ -166,7 +169,9 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Play");
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
-            $("#delete").css({"display":"block"});
+            if (EnableDeleteButton) {
+                $("#delete").css({"display":"block"});
+            }
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
