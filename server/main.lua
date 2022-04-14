@@ -135,7 +135,8 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:GetServerLogs", functi
 end)
 
 QBCore.Functions.CreateCallback("qb-multicharacter:server:GetNumberOfCharacters", function(source, cb)
-    local license = QBCore.Functions.GetIdentifier(source, 'license')
+    local src = source
+    local license = QBCore.Functions.GetIdentifier(src, 'license')
     local numOfChars = 0
 
     if next(Config.PlayersNumberOfCharacters) then
