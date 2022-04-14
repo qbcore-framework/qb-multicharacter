@@ -351,4 +351,5 @@ qbMultiCharacters.resetAll = function() {
     $('.welcomescreen').css("top", WelcomePercentage);
     $('.server-log').show();
     $('.server-log').css("top", "25%");
+    selectedChar = null;
 }
