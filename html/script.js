@@ -192,7 +192,15 @@ function escapeHtml(string) {
 }
 function hasWhiteSpace(s) {
     return /\s/g.test(s);
-  }
+}
+
+$('#nationality').keyup(function() {
+    var nationalityValue = $(this).val();
+    if(nationalityValue.indexOf(' ') !== -1) {
+        $(this).val(nationalityValue.replace(' ', ''))
+    }
+});
+
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
