@@ -365,4 +365,5 @@ qbMultiCharacters.resetAll = function() {
     $('.server-log').show();
     $('.server-log').css("top", "25%");
     selectedChar = null;
+    $('.character-info-valid').html('<span id="no-char">Select a character slot to see all information about your character.</span>');
 }
