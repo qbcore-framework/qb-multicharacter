@@ -62,6 +62,10 @@
     cursor: pointer;
 }
 
+.character:hover {
+   background-color: #dc143c59;
+}
+
 .character>span {
     color: #ededed;
     font-weight: 900;
@@ -80,7 +84,8 @@
 }
 
 .char-selected {
-    background-color: #dc143c;
+    background-color: #dc143c !important;
+    transition: 250ms;
 }
 
 .disabled {
