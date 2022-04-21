@@ -85,6 +85,7 @@ $('.disconnect-btn').click(function(e){
 });
 
 function setupCharInfo(cData) {
+    qbMultiCharacters.hideCharBlock(150)
     if (cData == 'empty') {
         $('.character-info-valid').html('<span id="no-char">The selected character slot is not in use yet.<br><br>This character doesn\'t have information yet.</span>');
     } else {
@@ -248,15 +249,13 @@ $(document).on('click', '#accept-delete', function(e){
     $.post('https://qb-multicharacter/removeCharacter', JSON.stringify({
         citizenid: $(selectedChar).data("citizenid"),
     }));
-    $('.character-delete').fadeOut(150);
-    $('.characters-block').css("filter", "none");
+    qbMultiCharacters.hideCharBlock(150)
     refreshCharacters();
 });
 
 $(document).on('click', '#cancel-delete', function(e){
     e.preventDefault();
-    $('.characters-block').css("filter", "none");
-    $('.character-delete').fadeOut(150);
+    qbMultiCharacters.hideCharBlock(150)
 });
 
 function setCharactersList() {
@@ -296,8 +295,7 @@ $("#close-reg").click(function (e) {
 
 $("#close-del").click(function (e) {
     e.preventDefault();
-    $('.characters-block').css("filter", "none");
-    $('.character-delete').fadeOut(150);
+    qbMultiCharacters.hideCharBlock(150)
 })
 
 $(document).on('click', '#play', function(e) {
@@ -334,6 +332,11 @@ $(document).on('click', '#delete', function(e) {
     }
 });
 
+qbMultiCharacters.hideCharBlock = function(time) {
+    $('.characters-block').css("filter", "none");
+    $('.character-delete').fadeOut(time);
+}
+
 qbMultiCharacters.fadeOutUp = function(element, time) {
     $(element).css({"display":"block"}).animate({top: "-80.5%",}, time, function(){
         $(element).css({"display":"none"});
@@ -365,4 +368,8 @@ qbMultiCharacters.resetAll = function() {
     $('.server-log').show();
     $('.server-log').css("top", "25%");
     selectedChar = null;
+    // Reset character info
+    $('.character-info-valid').html('<span id="no-char">Select a character slot to see all information about your character.</span>');
+    // Hide character delete menu
+    qbMultiCharacters.hideCharBlock(0)
 }
