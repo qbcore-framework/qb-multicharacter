@@ -192,9 +192,9 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:setupCharacters", func
 end)
 
 QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(source, cb, cid)
-    local result = MySQL.Sync.fetchAll('SELECT * FROM playerskins WHERE citizenid = ? AND active = ? LIMIT 1', {cid, 1})
-    if result[1] ~= nil then
-        cb(result[1].model, result[1].skin)
+    local result = MySQL.Sync.fetchSingle('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1})
+    if result ~= nil then
+        cb(result.model, result.skin)
     else
         cb(nil)
     end
