@@ -115,6 +115,8 @@ end)
 RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
     local src = source
     QBCore.Player.DeleteCharacter(src, citizenid)
+    TriggerClientEvent('QBCore:Notify', src, "You Success Deleted your Charactrer" , "success" )
+
 end)
 
 -- Callbacks
