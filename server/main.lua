@@ -6,7 +6,7 @@ local function GiveStarterItems(source)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
 
-    for k, v in pairs(QBCore.Shared.StarterItems) do
+    for _, v in pairs(QBCore.Shared.StarterItems) do
         local info = {}
         if v.item == "id_card" then
             info.citizenid = Player.PlayerData.citizenid
@@ -30,7 +30,7 @@ local function loadHouseData()
     local Houses = {}
     local result = MySQL.Sync.fetchAll('SELECT * FROM houselocations', {})
     if result[1] ~= nil then
-        for k, v in pairs(result) do
+        for _, v in pairs(result) do
             local owned = false
             if tonumber(v.owned) == 1 then
                 owned = true
@@ -38,7 +38,7 @@ local function loadHouseData()
             local garage = v.garage ~= nil and json.decode(v.garage) or {}
             Houses[v.name] = {
                 coords = json.decode(v.coords),
-                owned = v.owned,
+                owned = owned,
                 price = v.price,
                 locked = true,
                 adress = v.label,
@@ -128,7 +128,7 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:GetUserCharacters", fu
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:GetServerLogs", function(source, cb)
+QBCore.Functions.CreateCallback("qb-multicharacter:server:GetServerLogs", function(_, cb)
     MySQL.Async.execute('SELECT * FROM server_logs', {}, function(result)
         cb(result)
     end)
@@ -140,11 +140,11 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:GetNumberOfCharacters"
     local numOfChars = 0
 
     if next(Config.PlayersNumberOfCharacters) then
-        for i, v in pairs(Config.PlayersNumberOfCharacters) do
+        for _, v in pairs(Config.PlayersNumberOfCharacters) do
             if v.license == license then
                 numOfChars = v.numberOfChars
                 break
-            else 
+            else
                 numOfChars = Config.DefaultNumberOfCharacters
             end
         end
@@ -168,7 +168,7 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:setupCharacters", func
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(source, cb, cid)
+QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, cb, cid)
     local result = MySQL.Sync.fetchAll('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1})
     if result[1] ~= nil then
         cb(result[1].model, result[1].skin)
