@@ -211,7 +211,7 @@ $(document).on('click', '#create', function (e) {
     const regTest = new RegExp(profList.join('|'), 'i');
     //An Ugly check of null objects
 
-    if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(birthdate)){
+    if (!firstname || !lastname || !nationality || !birthdate){
         var reqFielderr = '<p>You are missing required fields!</p>'
         $('.error-msg').html(reqFielderr)
         $('.error').fadeIn(400)
