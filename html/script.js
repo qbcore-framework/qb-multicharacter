@@ -199,13 +199,6 @@ function hasWhiteSpace(s) {
     return /\s/g.test(s);
 }
 
-$('#nationality').keyup(function() {
-    var nationalityValue = $(this).val();
-    if(nationalityValue.indexOf(' ') !== -1) {
-        $(this).val(nationalityValue.replace(' ', ''))
-    }
-});
-
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
@@ -218,13 +211,17 @@ $(document).on('click', '#create', function (e) {
     const regTest = new RegExp(profList.join('|'), 'i');
     //An Ugly check of null objects
 
-    if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(firstname) || hasWhiteSpace(lastname)|| hasWhiteSpace(nationality) ){
-        console.log("FIELDS REQUIRED")
+    if (!firstname || !lastname || !nationality || !birthdate){
+        var reqFieldErr = '<p>You are missing required fields!</p>'
+        $('.error-msg').html(reqFieldErr)
+        $('.error').fadeIn(400)
         return false;
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        console.log("ERROR: You used a derogatory/vulgar term. Please try again!")
+        var profanityErr = '<p>You used a derogatory/vulgar term. Please try again!<p>'
+        $('.error-msg').html(profanityErr)
+        $('.error').fadeIn(400)
         return false;
     }
 
@@ -259,6 +256,12 @@ $(document).on('click', '#cancel-delete', function(e){
     $('.character-delete').fadeOut(150);
 });
 
+$(document).on('click', '#close-error', function(e){
+    e.preventDefault();
+    $('.characters-block').css("filter", "none");
+    $('.error').fadeOut(150);
+});
+
 function setCharactersList() {
     var htmlResult = '<div class="character-list-header"><p>My Characters</p></div>'
     for (let i = 1; i <= NChar; i++) {
@@ -289,6 +292,7 @@ function refreshCharacters() {
 
 $("#close-reg").click(function (e) {
     e.preventDefault();
+    $('.error').fadeOut(150);
     $('.characters-list').css("filter", "none")
     $('.character-info').css("filter", "none")
     qbMultiCharacters.fadeOutDown('.character-register', '125%', 400);
