@@ -213,8 +213,3 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     TriggerEvent('qb-multicharacter:client:chooseChar')
     cb("ok")
 end)
-
-RegisterNUICallback('notify', function(data, cb)
-    local cData = data
-    TriggerEvent('QBCore:Notify', cData.text, cData.type, cData.length)
-end)
