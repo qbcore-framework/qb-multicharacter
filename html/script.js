@@ -212,15 +212,15 @@ $(document).on('click', '#create', function (e) {
     //An Ugly check of null objects
 
     if (!firstname || !lastname || !nationality || !birthdate){
-        var reqFielderr = '<p>You are missing required fields!</p>'
-        $('.error-msg').html(reqFielderr)
+        var reqFieldErr = '<p>You are missing required fields!</p>'
+        $('.error-msg').html(reqFieldErr)
         $('.error').fadeIn(400)
         return false;
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        var profanity_error = '<p>You used a derogatory/vulgar term. Please try again!<p>'
-        $('.error-msg').html(profanity_error)
+        var profanityErr = '<p>You used a derogatory/vulgar term. Please try again!<p>'
+        $('.error-msg').html(profanityErr)
         $('.error').fadeIn(400)
         return false;
     }
