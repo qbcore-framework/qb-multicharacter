@@ -202,12 +202,12 @@ function hasWhiteSpace(s) {
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
-    let firstname= escapeHtml($('#first_name').val())
-    let lastname= escapeHtml($('#last_name').val())
-    let nationality= escapeHtml($('#nationality').val())
-    let birthdate= escapeHtml($('#birthdate').val())
-    let gender= escapeHtml($('select[name=gender]').val())
-    let cid = escapeHtml($(selectedChar).attr('id').replace('char-', ''))
+    let firstname= $.trim(escapeHtml($('#first_name').val()))
+    let lastname= $.trim(escapeHtml($('#last_name').val()))
+    let nationality= $.trim(escapeHtml($('#nationality').val()))
+    let birthdate= $.trim(escapeHtml($('#birthdate').val()))
+    let gender= $.trim(escapeHtml($('select[name=gender]').val()))
+    let cid = $.trim(escapeHtml($(selectedChar).attr('id').replace('char-', '')))
     const regTest = new RegExp(profList.join('|'), 'i');
     //An Ugly check of null objects
 
