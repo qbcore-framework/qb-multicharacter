@@ -115,8 +115,8 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     cb("ok")
 end)
 
-RegisterNUICallback('cDataPed', function(data, cb)
-    local cData = data.cData  
+RegisterNUICallback('cDataPed', function(nData, cb)
+    local cData = nData.cData
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
     if cData ~= nil then
@@ -143,7 +143,7 @@ RegisterNUICallback('cDataPed', function(data, cb)
                         "mp_m_freemode_01",
                         "mp_f_freemode_01",
                     }
-                    local model = GetHashKey(randommodels[math.random(1, #randommodels)])
+                    model = GetHashKey(randommodels[math.random(1, #randommodels)])
                     RequestModel(model)
                     while not HasModelLoaded(model) do
                         Wait(0)
@@ -180,7 +180,7 @@ RegisterNUICallback('cDataPed', function(data, cb)
     end
 end)
 
-RegisterNUICallback('setupCharacters', function(data, cb)
+RegisterNUICallback('setupCharacters', function(_, cb)
     QBCore.Functions.TriggerCallback("qb-multicharacter:server:setupCharacters", function(result)
         SendNUIMessage({
             action = "setupCharacters",
@@ -190,7 +190,7 @@ RegisterNUICallback('setupCharacters', function(data, cb)
     end)
 end)
 
-RegisterNUICallback('removeBlur', function(data, cb)
+RegisterNUICallback('removeBlur', function(_, cb)
     SetTimecycleModifier('default')
     cb("ok")
 end)
