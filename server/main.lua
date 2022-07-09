@@ -147,6 +147,7 @@ RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
     local validCoords = ValidateHidden(GetEntityCoords(GetPlayerPed(src)))
     if validCoords then
         QBCore.Player.DeleteCharacter(src, citizenid)
+        TriggerClientEvent('QBCore:Notify', src, "Character deleted!" , "success")
     else
         TriggerEvent('qb-log:server:CreateLog', 'multicharacter', 'multicharacter', "red", "**"..GetPlayerName(src) .. " (id: "..src..")** has attempted to delete a character while not in the starting interior location")
     end
