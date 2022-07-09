@@ -3,13 +3,14 @@ var WelcomePercentage = "30vh"
 qbMultiCharacters = {}
 var Loaded = false;
 var NChar = null;
+var EnableDeleteButton = false;
 
 $(document).ready(function (){
     window.addEventListener('message', function (event) {
         var data = event.data;
-
         if (data.action == "ui") {
 			NChar = data.nChar;
+            EnableDeleteButton = data.enableDeleteButton;
             if (data.toggle) {
                 $('.container').show();
                 $(".welcomescreen").fadeIn(150);
@@ -143,7 +144,9 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Play");
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
-            $("#delete").css({"display":"block"});
+            if (EnableDeleteButton) {
+                $("#delete").css({"display":"block"});
+            }
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
@@ -166,7 +169,9 @@ $(document).on('click', '.character', function(e) {
             $("#play-text").html("Play");
             $("#delete-text").html("Delete");
             $("#play").css({"display":"block"});
-            $("#delete").css({"display":"block"});
+            if (EnableDeleteButton) {
+                $("#delete").css({"display":"block"});
+            }
             $.post('https://qb-multicharacter/cDataPed', JSON.stringify({
                 cData: cDataPed
             }));
@@ -192,26 +197,31 @@ function escapeHtml(string) {
 }
 function hasWhiteSpace(s) {
     return /\s/g.test(s);
-  }
+}
+
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
-    let firstname= escapeHtml($('#first_name').val())
-    let lastname= escapeHtml($('#last_name').val())
-    let nationality= escapeHtml($('#nationality').val())
-    let birthdate= escapeHtml($('#birthdate').val())
-    let gender= escapeHtml($('select[name=gender]').val())
-    let cid = escapeHtml($(selectedChar).attr('id').replace('char-', ''))
+    let firstname= $.trim(escapeHtml($('#first_name').val()))
+    let lastname= $.trim(escapeHtml($('#last_name').val()))
+    let nationality= $.trim(escapeHtml($('#nationality').val()))
+    let birthdate= $.trim(escapeHtml($('#birthdate').val()))
+    let gender= $.trim(escapeHtml($('select[name=gender]').val()))
+    let cid = $.trim(escapeHtml($(selectedChar).attr('id').replace('char-', '')))
     const regTest = new RegExp(profList.join('|'), 'i');
     //An Ugly check of null objects
 
-    if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(firstname) || hasWhiteSpace(lastname)|| hasWhiteSpace(nationality) ){
-        console.log("FIELDS REQUIRED")
+    if (!firstname || !lastname || !nationality || !birthdate){
+        var reqFieldErr = '<p>You are missing required fields!</p>'
+        $('.error-msg').html(reqFieldErr)
+        $('.error').fadeIn(400)
         return false;
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        console.log("ERROR: You used a derogatory/vulgar term. Please try again!")
+        var profanityErr = '<p>You used a derogatory/vulgar term. Please try again!<p>'
+        $('.error-msg').html(profanityErr)
+        $('.error').fadeIn(400)
         return false;
     }
 
@@ -246,6 +256,12 @@ $(document).on('click', '#cancel-delete', function(e){
     $('.character-delete').fadeOut(150);
 });
 
+$(document).on('click', '#close-error', function(e){
+    e.preventDefault();
+    $('.characters-block').css("filter", "none");
+    $('.error').fadeOut(150);
+});
+
 function setCharactersList() {
     var htmlResult = '<div class="character-list-header"><p>My Characters</p></div>'
     for (let i = 1; i <= NChar; i++) {
@@ -276,6 +292,7 @@ function refreshCharacters() {
 
 $("#close-reg").click(function (e) {
     e.preventDefault();
+    $('.error').fadeOut(150);
     $('.characters-list').css("filter", "none")
     $('.character-info').css("filter", "none")
     qbMultiCharacters.fadeOutDown('.character-register', '125%', 400);
@@ -351,4 +368,5 @@ qbMultiCharacters.resetAll = function() {
     $('.welcomescreen').css("top", WelcomePercentage);
     $('.server-log').show();
     $('.server-log').css("top", "25%");
+    selectedChar = null;
 }

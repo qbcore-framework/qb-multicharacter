@@ -7,7 +7,7 @@
     <link href="reset.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
     <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
-    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>QB-Multicharacter</title>
 </head>
@@ -34,7 +34,7 @@
                 <div class="character-register">
                     <div class="characters-register-block-header">
                         <p>Character Registration</p>
-                        <i class="material-icons-one" id="close-reg">close</i>
+                        <span class="material-symbols-outlined" id="close-reg">close</span>
                     </div>
                     <div class="char-register-inputs">
                         <input type="text" id="first_name" placeholder="First Name" class="char-reg-input">
@@ -58,6 +58,11 @@
 
                     <div class="character-acceptdel-btn" id="accept-delete"><p id="accept-text">Confirm</p></div>
                     <div class="character-canceldel-btn" id="cancel-delete"><p id="cancel-text">Return</p></div>
+                </div>
+                <div class="error">
+                    <div class="error-title"><span class="material-symbols-outlined">error</span>Error!</div>
+                    <div class="error-msg"></div>
+                    <div class="close-err-btn" id="close-error"><p id="cancel-error">Close</p></div>
                 </div>
             </div>
         </div>
