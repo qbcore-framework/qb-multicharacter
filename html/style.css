@@ -3,7 +3,7 @@
     display: none;
 }
 
-.characters-list::-webkit-scrollbar {
+.characters::-webkit-scrollbar {
     display: none;
 } 
 
@@ -29,7 +29,6 @@
     height: 70%;
     left: 14%;
     top: -40%;
-    overflow: scroll !important;
     background-color: rgb(23 23 23 / 80%);
     border-radius: .8vh;
     padding: 30px;
@@ -52,6 +51,12 @@
     letter-spacing: .1vh;
     font-weight: 900;
     color: #ededed;
+}
+
+.characters {
+    width: 100%;
+    height: 75%;
+    overflow: scroll !important;
 }
 
 .character {
