@@ -96,6 +96,7 @@ function setupCharInfo(cData) {
         '<div class="character-info-box"><span id="info-label">Gender: </span><span class="char-info-js">'+gender+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Nationality: </span><span class="char-info-js">'+cData.charinfo.nationality+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Job: </span><span class="char-info-js">'+cData.job.label+'</span></div>' +
+	'<div class="character-info-box"><span id="info-label">Grade </span><span class="char-info-js">' + cData.job.grade.name + '</span></div>' +
         '<div class="character-info-box"><span id="info-label">Cash: </span><span class="char-info-js">&#36; '+cData.money.cash+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Bank: </span><span class="char-info-js">&#36; '+cData.money.bank+'</span></div>' +
         '<div class="character-info-box"><span id="info-label">Phone number: </span><span class="char-info-js">'+cData.charinfo.phone+'</span></div>' +
@@ -199,32 +200,29 @@ function hasWhiteSpace(s) {
     return /\s/g.test(s);
 }
 
-$('#nationality').keyup(function() {
-    var nationalityValue = $(this).val();
-    if(nationalityValue.indexOf(' ') !== -1) {
-        $(this).val(nationalityValue.replace(' ', ''))
-    }
-});
-
 $(document).on('click', '#create', function (e) {
     e.preventDefault();
 
-    let firstname= escapeHtml($('#first_name').val())
-    let lastname= escapeHtml($('#last_name').val())
-    let nationality= escapeHtml($('#nationality').val())
-    let birthdate= escapeHtml($('#birthdate').val())
-    let gender= escapeHtml($('select[name=gender]').val())
-    let cid = escapeHtml($(selectedChar).attr('id').replace('char-', ''))
+    let firstname= $.trim(escapeHtml($('#first_name').val()))
+    let lastname= $.trim(escapeHtml($('#last_name').val()))
+    let nationality= $.trim(escapeHtml($('#nationality').val()))
+    let birthdate= $.trim(escapeHtml($('#birthdate').val()))
+    let gender= $.trim(escapeHtml($('select[name=gender]').val()))
+    let cid = $.trim(escapeHtml($(selectedChar).attr('id').replace('char-', '')))
     const regTest = new RegExp(profList.join('|'), 'i');
     //An Ugly check of null objects
 
-    if (!firstname || !lastname || !nationality || !birthdate || hasWhiteSpace(firstname) || hasWhiteSpace(lastname)|| hasWhiteSpace(nationality) ){
-        console.log("FIELDS REQUIRED")
+    if (!firstname || !lastname || !nationality || !birthdate){
+        var reqFieldErr = '<p>You are missing required fields!</p>'
+        $('.error-msg').html(reqFieldErr)
+        $('.error').fadeIn(400)
         return false;
     }
 
     if(regTest.test(firstname) || regTest.test(lastname)){
-        console.log("ERROR: You used a derogatory/vulgar term. Please try again!")
+        var profanityErr = '<p>You used a derogatory/vulgar term. Please try again!<p>'
+        $('.error-msg').html(profanityErr)
+        $('.error').fadeIn(400)
         return false;
     }
 
@@ -259,6 +257,12 @@ $(document).on('click', '#cancel-delete', function(e){
     $('.character-delete').fadeOut(150);
 });
 
+$(document).on('click', '#close-error', function(e){
+    e.preventDefault();
+    $('.characters-block').css("filter", "none");
+    $('.error').fadeOut(150);
+});
+
 function setCharactersList() {
     var htmlResult = '<div class="character-list-header"><p>My Characters</p></div>'
     for (let i = 1; i <= NChar; i++) {
@@ -289,6 +293,7 @@ function refreshCharacters() {
 
 $("#close-reg").click(function (e) {
     e.preventDefault();
+    $('.error').fadeOut(150);
     $('.characters-list').css("filter", "none")
     $('.character-info').css("filter", "none")
     qbMultiCharacters.fadeOutDown('.character-register', '125%', 400);
