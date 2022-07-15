@@ -210,8 +210,8 @@ $(document).on('click', '#create', function (e) {
     let birthdate= $.trim(escapeHtml($('#birthdate').val()))
     let gender= $.trim(escapeHtml($('select[name=gender]').val()))
     let cid = $.trim(escapeHtml($(selectedChar).attr('id').replace('char-', '')))
-    const regTest = new RegExp(profList.join('|'), 'i');
-    //An Ugly check of null objects
+    let re = '(' + profList.join('|') + ')\\b'
+    const regTest = new RegExp(re, 'i');
 
     if (!firstname || !lastname || !nationality || !birthdate){
         var reqFieldErr = '<p>You are missing required fields!</p>'
