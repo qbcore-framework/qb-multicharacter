@@ -143,7 +143,7 @@ RegisterNUICallback('cDataPed', function(nData, cb)
                         "mp_m_freemode_01",
                         "mp_f_freemode_01",
                     }
-                    model = GetHashKey(randommodels[math.random(1, #randommodels)])
+                    model = joaat(randommodels[math.random(1, #randommodels)])
                     RequestModel(model)
                     while not HasModelLoaded(model) do
                         Wait(0)
@@ -164,7 +164,7 @@ RegisterNUICallback('cDataPed', function(nData, cb)
                 "mp_m_freemode_01",
                 "mp_f_freemode_01",
             }
-            local model = GetHashKey(randommodels[math.random(1, #randommodels)])
+            local model = joaat(randommodels[math.random(1, #randommodels)])
             RequestModel(model)
             while not HasModelLoaded(model) do
                 Wait(0)
@@ -210,6 +210,7 @@ end)
 
 RegisterNUICallback('removeCharacter', function(data, cb)
     TriggerServerEvent('qb-multicharacter:server:deleteCharacter', data.citizenid)
+    DeletePed(charPed)
     TriggerEvent('qb-multicharacter:client:chooseChar')
     cb("ok")
 end)
