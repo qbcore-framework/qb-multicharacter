@@ -89,6 +89,9 @@ end)
 RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
     local src = source
     if QBCore.Player.Login(src, cData.citizenid) then
+        repeat
+            Wait(10)
+        until hasDonePreloading[src]
         print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
         QBCore.Commands.Refresh(src)
         loadHouseData(src)
