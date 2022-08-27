@@ -178,59 +178,40 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, 
     end
 end)
 
-if Config.AllowAdminDeleteCommand == true then
-    local playertables = { -- Add tables as needed
-        { table = 'players' },
-        { table = 'apartments' },
-        { table = 'bank_accounts' },
-        { table = 'crypto_transactions' },
-        { table = 'phone_invoices' },
-        { table = 'phone_messages' },
-        { table = 'playerskins' },
-        { table = 'player_contacts' },
-        { table = 'player_houses' },
-        { table = 'player_mails' },
-        { table = 'player_outfits' },
-        { table = 'player_vehicles' }
-    }
+QBCore.Commands.Add("deletechar", "Deletes another players character", {{name = "Citizen ID", help = "The Citizen ID of the character you want to delete"}}, false, function(source,args)
+    local Player = QBCore.Functions.GetPlayer(source)
 
-    function hasAccess(src, rank)
-        if QBCore.Functions.HasPermission(src, rank) or IsPlayerAceAllowed(src, 'command') then
-            return true
-        else
-            return false
+    if args and args[1] then
+        local Target = QBCore.Functions.GetPlayerByCitizenId(tostring(args[1]))
+
+        if Target then
+            DropPlayer(Target.PlayerData.source, "An admin deleted the character which you are currently using")
         end
+
+        QBCore.Player.ForceDeleteCharacter(tostring(args[1]))
+        TriggerClientEvent("QBCore:Notify", Player.PlayerData.source, "You successfully deleted the character with citizen id \"" .. tostring(args[1]) .. "\".")
+    else
+        TriggerClientEvent("QBCore:Notify", Player.PlayerData.source, "You forgot to input a citizen id", "error")
+    end
+end, "god")
+
+RegisterNetEvent("qb-multicharacter:server:removechar")
+AddEventHandler("qb-multicharacter:server:removechar", function(citizenid)
+    local Target = QBCore.Functions.GetPlayerByCitizenId(citizenid)
+    if Target then
+        Target.Functions.Logout()
+        TriggerClientEvent('qb-multicharacter:client:chooseChar', Target.PlayerData.source)
+        TriggerClientEvent("QBCore:Notify", Target.PlayerData.source, "Your character got deleted by an admin")
     end
 
-    QBCore.Functions.CreateCallback('qb-multicharacter:server:hasaccess', function(source, cb)
-        cb(hasAccess(source, "god"))
-    end)
+    local queries = table.create(#playertables, 0)
+    for i = 1, #playertables do
+        queries[i] = {query = ("DELETE FROM %s WHERE citizenid = ?"):format(playertables[i].table), values = {citizenid}}
+    end
 
-    RegisterNetEvent("qb-multicharacter:server:removechar")
-    AddEventHandler("qb-multicharacter:server:removechar", function(citizenid)
-        local Player = QBCore.Functions.GetPlayer(source)
-
-        if Player == nil then return end
-        if hasAccess(Player.PlayerData.source, "god") then
-            local Target = QBCore.Functions.GetPlayerByCitizenId(citizenid)
-            if Target then
-                Target.Functions.Logout()
-                TriggerClientEvent('qb-multicharacter:client:chooseChar', Target.PlayerData.source)
-                TriggerClientEvent("QBCore:Notify", Target.PlayerData.source, "Your character got deleted by an admin")
-            end
-
-            local queries = table.create(#playertables, 0)
-            for i = 1, #playertables do
-                queries[i] = {query = ("DELETE FROM %s WHERE citizenid = ?"):format(playertables[i].table), values = {citizenid}}
-            end
-
-            MySQL.transaction(queries, function(result2)
-                if result2 then
-                    TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Character Deleted By Admin', 'red', '**' .. GetPlayerName(Target.PlayerData.source) .. '** ' .. Target.PlayerData.license .. ' deleted **' .. citizenid .. '**, deleted by **' .. GetPlayerName(Player.PlayerData.source) .. "** (**" .. Player.PlayerData.license .. "**)")
-                end
-            end)
-        else
-            DropPlayer(Player.PlayerData.source, "Exploiting")
+    MySQL.transaction(queries, function(result2)
+        if result2 then
+            TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Character Deleted By Admin', 'red', '**' .. GetPlayerName(Target.PlayerData.source) .. '** ' .. Target.PlayerData.license .. ' deleted **' .. citizenid .. '**, deleted by **' .. GetPlayerName(Player.PlayerData.source) .. "** (**" .. Player.PlayerData.license .. "**)")
         end
     end)
-end
+end)
