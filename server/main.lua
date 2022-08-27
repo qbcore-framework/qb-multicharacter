@@ -84,7 +84,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
         loadHouseData(src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
-	end
+    end
 end)
 
 RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
@@ -109,7 +109,7 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
             TriggerClientEvent("qb-multicharacter:client:closeNUIdefault", src)
             GiveStarterItems(src)
         end
-	end
+    end
 end)
 
 RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
@@ -194,24 +194,3 @@ QBCore.Commands.Add("deletechar", "Deletes another players character", {{name = 
         TriggerClientEvent("QBCore:Notify", Player.PlayerData.source, "You forgot to input a citizen id", "error")
     end
 end, "god")
-
-RegisterNetEvent("qb-multicharacter:server:removechar")
-AddEventHandler("qb-multicharacter:server:removechar", function(citizenid)
-    local Target = QBCore.Functions.GetPlayerByCitizenId(citizenid)
-    if Target then
-        Target.Functions.Logout()
-        TriggerClientEvent('qb-multicharacter:client:chooseChar', Target.PlayerData.source)
-        TriggerClientEvent("QBCore:Notify", Target.PlayerData.source, "Your character got deleted by an admin")
-    end
-
-    local queries = table.create(#playertables, 0)
-    for i = 1, #playertables do
-        queries[i] = {query = ("DELETE FROM %s WHERE citizenid = ?"):format(playertables[i].table), values = {citizenid}}
-    end
-
-    MySQL.transaction(queries, function(result2)
-        if result2 then
-            TriggerEvent('qb-log:server:CreateLog', 'joinleave', 'Character Deleted By Admin', 'red', '**' .. GetPlayerName(Target.PlayerData.source) .. '** ' .. Target.PlayerData.license .. ' deleted **' .. citizenid .. '**, deleted by **' .. GetPlayerName(Player.PlayerData.source) .. "** (**" .. Player.PlayerData.license .. "**)")
-        end
-    end)
-end)
