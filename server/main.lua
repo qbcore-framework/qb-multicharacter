@@ -84,7 +84,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
         loadHouseData(src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
-	end
+    end
 end)
 
 RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
@@ -109,7 +109,7 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
             TriggerClientEvent("qb-multicharacter:client:closeNUIdefault", src)
             GiveStarterItems(src)
         end
-	end
+    end
 end)
 
 RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
