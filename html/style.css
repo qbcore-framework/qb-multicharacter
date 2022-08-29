@@ -12,13 +12,6 @@
     z-index: 100;
 }
 
-.characters-block-header>p {
-    text-align: center;
-    color: #ededed;
-    line-height: 24px;
-    font-family: 'Poppins', sans-serif;
-}
-
 .characters-list {
     position: absolute;
     width: 26%;
@@ -97,10 +90,6 @@
     transition: 250ms;
 }
 
-.disabled {
-    background-color: rgba(0, 0, 0, 0.691);
-}
-
 .slot-name {
     position: relative;
     color: #ededed;
@@ -126,17 +115,6 @@
     margin-top: 10px;
     cursor: pointer;
     overflow: visible !important;
-}
-
-.character-btn>p {
-    color: #ededed;
-    letter-spacing: .1vh;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
-    font-size: 2vh;
-    text-transform: uppercase;
-    line-height: 5vh;
-    font-weight: bold;
 }
 
 #play {
@@ -169,14 +147,6 @@
     transition: 400ms;
 }
 
-#char-info-icon {
-    position: relative;
-    font-size: 1.5vh;
-    color: #ededed;
-    right: 20px;
-    overflow: visible !important;
-}
-
 .char-info-titel {
     display: block;
     text-transform: uppercase;
@@ -195,18 +165,6 @@
     margin-top: 7.5px;
     text-align: center;
     display: block;
-}
-
-.character-info-box {
-    position: relative;
-    color: #ededed;
-    font-size: 1.5vh;
-    width: 100%;
-    height: 2.9vh;
-    font-weight: 900;
-    text-transform: uppercase;
-    margin-bottom: 12px;
-    align-items: center;
 }
 
 .character-info table {
@@ -240,18 +198,6 @@
     color: white!important;
 }
 
-.char-info-js {
-    position: absolute;
-    left: 50%;
-}
-
-.character-info-valid,
-.character-info-boxes {
-    position: absolute;
-    width: 100%;
-    height: fit-content;
-}
-
 .characters-delete-block-header {
     width: 100%;
     color: #ededed;
@@ -264,66 +210,8 @@
     overflow: visible !important;
 }
 
-.characters-delete-block-header>p {
-    font-family: 'Poppins', sans-serif;
-    overflow: visible !important;
-}
-
 .character-delete>p {
     font-size: 1.3vh;
-    overflow: visible !important;
-}
-
-.error {
-    display: none;
-    position: relative;
-    width: 40vh;
-    height: auto;
-    top: 5vh;
-    left: 32px;
-    margin-left: auto;
-    margin-right: auto;
-    background-color: rgba(23, 23, 23, 1);
-    border: 2px solid #dc143c;
-    border-radius: .8vh;
-    padding: 30px;
-    font-family: 'Poppins', sans-serif;
-    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
-    color: #ededed;
-    font-family: 'Poppins', sans-serif;
-    overflow: visible !important;
-}
-
-.error-title{
-    position: relative;
-    width: 100%;
-    height: 11%;
-    margin-bottom: 16px;
-    color: #ededed;
-    text-align: left;
-    font-size: 18px;
-    line-height: 29px;
-    vertical-align: middle;
-    font-family: 'Poppins', sans-serif;
-    font-weight: 900;
-    text-transform: uppercase;
-    overflow: visible !important;
-}
-.error-title > .material-symbols-outlined{
-    line-height: 27px;
-    vertical-align: bottom;
-    margin-top: auto;
-    margin-bottom: auto;
-    margin-right: 16px;
-}
-
-.error-msg {
-    font-family: 'Poppins', sans-serif;
-    overflow: visible !important;
-    padding: 8px;
-}
-
-#yeet {
     overflow: visible !important;
 }
 
@@ -339,44 +227,10 @@
     margin-left: 14%;
 }
 
-.close-err-btn {
-    font-weight: 900;
-    text-transform: uppercase;
-    width: auto;
-    height: auto;
-    padding: 8px 24px;
-    margin-top: 24px;
-    background-color: #dc143c;
-    border-radius: 4px;
-    transition: 0.2s;
-    overflow: visible !important;
-    cursor: pointer;
-}
-
-.character-acceptdel-btn>p {
-    color: #ededed;
-    text-align: center;
-    padding-top: 1vh;
-    font-family: 'Poppins', sans-serif;
-    overflow: visible !important;
-    font-weight: 900;
-    text-transform: uppercase;
-}
-
 .character-delete-btns {
     display: flex;
     justify-content: center;
     margin-top: 20px;
-}
-
-.character-canceldel-btn>p {
-    color: #ededed;
-    text-align: center;
-    padding-top: 1vh;
-    font-family: 'Poppins', sans-serif;
-    overflow: visible !important;
-    font-weight: 900;
-    text-transform: uppercase;
 }
 
 .character-register {
@@ -441,26 +295,6 @@
     background: #1f2f4c!important;
 }
 
-.char-reg-input {
-    position: relative;
-    float: left;
-    margin-top: 1vh;
-    border: none;
-    background-color: rgba(50, 69, 103, 0.35);
-    outline: none;
-    width: 92%;
-    height: 3vh;
-    color: #ededed;
-    max-width: 100%;
-    font-weight: 900;
-    padding: 4px;
-    border-radius: .3vh;
-    font-family: 'Poppins', sans-serif;
-    text-align: center;
-    transition: all 0.2s ease-in-out;
-    cursor: text;
-}
-
 select {
     position: absolute;
     border: none;
@@ -493,22 +327,12 @@ select:focus {
     background-color: rgba(34, 34, 34, 0.808);
 }
 
-#gender option {
-    background-color: transparent;
-    border: none;
-    outline: none;
-}
-
 select::placeholder {
     text-align: center;
 }
 
 select::-ms-expand {
     display: none;
-}
-
-.char-reg-input::placeholder {
-    color: rgba(255, 255, 255, 0.52);
 }
 
 input[type="date"] {
@@ -532,12 +356,6 @@ input[type="date"]::-webkit-input-placeholder {
 
 input[type="date"]::-webkit-clear-button {
     display: none;
-}
-
-#birthdate {
-    color: #ededed;
-    text-align: center;
-    font-family: 'Poppins', sans-serif;
 }
 
 .character-reg-btn {
