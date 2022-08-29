@@ -196,6 +196,8 @@
 
 .v-btn__content {
     color: white!important;
+    font-size: 1rem!important;
+    font-weight: 600!important;
 }
 
 .characters-delete-block-header {
