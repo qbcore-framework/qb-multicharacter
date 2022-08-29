@@ -195,12 +195,10 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, 
 end)
 
 QBCore.Commands.Add("deletechar", "Deletes another players character", {{name = "Citizen ID", help = "The Citizen ID of the character you want to delete"}}, false, function(source,args)
-    local Player = QBCore.Functions.GetPlayer(source)
-
     if args and args[1] then
         QBCore.Player.ForceDeleteCharacter(tostring(args[1]))
-        TriggerClientEvent("QBCore:Notify", Player.PlayerData.source, "You successfully deleted the character with citizen id \"" .. tostring(args[1]) .. "\".")
+        TriggerClientEvent("QBCore:Notify", source, "You successfully deleted the character with citizen id \"" .. tostring(args[1]) .. "\".")
     else
-        TriggerClientEvent("QBCore:Notify", Player.PlayerData.source, "You forgot to input a citizen id", "error")
+        TriggerClientEvent("QBCore:Notify", source, "You forgot to input a citizen id", "error")
     end
 end, "god")
