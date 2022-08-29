@@ -214,30 +214,3 @@ RegisterNUICallback('removeCharacter', function(data, cb)
     TriggerEvent('qb-multicharacter:client:chooseChar')
     cb("ok")
 end)
-
-RegisterCommand("deletechar", function(source, args, raw)
-    QBCore.Functions.TriggerCallback("qb-multicharacter:server:hasaccess", function(result)
-        if result then
-            local data = exports['qb-input']:ShowInput({
-                header = "To remove a players character please input the following information",
-                submitText = "Delete Character",
-                inputs = {
-                    {
-                        type = 'text',
-                        isRequired = true,
-                        name = 'citizenid',
-                        text = "Citizen ID"
-                    }
-                }
-            })
-            if data and data.citizenid then
-                TriggerServerEvent("qb-multicharacter:server:removechar", data.citizenid)
-            else
-                QBCore.Functions.Notify("You failed to input the needed parameters")
-            end
-        else
-            QBCore.Functions.Notify("You don't have access to this command")
-        end
-    end)
-end)
-TriggerEvent('chat:addSuggestion', '/deletechar', 'Delete a players character', {})
