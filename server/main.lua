@@ -1,4 +1,5 @@
 local QBCore = exports['qb-core']:GetCoreObject()
+local hasDonePreloading = {}
 
 -- Functions
 
@@ -71,6 +72,15 @@ end)
 
 -- Events
 
+AddEventHandler('QBCore:Server:PlayerLoaded', function(Player)
+    Wait(1000) -- 1 second should be enough to do the preloading in other resources
+    hasDonePreloading[Player.PlayerData.source] = true
+end)
+
+AddEventHandler('QBCore:Server:OnPlayerUnload', function(src)
+    hasDonePreloading[src] = false
+end)
+
 RegisterNetEvent('qb-multicharacter:server:disconnect', function()
     local src = source
     DropPlayer(src, "You have disconnected from QBCore")
@@ -79,6 +89,9 @@ end)
 RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
     local src = source
     if QBCore.Player.Login(src, cData.citizenid) then
+        repeat
+            Wait(10)
+        until hasDonePreloading[src]
         print('^2[qb-core]^7 '..GetPlayerName(src)..' (Citizen ID: '..cData.citizenid..') has succesfully loaded!')
         QBCore.Commands.Refresh(src)
         loadHouseData(src)
@@ -93,6 +106,9 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
     newData.cid = data.cid
     newData.charinfo = data
     if QBCore.Player.Login(src, false, newData) then
+        repeat
+            Wait(10)
+        until hasDonePreloading[src]
         if Apartments.Starting then
             local randbucket = (GetPlayerPed(src) .. math.random(1,999))
             SetPlayerRoutingBucket(src, randbucket)
