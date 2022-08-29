@@ -182,12 +182,6 @@ QBCore.Commands.Add("deletechar", "Deletes another players character", {{name = 
     local Player = QBCore.Functions.GetPlayer(source)
 
     if args and args[1] then
-        local Target = QBCore.Functions.GetPlayerByCitizenId(tostring(args[1]))
-
-        if Target then
-            DropPlayer(Target.PlayerData.source, "An admin deleted the character which you are currently using")
-        end
-
         QBCore.Player.ForceDeleteCharacter(tostring(args[1]))
         TriggerClientEvent("QBCore:Notify", Player.PlayerData.source, "You successfully deleted the character with citizen id \"" .. tostring(args[1]) .. "\".")
     else
