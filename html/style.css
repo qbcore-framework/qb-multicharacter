@@ -63,8 +63,8 @@
 }
 
 .character:hover {
-    background-color: #32456759;
-    box-shadow: rgb(17 17 37 / 25%) 0px 30px 60px -12px inset, rgb(54 80 154 / 30%) 0px 18px 36px -18px;
+    background-color: #d2323259;
+    box-shadow: rgb(37 17 17 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18
 }
 
 .character>span {
@@ -85,8 +85,8 @@
 }
 
 .char-selected {
-    background-color: #32456759;
-    box-shadow: rgb(17 17 37 / 25%) 0px 30px 60px -12px inset, rgb(54 80 154 / 30%) 0px 18px 36px -18px;
+    background-color: #c5393959;
+    box-shadow: rgb(37 17 20 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18;
     transition: 250ms;
 }
 
