@@ -381,7 +381,7 @@ input[type="date"]::-webkit-clear-button {
     font-weight: 900;
 }
 
-.loading-rondje {
+.loading-container {
     position: absolute;
     margin: 0 auto;
     left: 0;
@@ -394,21 +394,21 @@ input[type="date"]::-webkit-clear-button {
     padding: 1vh;
 }
 
-.loading-rondje > p {
+.loading-container > p {
     color: white;
     margin-top: 1vh;
     font-family: 'Poppins', sans-serif;
     text-shadow: 1px 1px 0px #00000085;
 }
 
-.lds-ring {
+.loading-circle {
     display: inline-block;
     position: relative;
     width: 80px;
     height: 80px;
 }
 
-.lds-ring div {
+.loading-circle div {
     box-sizing: border-box;
     display: block;
     position: absolute;
@@ -416,23 +416,23 @@ input[type="date"]::-webkit-clear-button {
     height: 64px;
     border: 8px solid #fff;
     border-radius: 50%;
-    animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+    animation: loading-circle 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
     border-color: #fff transparent transparent transparent;
 }
 
-.lds-ring div:nth-child(1) {
+.loading-circle div:nth-child(1) {
     animation-delay: -0.45s;
 }
 
-.lds-ring div:nth-child(2) {
+.loading-circle div:nth-child(2) {
     animation-delay: -0.3s;
 }
 
-.lds-ring div:nth-child(3) {
+.loading-circle div:nth-child(3) {
     animation-delay: -0.15s;
 }
 
-@keyframes lds-ring {
+@keyframes loading-circle {
     0% {
         transform: rotate(0deg);
     }
