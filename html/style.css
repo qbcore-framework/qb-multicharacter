@@ -9,6 +9,7 @@
     height: 100vh;
     width: 100vw;
     left: 0;
+    top: 0;
     z-index: 100;
 }
 
@@ -18,7 +19,7 @@
     height: 70%;
     left: 14%;
     top: 20%;
-    background-color: rgb(27 33 49 / 95%);
+    background-color: #161923f2;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     padding: 30px;
@@ -136,11 +137,14 @@
 .character-info {
     min-width: 22.5%;
     max-width: 27.5%;
+    width: fit-content;
+    min-height: 50%;
+    height: fit-content;
     position: absolute;
     right: 14%;
     top: 20%;
     padding: 30px;
-    background-color: rgb(27 33 49 / 95%);
+    background-color: #161923f2;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     overflow: visible !important;
@@ -189,8 +193,9 @@
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     font-family: 'Poppins', sans-serif;
+    top: 50%;
     left: 50%;
-    transform: translateX(-50%);
+    transform: translateX(-50%) translateY(-50%);
     overflow: visible !important;
 }
 
@@ -246,7 +251,7 @@
     left: 32px;
     padding: 30px;
     font-family: 'Poppins', sans-serif;
-    background-color: rgb(27 33 49 / 95%);
+    background-color: #161923f2;
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     transition: 400ms;
@@ -263,7 +268,7 @@
 
 .material-symbols-outlined {
     color: #ededed;
-    background-color: rgb(36 103 224 / 35%);
+    background-color: #DC143C;
     font-weight: 900;
     border-radius: .3vh;
     padding: .3vh;
@@ -481,7 +486,7 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .theme--light.v-picker__body {
-    background: rgba(27, 33, 49, 0.95)!important;
+    background: #161923f2!important;
 }
 
 .v-picker__actions.v-card__actions {

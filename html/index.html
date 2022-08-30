@@ -121,11 +121,7 @@
                         </table>
                     </div>
 
-<<<<<<< HEAD
-                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'cursor': show.register == false ? 'default!important' : ''}">
-=======
-                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'display': show.register == false ? 'none' : 'block'}">
->>>>>>> de79641612b8716f7ae0e0f47e0308a3553a5c45
+                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}">
                         <div class="characters-register-block-header">
                             <p>Character Registration</p>
                             <span class="material-symbols-outlined" id="close-reg" @click="() => {show.register = false; show.characters = true}">close</span>
@@ -135,7 +131,7 @@
                                 placeholder="First Name"
                                 solo
                                 hide-details="auto"
-                                background-color="#32456759"
+                                background-color="#252e40bf"
                                 v-model="registerData.firstname"
                                 :disabled="!show.register"
                             ></v-text-field>
@@ -143,7 +139,7 @@
                                 placeholder="Last Name"
                                 solo
                                 hide-details="auto"
-                                background-color="#32456759"
+                                background-color="#252e40bf"
                                 v-model="registerData.lastname"
                                 :disabled="!show.register"
                             ></v-text-field>
@@ -151,7 +147,7 @@
                                 placeholder="Nationality"
                                 solo
                                 hide-details="auto"
-                                background-color="#32456759"
+                                background-color="#252e40bf"
                                 v-model="registerData.nationality"
                                 :disabled="!show.register"
                             ></v-text-field>
@@ -160,7 +156,7 @@
                                 placeholder="Gender"
                                 :items="['Man', 'Woman']"
                                 hide-details="auto"
-                                background-color="#32456759"
+                                background-color="#252e40bf"
                                 v-ripple
                                 v-model="registerData.gender"
                                 :disabled="!show.register"
@@ -181,7 +177,7 @@
                                         v-bind="attrs"
                                         v-on="on"
                                         solo
-                                        background-color="#32456759"
+                                        background-color="#252e40bf"
                                         :disabled="!show.register"
                                     ></v-text-field>
                                 </template>
@@ -210,7 +206,7 @@
                                 </v-date-picker>
                             </v-dialog>
                         </div>
-                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#2467e059" v-ripple @click="create_character" large>Create Character</v-btn>
+                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>Create Character</v-btn>
                     </div>
 
                     <div class="character-delete" :class="{'slide-top-fade-leave-active': show.delete == false, 'slide-top-fade-leave-to': show.delete == false}">
