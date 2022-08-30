@@ -121,7 +121,11 @@
                         </table>
                     </div>
 
+<<<<<<< HEAD
                     <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'cursor': show.register == false ? 'default!important' : ''}">
+=======
+                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'display': show.register == false ? 'none' : 'block'}">
+>>>>>>> de79641612b8716f7ae0e0f47e0308a3553a5c45
                         <div class="characters-register-block-header">
                             <p>Character Registration</p>
                             <span class="material-symbols-outlined" id="close-reg" @click="() => {show.register = false; show.characters = true}">close</span>
