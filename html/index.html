@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="character-info" :class="{'slide-top-right-fade-leave-active': show.characters == false, 'slide-top-right-fade-leave-to': show.characters == false}">
-                        <span class="char-info-titel">Character Information</span>
+                        <span class="char-info-header">Character Information</span>
                         <span class="no-char" v-if="characters[selectedCharacter] == undefined">Select a character slot to see all information about your character.</span>
                         <table v-if="characters[selectedCharacter] !== undefined">
                             <tr>
