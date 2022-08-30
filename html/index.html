@@ -24,9 +24,9 @@
             <div class="container">
                 <div class="main-screen">
                     <div class="welcomescreen" v-show="show.loading">
-                        <div class="loading-rondje">
-                            <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-                            <p id="loading-text">{{loadingText}}</p>
+                        <div class="loading-container">
+                            <div class="loading-circle"><div></div><div></div><div></div><div></div></div>
+                            <p>{{loadingText}}</p>
                         </div>
                     </div>
                     <div class="characters-list" :class="{'slide-top-left-fade-leave-active': show.characters == false, 'slide-top-left-fade-leave-to': show.characters == false}">
@@ -40,7 +40,6 @@
                                         class="character"
                                         v-ripple
                                         :class="{'char-selected': selectedCharacter == index}"
-                                        :id="'char-'+ index"
                                         data-cid=""
                                         @click="click_character(index, 'empty')"
                                 >
@@ -53,7 +52,6 @@
                                         class="character"
                                         v-ripple
                                         :class="{'char-selected': selectedCharacter == index}"
-                                        :id="'char-'+ index"
                                         :data-citizenid="characters[index].citizenid"
                                         @click="click_character(index, 'existing')"
                                 >
@@ -206,7 +204,7 @@
                                 </v-date-picker>
                             </v-dialog>
                         </div>
-                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#2467e059" v-ripple @click="create_character" large>Create Character</v-btn>
+                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>Create Character</v-btn>
                     </div>
 
                     <div class="character-delete" :class="{'slide-top-fade-leave-active': show.delete == false, 'slide-top-fade-leave-to': show.delete == false}">
@@ -217,8 +215,8 @@
                         <p>Are You Sure You Want To Delete Your Character?</p>
 
                         <div class="character-delete-btns">
-                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" id="accept" @click="delete_character">Confirm</v-btn>
-                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" id="cancel" @clicK="() => {show.characters = true; show.delete = false}">Return</v-btn>
+                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" @click="delete_character">Confirm</v-btn>
+                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" @click="() => {show.characters = true; show.delete = false}">Return</v-btn>
                         </div>
                     </div>
                 </div>
