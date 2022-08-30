@@ -18,8 +18,9 @@ files {
     'html/index.html',
     'html/style.css',
     'html/reset.css',
-    'html/profanity.js',
-    'html/script.js'
+    "html/vue.js",
+    "html/swal2.js",
+    'html/profanity.js'
 }
 
 dependencies {

@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -6,68 +7,414 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <link href="reset.css" rel="stylesheet">
     <link href="style.css" rel="stylesheet">
-    <script src="nui://game/ui/jquery.js" type="text/javascript"></script>
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" />
-    <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <title>QB-Multicharacter</title>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+    <script src="vue.js"></script>
+    <script src="swal2.js"></script>
+
+    <script src="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.js"></script>
+    <link href="https://cdn.jsdelivr.net/npm/vuetify@2.x/dist/vuetify.min.css" rel="stylesheet"/>
 </head>
     <body>
-        <div class="container">
-            <div class="main-screen">
-                <div class="welcomescreen">
-                    <div class="loading-rondje">
-                        <div class="lds-ring"><div></div><div></div><div></div><div></div></div>
-                        <p id="loading-text">Loading Characters</p>
+    <v-app data-app>
+        <div id="app">
+            <div class="container">
+                <div class="main-screen">
+                    <div class="welcomescreen" v-show="show.loading">
+                        <div class="loading-container">
+                            <div class="loading-circle"><div></div><div></div><div></div><div></div></div>
+                            <p>{{loadingText}}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="characters-list">
-
-                </div>
-
-                <div class="character-info">
-                    <div class="char-info-titel"><span id="char-info-titel">Character Information</span></div>
-                    <div class="character-info-valid">
-                        <span id="no-char">Select a character slot to see all information about your character.</span>
+                    <div class="characters-list" :class="{'slide-top-left-fade-leave-active': show.characters == false, 'slide-top-left-fade-leave-to': show.characters == false}">
+                        <div class="character-list-header"><p>My Characters</p></div>
+                        <div class="characters">
+                            <template
+                                v-for="index in characterAmount"
+                            >
+                                <div
+                                        v-if="characters[index] == undefined"
+                                        class="character"
+                                        v-ripple
+                                        :class="{'char-selected': selectedCharacter == index}"
+                                        data-cid=""
+                                        @click="click_character(index, 'empty')"
+                                >
+                                    <span class="slot-name">Empty Slot
+                                        <span class="cid"></span>
+                                    </span>
+                                </div>
+                                <div
+                                        v-if="characters[index] !== undefined"
+                                        class="character"
+                                        v-ripple
+                                        :class="{'char-selected': selectedCharacter == index}"
+                                        :data-citizenid="characters[index].citizenid"
+                                        @click="click_character(index, 'existing')"
+                                >
+                                    <span class="slot-name">
+                                        {{characters[index].charinfo.firstname}}{{characters[index].charinfo.lastname}}
+                                        <span class="cid">{{characters[index].citizenid}}</span>
+                                    </span>
+                                </div>
+                            </template>
+                        </div>
+                        <div class="character-btns" v-if="selectedCharacter !== -1">
+                            <v-btn large class="character-btn" id="play" v-ripple @click="play_character">
+                                {{characters[selectedCharacter] !== undefined ? "Play" : "Create Character"}}
+                            </v-btn>
+                            <v-btn large class="character-btn" id="delete" v-if="characters[selectedCharacter] !== undefined && allowDelete == true" v-ripple @click="delete_character">
+                                Delete character
+                            </v-btn>
+                        </div>
                     </div>
-                </div>
 
-                <div class="character-register">
-                    <div class="characters-register-block-header">
-                        <p>Character Registration</p>
-                        <span class="material-symbols-outlined" id="close-reg">close</span>
+                    <div class="character-info" :class="{'slide-top-right-fade-leave-active': show.characters == false, 'slide-top-right-fade-leave-to': show.characters == false}">
+                        <span class="char-info-header">Character Information</span>
+                        <span class="no-char" v-if="characters[selectedCharacter] == undefined">Select a character slot to see all information about your character.</span>
+                        <table v-if="characters[selectedCharacter] !== undefined">
+                            <tr>
+                                <td>Name:</td>
+                                <td>{{characters[selectedCharacter].charinfo.firstname}} {{characters[selectedCharacter].charinfo.lastname}}</td>
+                            </tr>
+                            <tr>
+                                <td>Birthdate:</td>
+                                <td>{{characters[selectedCharacter].charinfo.birthdate}}</td>
+                            </tr>
+                            <tr>
+                                <td>Gender:</td>
+                                <td>{{characters[selectedCharacter].charinfo.gender}}</td>
+                            </tr>
+                            <tr>
+                                <td>Nationality:</td>
+                                <td>{{characters[selectedCharacter].charinfo.nationality}}</td>
+                            </tr>
+                            <tr>
+                                <td>Job:</td>
+                                <td>{{characters[selectedCharacter].job.label}}</td>
+                            </tr>
+                            <tr>
+                                <td>Grade:</td>
+                                <td>{{characters[selectedCharacter].job.grade.name}}</td>
+                            </tr>
+                            <tr>
+                                <td>Cash:</td>
+                                <td>&#36; {{dollar.format(characters[selectedCharacter].money.cash)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Bank:</td>
+                                <td>&#36; {{dollar.format(characters[selectedCharacter].money.bank)}}</td>
+                            </tr>
+                            <tr>
+                                <td>Phone Number:</td>
+                                <td>{{characters[selectedCharacter].charinfo.phone}}</td>
+                            </tr>
+                            <tr>
+                                <td>Account Number:</td>
+                                <td>{{characters[selectedCharacter].charinfo.account}}</td>
+                            </tr>
+                        </table>
                     </div>
-                    <div class="char-register-inputs">
-                        <input type="text" id="first_name" placeholder="First Name" class="char-reg-input">
-                        <input type="text" id="last_name" placeholder="Last Name" class="char-reg-input">
-                        <input type="text" id="nationality" placeholder="Nationality" class="char-reg-input">
-                        <input type="date" id="birthdate" placeholder="Birth Date" min="1900-01-01" max="2999-12-31" class="char-reg-input">
-                        <select id="gender" name="gender">
-                            <option value="Male" selected>Man</option>
-                            <option value="Female">Woman</option>
-                        </select>
+
+                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'display': show.register == false ? 'none' : 'block'}">
+                        <div class="characters-register-block-header">
+                            <p>Character Registration</p>
+                            <span class="material-symbols-outlined" id="close-reg" @click="() => {show.register = false; show.characters = true}">close</span>
+                        </div>
+                        <div class="char-register-inputs">
+                            <v-text-field
+                                placeholder="First Name"
+                                solo
+                                hide-details="auto"
+                                background-color="#32456759"
+                                v-model="registerData.firstname"
+                                :disabled="!show.register"
+                            ></v-text-field>
+                            <v-text-field
+                                placeholder="Last Name"
+                                solo
+                                hide-details="auto"
+                                background-color="#32456759"
+                                v-model="registerData.lastname"
+                                :disabled="!show.register"
+                            ></v-text-field>
+                            <v-text-field
+                                placeholder="Nationality"
+                                solo
+                                hide-details="auto"
+                                background-color="#32456759"
+                                v-model="registerData.nationality"
+                                :disabled="!show.register"
+                            ></v-text-field>
+                            <v-select
+                                solo
+                                placeholder="Gender"
+                                :items="['Male', 'Female']"
+                                hide-details="auto"
+                                background-color="#32456759"
+                                v-ripple
+                                v-model="registerData.gender"
+                                :disabled="!show.register"
+                            ></v-select>
+                            <v-dialog
+                                ref="dialog"
+                                v-model="dataPickerMenu"
+                                :return-value.sync="registerData.date"
+                                persistent
+                                width="290px"
+                                :disabled="!show.register"
+                            >
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-text-field
+                                        v-model="registerData.date"
+                                        label="Birthdate"
+                                        readonly
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        solo
+                                        background-color="#32456759"
+                                        :disabled="!show.register"
+                                    ></v-text-field>
+                                </template>
+                                <v-date-picker
+                                    v-model="registerData.date"
+                                    min="1900-01-01"
+                                    max="2100-12-31"
+                                >
+                                    <v-spacer></v-spacer>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="dataPickerMenu = false"
+                                        :disabled="!show.register"
+                                    >
+                                        Cancel
+                                    </v-btn>
+                                    <v-btn
+                                        text
+                                        color="primary"
+                                        @click="$refs.dialog.save(registerData.date)"
+                                        :disabled="!show.register"
+                                    >
+                                        OK
+                                    </v-btn>
+                                </v-date-picker>
+                            </v-dialog>
+                        </div>
+                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>Create Character</v-btn>
                     </div>
-                    <div class="character-reg-btn" id="create"><p id="create-text">Confirm</p></div>
-                </div>
 
-                <div class="character-delete">
-                    <div class="characters-delete-block-header">
-                        <p>Delete Character</p>
+                    <div class="character-delete" :class="{'slide-top-fade-leave-active': show.delete == false, 'slide-top-fade-leave-to': show.delete == false}">
+                        <p class="characters-delete-block-header">
+                            Delete Character
+                        </p>
+
+                        <p>Are You Sure You Want To Delete Your Character?</p>
+
+                        <div class="character-delete-btns">
+                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" @click="delete_character">Confirm</v-btn>
+                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" @click="() => {show.characters = true; show.delete = false}">Return</v-btn>
+                        </div>
                     </div>
-
-                    <p>Are You Sure You Want To Delete Your Character?</p>
-
-                    <div class="character-acceptdel-btn" id="accept-delete"><p id="accept-text">Confirm</p></div>
-                    <div class="character-canceldel-btn" id="cancel-delete"><p id="cancel-text">Return</p></div>
-                </div>
-                <div class="error">
-                    <div class="error-title"><span class="material-symbols-outlined">error</span>Error!</div>
-                    <div class="error-msg"></div>
-                    <div class="close-err-btn" id="close-error"><p id="cancel-error">Close</p></div>
                 </div>
             </div>
         </div>
+    </v-app>
+
     </body>
     <script type="text/javascript" src="profanity.js"></script>
-    <script type="text/javascript" src="script.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+    <script>
+        let re = '(' + profList.join('|') + ')\\b'
+        const regTest = new RegExp(re, 'i');
+
+        const viewmodel = new Vue({
+            el: "#app",
+            vuetify: new Vuetify(),
+            data: {
+                characters: [],
+                chardata: {},
+                show: {
+                    loading: false,
+                    characters: false,
+                    register: false,
+                    delete: false
+                },
+                registerData: {
+                    date: (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10),
+                    firstname: undefined,
+                    lastname: undefined,
+                    nationality: undefined,
+                    gender: undefined
+                },
+                allowDelete: false,
+                dataPickerMenu: false,
+                characterAmount: 0,
+                loadingText: "",
+                selectedCharacter: -1,
+                dollar: Intl.NumberFormat('en-US')
+            },
+            methods: {
+                click_character: function(idx, type) {
+                    viewmodel.selectedCharacter = idx
+
+                    if (viewmodel.characters[idx] !== undefined) {
+                        axios.post('https://qb-multicharacter/cDataPed', {
+                            cData: viewmodel.characters[idx]
+                        });
+                    }
+                    else {
+                        axios.post('https://qb-multicharacter/cDataPed', {})
+                    }
+                },
+
+                save: function(date) {
+                    this.$refs.menu.save(date)
+                },
+
+                delete_character: function() {
+                    if (viewmodel.show.delete == true) {
+                        viewmodel.show.delete = false
+                        axios.post('https://qb-multicharacter/removeCharacter', {
+                            citizenid: viewmodel.characters[viewmodel.selectedCharacter].citizenid
+                        });
+                    }
+                    else {
+                        if (viewmodel.show.characters == true && viewmodel.show.register == false) {
+                            viewmodel.show.characters = false
+                            viewmodel.show.delete = true
+                        }
+                    }
+                },
+
+                play_character: function() {
+                    if (viewmodel.selectedCharacter && viewmodel.selectedCharacter !== -1) {
+                        var data = viewmodel.characters[viewmodel.selectedCharacter]
+
+                        if (data !== undefined) {
+                            axios.post('https://qb-multicharacter/selectCharacter', {
+                                cData: data
+                            });
+                            setTimeout(function() {
+                                viewmodel.show.characters = false
+                            }, 500)
+                        }
+                        else {
+                            viewmodel.registerData.firstname = undefined
+                            viewmodel.registerData.lastname = undefined
+                            viewmodel.registerData.nationality = undefined
+                            viewmodel.registerData.gender = undefined
+                            viewmodel.registerData.date = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+
+                            viewmodel.show.characters = false
+                            viewmodel.show.register = true
+                        }
+                    }
+
+                },
+
+                create_character: function() {
+                    var profanityTest = (!regTest.test(viewmodel.registerData.firstname) && !regTest.test(viewmodel.registerData.nationality) && !regTest.test(viewmodel.registerData.lastname))
+
+                    if (viewmodel.registerData.firstname !== undefined && profanityTest && viewmodel.registerData.lastname !== undefined && viewmodel.registerData.gender !== undefined && viewmodel.registerData.nationality !== undefined && viewmodel.registerData.date !== undefined) {
+                        viewmodel.show.register = false
+
+                        axios.post('https://qb-multicharacter/createNewCharacter', {
+                            firstname: viewmodel.registerData.firstname,
+                            lastname: viewmodel.registerData.lastname,
+                            nationality: viewmodel.registerData.nationality,
+                            birthdate: viewmodel.registerData.date,
+                            gender: viewmodel.registerData.gender,
+                            cid: viewmodel.selectedCharacter,
+                        });
+                    }
+                    else {
+                        if (!profanityTest) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'We ran into an issue',
+                                text: 'It seems like you are trying to use some type of profanity / bad words in your name or nationality!',
+                                timer: 5000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                            })
+                        }
+                        else {
+                            Swal.fire({
+                                icon: 'error',
+                                title: 'We ran into an issue',
+                                text: 'It seems like you have forgotten to input one or multiple of the fields!',
+                                timer: 5000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                            })
+                        }
+                    }
+                }
+            },
+            mounted () {
+                var loadingProgress = 0;
+                var loadingDots = 0;
+                window.addEventListener('message', function (event) {
+                    var data = event.data;
+                    if (data.action == "ui") {
+                        viewmodel.characterAmount = data.nChar;
+                        viewmodel.selectedCharacter = -1
+                        viewmodel.show.register = false
+                        viewmodel.show.delete = false
+                        viewmodel.show.characters = false
+                        viewmodel.allowDelete = event.data.enableDeleteButton
+                        EnableDeleteButton = data.enableDeleteButton;
+                        if (data.toggle) {
+                            viewmodel.show.loading = true
+
+                            viewmodel.loadingText = "Retrieving player data";
+                            var DotsInterval = setInterval(function () {
+                                loadingDots++;
+                                loadingProgress++;
+                                if (loadingProgress == 3) {
+                                    viewmodel.loadingText = "Validating player data"
+                                }
+                                if (loadingProgress == 4) {
+                                    viewmodel.loadingText = "Retrieving characters"
+                                }
+                                if (loadingProgress == 6) {
+                                    viewmodel.loadingText = "Validating characters"
+                                }
+                                if (loadingDots == 4) {
+                                    loadingDots = 0;
+                                }
+                            }, 500);
+
+                            setTimeout(function () {
+                                axios.post('https://qb-multicharacter/setupCharacters');
+                                setTimeout(function () {
+                                    clearInterval(DotsInterval);
+                                    loadingProgress = 0;
+                                    viewmodel.loadingText = "Retrieving data";
+                                    viewmodel.show.loading = false
+                                    viewmodel.show.characters = true
+                                    axios.post('https://qb-multicharacter/removeBlur');
+                                }, 2000);
+                            }, 2000);
+                        }
+                    }
+
+                    if (data.action == "setupCharacters") {
+                        var newChars = []
+                        for (var i = 0; i < event.data.characters.length; i++) {
+                            newChars[event.data.characters[i].cid] = event.data.characters[i]
+                        }
+                        viewmodel.characters = newChars
+                    }
+
+                    if (data.action == "setupCharInfo") {
+                        viewmodel.chardata = event.data.chardata
+                    }
+                });
+            }
+        });
+    </script>
 </html>

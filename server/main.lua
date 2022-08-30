@@ -97,7 +97,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
         loadHouseData(src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
         TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
-	end
+    end
 end)
 
 RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
@@ -125,7 +125,7 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
             TriggerClientEvent("qb-multicharacter:client:closeNUIdefault", src)
             GiveStarterItems(src)
         end
-	end
+    end
 end)
 
 RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
@@ -193,3 +193,12 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, 
         cb(nil)
     end
 end)
+
+QBCore.Commands.Add("deletechar", "Deletes another players character", {{name = "Citizen ID", help = "The Citizen ID of the character you want to delete"}}, false, function(source,args)
+    if args and args[1] then
+        QBCore.Player.ForceDeleteCharacter(tostring(args[1]))
+        TriggerClientEvent("QBCore:Notify", source, "You successfully deleted the character with citizen id \"" .. tostring(args[1]) .. "\".")
+    else
+        TriggerClientEvent("QBCore:Notify", source, "You forgot to input a citizen id", "error")
+    end
+end, "god")
