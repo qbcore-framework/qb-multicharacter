@@ -75,7 +75,7 @@
                     </div>
 
                     <div class="character-info" :class="{'slide-top-right-fade-leave-active': show.characters == false, 'slide-top-right-fade-leave-to': show.characters == false}">
-                        <span class="char-info-titel">Character Information</span>
+                        <span class="char-info-header">Character Information</span>
                         <span class="no-char" v-if="characters[selectedCharacter] == undefined">Select a character slot to see all information about your character.</span>
                         <table v-if="characters[selectedCharacter] !== undefined">
                             <tr>
@@ -121,7 +121,7 @@
                         </table>
                     </div>
 
-                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}">
+                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'cursor': show.register == false ? 'default!important' : ''}">
                         <div class="characters-register-block-header">
                             <p>Character Registration</p>
                             <span class="material-symbols-outlined" id="close-reg" @click="() => {show.register = false; show.characters = true}">close</span>
@@ -133,6 +133,7 @@
                                 hide-details="auto"
                                 background-color="#32456759"
                                 v-model="registerData.firstname"
+                                :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
                                 placeholder="Last Name"
@@ -140,6 +141,7 @@
                                 hide-details="auto"
                                 background-color="#32456759"
                                 v-model="registerData.lastname"
+                                :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
                                 placeholder="Nationality"
@@ -147,6 +149,7 @@
                                 hide-details="auto"
                                 background-color="#32456759"
                                 v-model="registerData.nationality"
+                                :disabled="!show.register"
                             ></v-text-field>
                             <v-select
                                 solo
@@ -156,6 +159,7 @@
                                 background-color="#32456759"
                                 v-ripple
                                 v-model="registerData.gender"
+                                :disabled="!show.register"
                             ></v-select>
                             <v-dialog
                                 ref="dialog"
@@ -163,6 +167,7 @@
                                 :return-value.sync="registerData.date"
                                 persistent
                                 width="290px"
+                                :disabled="!show.register"
                             >
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
@@ -173,6 +178,7 @@
                                         v-on="on"
                                         solo
                                         background-color="#32456759"
+                                        :disabled="!show.register"
                                     ></v-text-field>
                                 </template>
                                 <v-date-picker
@@ -185,6 +191,7 @@
                                         text
                                         color="primary"
                                         @click="dataPickerMenu = false"
+                                        :disabled="!show.register"
                                     >
                                         Cancel
                                     </v-btn>
@@ -192,13 +199,14 @@
                                         text
                                         color="primary"
                                         @click="$refs.dialog.save(registerData.date)"
+                                        :disabled="!show.register"
                                     >
                                         OK
                                     </v-btn>
                                 </v-date-picker>
                             </v-dialog>
                         </div>
-                        <div class="character-reg-btn" id="create" v-ripple @click="create_character"><p id="create-text">Confirm</p></div>
+                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#2467e059" v-ripple @click="create_character" large>Create Character</v-btn>
                     </div>
 
                     <div class="character-delete" :class="{'slide-top-fade-leave-active': show.delete == false, 'slide-top-fade-leave-to': show.delete == false}">
@@ -209,8 +217,8 @@
                         <p>Are You Sure You Want To Delete Your Character?</p>
 
                         <div class="character-delete-btns">
-                            <v-btn color="#2f8643" v-ripple class="character-delete-btn" id="accept" @click="delete_character">Confirm</v-btn>
-                            <v-btn color="#90293e" v-ripple class="character-delete-btn" id="cancel" @clicK="() => {show.characters = true; show.delete = false}">Return</v-btn>
+                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" id="accept" @click="delete_character">Confirm</v-btn>
+                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" id="cancel" @clicK="() => {show.characters = true; show.delete = false}">Return</v-btn>
                         </div>
                     </div>
                 </div>
