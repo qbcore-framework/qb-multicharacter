@@ -299,7 +299,7 @@
 }
 
 .theme--light.v-list {
-    background: #1f2f4c!important;
+    background: #182131!important;
 }
 
 select {
@@ -478,7 +478,7 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .v-date-picker-table .v-btn--active {
-    background: #962138;
+    background: #DC143C;
 }
 
 .theme--light.v-picker__body {
@@ -507,7 +507,7 @@ input[type="date"]::-webkit-clear-button {
 }
 
 button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--light.accent--text {
-    border-color: rgb(59 87 146);
+    border-color: #DC143C;
 }
 
 .v-date-picker-years {
