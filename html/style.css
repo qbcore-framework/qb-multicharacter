@@ -477,12 +477,8 @@ input[type="date"]::-webkit-clear-button {
     margin-top: 10px;
 }
 
-.v-picker__title.primary {
-    background: #264584!important;
-}
-
 .v-date-picker-table .v-btn--active {
-    background: #20396e;
+    background: #962138;
 }
 
 .theme--light.v-picker__body {
@@ -490,11 +486,11 @@ input[type="date"]::-webkit-clear-button {
 }
 
 .v-picker__actions.v-card__actions {
-    background: rgb(28 35 53 / 95%)!important;
+    background: rgb(24 29 41 / 95%)!important
 }
 
 .v-picker__title.primary {
-    background: rgb(40 57 101 / 95%)!important;
+    background: #DC143C!important;
 }
 
 .theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
