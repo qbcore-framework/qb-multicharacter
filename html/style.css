@@ -147,7 +147,7 @@
     transition: 400ms;
 }
 
-.char-info-titel {
+.char-info-header {
     display: block;
     text-transform: uppercase;
     width: 100%;
