@@ -359,59 +359,59 @@
                 var loadingDots = 0;
                 window.addEventListener('message', function (event) {
                     var data = event.data;
-                    if (data.action == "ui") {
-                        viewmodel.characterAmount = data.nChar;
-                        viewmodel.selectedCharacter = -1
-                        viewmodel.show.register = false
-                        viewmodel.show.delete = false
-                        viewmodel.show.characters = false
-                        viewmodel.allowDelete = event.data.enableDeleteButton
-                        EnableDeleteButton = data.enableDeleteButton;
-                        if (data.toggle) {
-                            viewmodel.show.loading = true
+                    switch(data.action) {
+                        case "ui":
+                            viewmodel.characterAmount = data.nChar;
+                            viewmodel.selectedCharacter = -1
+                            viewmodel.show.register = false
+                            viewmodel.show.delete = false
+                            viewmodel.show.characters = false
+                            viewmodel.allowDelete = event.data.enableDeleteButton
+                            EnableDeleteButton = data.enableDeleteButton;
+                            if (data.toggle) {
+                                viewmodel.show.loading = true
 
-                            viewmodel.loadingText = "Retrieving player data";
-                            var DotsInterval = setInterval(function () {
-                                loadingDots++;
-                                loadingProgress++;
-                                if (loadingProgress == 3) {
-                                    viewmodel.loadingText = "Validating player data"
-                                }
-                                if (loadingProgress == 4) {
-                                    viewmodel.loadingText = "Retrieving characters"
-                                }
-                                if (loadingProgress == 6) {
-                                    viewmodel.loadingText = "Validating characters"
-                                }
-                                if (loadingDots == 4) {
-                                    loadingDots = 0;
-                                }
-                            }, 500);
+                                viewmodel.loadingText = "Retrieving player data";
+                                var DotsInterval = setInterval(function () {
+                                    loadingDots++;
+                                    loadingProgress++;
+                                    if (loadingProgress == 3) {
+                                        viewmodel.loadingText = "Validating player data"
+                                    }
+                                    if (loadingProgress == 4) {
+                                        viewmodel.loadingText = "Retrieving characters"
+                                    }
+                                    if (loadingProgress == 6) {
+                                        viewmodel.loadingText = "Validating characters"
+                                    }
+                                    if (loadingDots == 4) {
+                                        loadingDots = 0;
+                                    }
+                                }, 500);
 
-                            setTimeout(function () {
-                                axios.post('https://qb-multicharacter/setupCharacters');
                                 setTimeout(function () {
-                                    clearInterval(DotsInterval);
-                                    loadingProgress = 0;
-                                    viewmodel.loadingText = "Retrieving data";
-                                    viewmodel.show.loading = false
-                                    viewmodel.show.characters = true
-                                    axios.post('https://qb-multicharacter/removeBlur');
+                                    axios.post('https://qb-multicharacter/setupCharacters');
+                                    setTimeout(function () {
+                                        clearInterval(DotsInterval);
+                                        loadingProgress = 0;
+                                        viewmodel.loadingText = "Retrieving data";
+                                        viewmodel.show.loading = false
+                                        viewmodel.show.characters = true
+                                        axios.post('https://qb-multicharacter/removeBlur');
+                                    }, 2000);
                                 }, 2000);
-                            }, 2000);
-                        }
-                    }
-
-                    if (data.action == "setupCharacters") {
-                        var newChars = []
-                        for (var i = 0; i < event.data.characters.length; i++) {
-                            newChars[event.data.characters[i].cid] = event.data.characters[i]
-                        }
-                        viewmodel.characters = newChars
-                    }
-
-                    if (data.action == "setupCharInfo") {
-                        viewmodel.chardata = event.data.chardata
+                            }
+                            break;
+                        case "setupCharacters":
+                            var newChars = []
+                            for (var i = 0; i < event.data.characters.length; i++) {
+                                newChars[event.data.characters[i].cid] = event.data.characters[i]
+                            }
+                            viewmodel.characters = newChars
+                            break;
+                        case "setupCharInfo":
+                            viewmodel.chardata = event.data.chardata
+                            break;
                     }
                 });
             }
