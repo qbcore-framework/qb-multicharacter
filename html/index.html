@@ -317,17 +317,18 @@
                 },
 
                 create_character: function() {
-                    var profanityTest = (!regTest.test(viewmodel.registerData.firstname) && !regTest.test(viewmodel.registerData.nationality) && !regTest.test(viewmodel.registerData.lastname))
+                    const registerData = viewmodel.registerData
+                    var profanityTest = (!regTest.test(registerData.firstname) && !regTest.test(registerData.nationality) && !regTest.test(registerData.lastname))
 
-                    if (viewmodel.registerData.firstname !== undefined && profanityTest && viewmodel.registerData.lastname !== undefined && viewmodel.registerData.gender !== undefined && viewmodel.registerData.nationality !== undefined && viewmodel.registerData.date !== undefined) {
+                    if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
                         viewmodel.show.register = false
 
                         axios.post('https://qb-multicharacter/createNewCharacter', {
-                            firstname: viewmodel.registerData.firstname,
-                            lastname: viewmodel.registerData.lastname,
-                            nationality: viewmodel.registerData.nationality,
-                            birthdate: viewmodel.registerData.date,
-                            gender: viewmodel.registerData.gender,
+                            firstname: registerData.firstname,
+                            lastname: registerData.lastname,
+                            nationality: registerData.nationality,
+                            birthdate: registerData.date,
+                            gender: registerData.gender,
                             cid: viewmodel.selectedCharacter,
                         });
                     }
