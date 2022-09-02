@@ -48,8 +48,8 @@
 .characters {
     width: 100%;
     height: 72.5%;
-    overflow-y: scroll;
-    overflow-x: hidden;
+    overflow-y: scroll!important;
+    overflow-x: hidden!important;
 
     -ms-overflow-style: none;
     scrollbar-width: none;
