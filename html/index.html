@@ -44,8 +44,8 @@
                                         @click="click_character(index, 'empty')"
                                 >
                                     <span class="slot-name">{{translations.emptyslot}}
-                                        <span class="cid"></span>
                                     </span>
+                                    <span class="cid"></span>
                                 </div>
                                 <div
                                         v-if="characters[index] !== undefined"
@@ -57,8 +57,8 @@
                                 >
                                     <span class="slot-name">
                                         {{characters[index].charinfo.firstname}} {{characters[index].charinfo.lastname}}
-                                        <span class="cid">{{characters[index].citizenid}}</span>
                                     </span>
+                                    <span class="cid">{{characters[index].citizenid}}</span>
                                 </div>
                             </template>
                         </div>
