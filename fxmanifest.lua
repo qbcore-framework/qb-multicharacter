@@ -4,8 +4,16 @@ game 'gta5'
 description 'QB-Multicharacter'
 version '1.0.0'
 
-shared_script 'config.lua'
-client_script 'client/main.lua'
+shared_scripts {
+    '@qb-core/shared/locale.lua',
+    'locales/en.lua',
+    'config.lua'
+}
+
+client_scripts {
+    'client/main.lua'
+}
+
 server_scripts  {
     '@oxmysql/lib/MySQL.lua',
     '@qb-apartments/config.lua',

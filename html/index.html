@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="characters-list" :class="{'slide-top-left-fade-leave-active': show.characters == false, 'slide-top-left-fade-leave-to': show.characters == false}">
-                        <div class="character-list-header"><p>My Characters</p></div>
+                        <div class="character-list-header"><p>{{translations.characters_header}}</p></div>
                         <div class="characters">
                             <template
                                 v-for="index in characterAmount"
@@ -43,9 +43,9 @@
                                         data-cid=""
                                         @click="click_character(index, 'empty')"
                                 >
-                                    <span class="slot-name">Empty Slot
-                                        <span class="cid"></span>
+                                    <span class="slot-name">{{translations.emptyslot}}
                                     </span>
+                                    <span class="cid"></span>
                                 </div>
                                 <div
                                         v-if="characters[index] !== undefined"
@@ -57,76 +57,76 @@
                                 >
                                     <span class="slot-name">
                                         {{characters[index].charinfo.firstname}} {{characters[index].charinfo.lastname}}
-                                        <span class="cid">{{characters[index].citizenid}}</span>
                                     </span>
+                                    <span class="cid">{{characters[index].citizenid}}</span>
                                 </div>
                             </template>
                         </div>
                         <div class="character-btns" v-if="selectedCharacter !== -1">
                             <v-btn large class="character-btn" id="play" v-ripple @click="play_character">
-                                {{characters[selectedCharacter] !== undefined ? "Play" : "Create Character"}}
+                                {{characters[selectedCharacter] !== undefined ? translations.play_button : translations.create_button}}
                             </v-btn>
                             <v-btn large class="character-btn" id="delete" v-if="characters[selectedCharacter] !== undefined && allowDelete == true" v-ripple @click="delete_character">
-                                Delete character
+                                {{translations.delete_button}}
                             </v-btn>
                         </div>
                     </div>
 
                     <div class="character-info" :class="{'slide-top-right-fade-leave-active': show.characters == false, 'slide-top-right-fade-leave-to': show.characters == false}">
-                        <span class="char-info-header">Character Information</span>
-                        <span class="no-char" v-if="characters[selectedCharacter] == undefined">Select a character slot to see all information about your character.</span>
+                        <span class="char-info-header">{{translations.charinfo_header}}</span>
+                        <span class="no-char" v-if="characters[selectedCharacter] == undefined">{{translations.charinfo_description}}</span>
                         <table v-if="characters[selectedCharacter] !== undefined">
                             <tr>
-                                <td>Name:</td>
+                                <td>{{translations.name}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.firstname}} {{characters[selectedCharacter].charinfo.lastname}}</td>
                             </tr>
                             <tr>
-                                <td>Birthdate:</td>
+                                <td>{{translations.birthdate}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.birthdate}}</td>
                             </tr>
                             <tr>
-                                <td>Gender:</td>
-                                <td>{{characters[selectedCharacter].charinfo.gender == 0 ? 'Male' : 'Female'}}</td>
+                                <td>{{translations.gender}}:</td>
+                                <td>{{characters[selectedCharacter].charinfo.gender == 0 ? translations.male : translations.female}}</td>
                             </tr>
                             <tr>
-                                <td>Nationality:</td>
+                                <td>{{translations.nationality}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.nationality}}</td>
                             </tr>
                             <tr>
-                                <td>Job:</td>
+                                <td>{{translations.job}}:</td>
                                 <td>{{characters[selectedCharacter].job.label}}</td>
                             </tr>
                             <tr>
-                                <td>Grade:</td>
+                                <td>{{translations.jobgrade}}:</td>
                                 <td>{{characters[selectedCharacter].job.grade.name}}</td>
                             </tr>
                             <tr>
-                                <td>Cash:</td>
+                                <td>{{translations.cash}}:</td>
                                 <td>&#36; {{dollar.format(characters[selectedCharacter].money.cash)}}</td>
                             </tr>
                             <tr>
-                                <td>Bank:</td>
+                                <td>{{translations.bank}}:</td>
                                 <td>&#36; {{dollar.format(characters[selectedCharacter].money.bank)}}</td>
                             </tr>
                             <tr>
-                                <td>Phone Number:</td>
+                                <td>{{translations.phonenumber}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.phone}}</td>
                             </tr>
                             <tr>
-                                <td>Account Number:</td>
+                                <td>{{translations.accountnumber}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.account}}</td>
                             </tr>
                         </table>
                     </div>
 
-                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}" :style="{'display': show.register == false ? 'none' : 'block'}">
+                    <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}">
                         <div class="characters-register-block-header">
-                            <p>Character Registration</p>
+                            <p>{{translations.chardel_header}}</p>
                             <span class="material-symbols-outlined" id="close-reg" @click="() => {show.register = false; show.characters = true}">close</span>
                         </div>
                         <div class="char-register-inputs">
                             <v-text-field
-                                placeholder="First Name"
+                                :placeholder="translations.firstname"
                                 solo
                                 hide-details="auto"
                                 background-color="#32456759"
@@ -134,7 +134,7 @@
                                 :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
-                                placeholder="Last Name"
+                                :placeholder="translations.lastname"
                                 solo
                                 hide-details="auto"
                                 background-color="#32456759"
@@ -142,7 +142,7 @@
                                 :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
-                                placeholder="Nationality"
+                                :placeholder="translations.nationality"
                                 solo
                                 hide-details="auto"
                                 background-color="#32456759"
@@ -151,8 +151,8 @@
                             ></v-text-field>
                             <v-select
                                 solo
-                                placeholder="Gender"
-                                :items="['Male', 'Female']"
+                                :placeholder="translations.gender"
+                                :items="[translations.male, translations.female]"
                                 hide-details="auto"
                                 background-color="#32456759"
                                 v-ripple
@@ -170,7 +170,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                         v-model="registerData.date"
-                                        label="Birthdate"
+                                        label="translations.birthdate"
                                         readonly
                                         v-bind="attrs"
                                         v-on="on"
@@ -191,7 +191,7 @@
                                         @click="dataPickerMenu = false"
                                         :disabled="!show.register"
                                     >
-                                        Cancel
+                                        {{translations.cancel}}
                                     </v-btn>
                                     <v-btn
                                         text
@@ -199,24 +199,24 @@
                                         @click="$refs.dialog.save(registerData.date)"
                                         :disabled="!show.register"
                                     >
-                                        OK
+                                        {{translations.confirm}}
                                     </v-btn>
                                 </v-date-picker>
                             </v-dialog>
                         </div>
-                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>Create Character</v-btn>
+                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>{{translations.create_button}}</v-btn>
                     </div>
 
                     <div class="character-delete" :class="{'slide-top-fade-leave-active': show.delete == false, 'slide-top-fade-leave-to': show.delete == false}">
                         <p class="characters-delete-block-header">
-                            Delete Character
+                            {{translations.deletechar_header}}
                         </p>
 
-                        <p>Are You Sure You Want To Delete Your Character?</p>
+                        <p>{{translations.deletechar_description}}</p>
 
                         <div class="character-delete-btns">
-                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" @click="delete_character">Confirm</v-btn>
-                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" @click="() => {show.characters = true; show.delete = false}">Return</v-btn>
+                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" @click="delete_character">{{translations.confirm}}</v-btn>
+                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" @click="() => {show.characters = true; show.delete = false}">{{translations.cancel}}</v-btn>
                         </div>
                     </div>
                 </div>
@@ -254,7 +254,8 @@
                 characterAmount: 0,
                 loadingText: "",
                 selectedCharacter: -1,
-                dollar: Intl.NumberFormat('en-US')
+                dollar: Intl.NumberFormat('en-US'),
+                translations: {}
             },
             methods: {
                 click_character: function(idx, type) {
@@ -316,17 +317,18 @@
                 },
 
                 create_character: function() {
-                    var profanityTest = (!regTest.test(viewmodel.registerData.firstname) && !regTest.test(viewmodel.registerData.nationality) && !regTest.test(viewmodel.registerData.lastname))
+                    const registerData = viewmodel.registerData
+                    var profanityTest = (!regTest.test(registerData.firstname) && !regTest.test(registerData.nationality) && !regTest.test(registerData.lastname))
 
-                    if (viewmodel.registerData.firstname !== undefined && profanityTest && viewmodel.registerData.lastname !== undefined && viewmodel.registerData.gender !== undefined && viewmodel.registerData.nationality !== undefined && viewmodel.registerData.date !== undefined) {
+                    if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
                         viewmodel.show.register = false
 
                         axios.post('https://qb-multicharacter/createNewCharacter', {
-                            firstname: viewmodel.registerData.firstname,
-                            lastname: viewmodel.registerData.lastname,
-                            nationality: viewmodel.registerData.nationality,
-                            birthdate: viewmodel.registerData.date,
-                            gender: viewmodel.registerData.gender,
+                            firstname: registerData.firstname,
+                            lastname: registerData.lastname,
+                            nationality: registerData.nationality,
+                            birthdate: registerData.date,
+                            gender: registerData.gender,
                             cid: viewmodel.selectedCharacter,
                         });
                     }
@@ -334,8 +336,8 @@
                         if (!profanityTest) {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'We ran into an issue',
-                                text: 'It seems like you are trying to use some type of profanity / bad words in your name or nationality!',
+                                title: viewmodel.translations.ran_into_issue,
+                                text: viewmodel.translations.profanity,
                                 timer: 5000,
                                 timerProgressBar: true,
                                 showConfirmButton: false
@@ -344,8 +346,8 @@
                         else {
                             Swal.fire({
                                 icon: 'error',
-                                title: 'We ran into an issue',
-                                text: 'It seems like you have forgotten to input one or multiple of the fields!',
+                                title: viewmodel.translations.ran_into_issue,
+                                text: viewmodel.translations.forgotten_field,
                                 timer: 5000,
                                 timerProgressBar: true,
                                 showConfirmButton: false
@@ -359,59 +361,60 @@
                 var loadingDots = 0;
                 window.addEventListener('message', function (event) {
                     var data = event.data;
-                    if (data.action == "ui") {
-                        viewmodel.characterAmount = data.nChar;
-                        viewmodel.selectedCharacter = -1
-                        viewmodel.show.register = false
-                        viewmodel.show.delete = false
-                        viewmodel.show.characters = false
-                        viewmodel.allowDelete = event.data.enableDeleteButton
-                        EnableDeleteButton = data.enableDeleteButton;
-                        if (data.toggle) {
-                            viewmodel.show.loading = true
+                    switch(data.action) {
+                        case "ui":
+                            viewmodel.translations = event.data.translations
+                            viewmodel.characterAmount = data.nChar;
+                            viewmodel.selectedCharacter = -1
+                            viewmodel.show.register = false
+                            viewmodel.show.delete = false
+                            viewmodel.show.characters = false
+                            viewmodel.allowDelete = event.data.enableDeleteButton
+                            EnableDeleteButton = data.enableDeleteButton;
+                            if (data.toggle) {
+                                viewmodel.show.loading = true
 
-                            viewmodel.loadingText = "Retrieving player data";
-                            var DotsInterval = setInterval(function () {
-                                loadingDots++;
-                                loadingProgress++;
-                                if (loadingProgress == 3) {
-                                    viewmodel.loadingText = "Validating player data"
-                                }
-                                if (loadingProgress == 4) {
-                                    viewmodel.loadingText = "Retrieving characters"
-                                }
-                                if (loadingProgress == 6) {
-                                    viewmodel.loadingText = "Validating characters"
-                                }
-                                if (loadingDots == 4) {
-                                    loadingDots = 0;
-                                }
-                            }, 500);
+                                viewmodel.loadingText = viewmodel.translations.retrieving_playerdata;
+                                var DotsInterval = setInterval(function () {
+                                    loadingDots++;
+                                    loadingProgress++;
+                                    if (loadingProgress == 3) {
+                                        viewmodel.loadingText = viewmodel.translations.validating_playerdata
+                                    }
+                                    if (loadingProgress == 4) {
+                                        viewmodel.loadingText = viewmodel.translations.retrieving_characters
+                                    }
+                                    if (loadingProgress == 6) {
+                                        viewmodel.loadingText = viewmodel.translations.validating_characters
+                                    }
+                                    if (loadingDots == 4) {
+                                        loadingDots = 0;
+                                    }
+                                }, 500);
 
-                            setTimeout(function () {
-                                axios.post('https://qb-multicharacter/setupCharacters');
                                 setTimeout(function () {
-                                    clearInterval(DotsInterval);
-                                    loadingProgress = 0;
-                                    viewmodel.loadingText = "Retrieving data";
-                                    viewmodel.show.loading = false
-                                    viewmodel.show.characters = true
-                                    axios.post('https://qb-multicharacter/removeBlur');
+                                    axios.post('https://qb-multicharacter/setupCharacters');
+                                    setTimeout(function () {
+                                        clearInterval(DotsInterval);
+                                        loadingProgress = 0;
+                                        viewmodel.loadingText = viewmodel.translations.retrieving_playerdata;
+                                        viewmodel.show.loading = false
+                                        viewmodel.show.characters = true
+                                        axios.post('https://qb-multicharacter/removeBlur');
+                                    }, 2000);
                                 }, 2000);
-                            }, 2000);
-                        }
-                    }
-
-                    if (data.action == "setupCharacters") {
-                        var newChars = []
-                        for (var i = 0; i < event.data.characters.length; i++) {
-                            newChars[event.data.characters[i].cid] = event.data.characters[i]
-                        }
-                        viewmodel.characters = newChars
-                    }
-
-                    if (data.action == "setupCharInfo") {
-                        viewmodel.chardata = event.data.chardata
+                            }
+                            break;
+                        case "setupCharacters":
+                            var newChars = []
+                            for (var i = 0; i < event.data.characters.length; i++) {
+                                newChars[event.data.characters[i].cid] = event.data.characters[i]
+                            }
+                            viewmodel.characters = newChars
+                            break;
+                        case "setupCharInfo":
+                            viewmodel.chardata = event.data.chardata
+                            break;
                     }
                 });
             }

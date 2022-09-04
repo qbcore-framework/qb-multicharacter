@@ -59,13 +59,13 @@ end
 
 -- Commands
 
-QBCore.Commands.Add("logout", "Logout of Character (Admin Only)", {}, false, function(source)
+QBCore.Commands.Add("logout", Lang:t("commands.logout_description"), {}, false, function(source)
     local src = source
     QBCore.Player.Logout(src)
     TriggerClientEvent('qb-multicharacter:client:chooseChar', src)
 end, "admin")
 
-QBCore.Commands.Add("closeNUI", "Close Multi NUI", {}, false, function(source)
+QBCore.Commands.Add("closeNUI", Lang:t("commands.closeNUI_description"), {}, false, function(source)
     local src = source
     TriggerClientEvent('qb-multicharacter:client:closeNUI', src)
 end)
@@ -83,7 +83,7 @@ end)
 
 RegisterNetEvent('qb-multicharacter:server:disconnect', function()
     local src = source
-    DropPlayer(src, "You have disconnected from QBCore")
+    DropPlayer(src, Lang:t("commands.droppedplayer"))
 end)
 
 RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
@@ -131,7 +131,7 @@ end)
 RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
     local src = source
     QBCore.Player.DeleteCharacter(src, citizenid)
-    TriggerClientEvent('QBCore:Notify', src, "Character deleted!" , "success")
+    TriggerClientEvent('QBCore:Notify', src, Lang:t("notifications.char_deleted") , "success")
 end)
 
 -- Callbacks
@@ -194,11 +194,11 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, 
     end
 end)
 
-QBCore.Commands.Add("deletechar", "Deletes another players character", {{name = "Citizen ID", help = "The Citizen ID of the character you want to delete"}}, false, function(source,args)
+QBCore.Commands.Add("deletechar", Lang:t("commands.deletechar_description"), {{name = Lang:t("commands.citizenid"), help = Lang:t("commands.citizenid_help")}}, false, function(source,args)
     if args and args[1] then
         QBCore.Player.ForceDeleteCharacter(tostring(args[1]))
-        TriggerClientEvent("QBCore:Notify", source, "You successfully deleted the character with citizen id \"" .. tostring(args[1]) .. "\".")
+        TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.deleted_other_char", {citizenid = tostring(args[1])}))
     else
-        TriggerClientEvent("QBCore:Notify", source, "You forgot to input a citizen id", "error")
+        TriggerClientEvent("QBCore:Notify", source, Lang:t("notifications.forgot_citizenid"), "error")
     end
 end, "god")

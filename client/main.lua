@@ -43,6 +43,7 @@ local function openCharMenu(bool)
             toggle = bool,
             nChar = result,
             enableDeleteButton = Config.EnableDeleteButton,
+            translations = Translations.ui
         })
         skyCam(bool)
     end)
@@ -198,9 +199,9 @@ end)
 RegisterNUICallback('createNewCharacter', function(data, cb)
     local cData = data
     DoScreenFadeOut(150)
-    if cData.gender == "Male" then
+    if cData.gender == Lang:t("ui.male") then
         cData.gender = 0
-    elseif cData.gender == "Female" then
+    elseif cData.gender == Lang:t("ui.female") then
         cData.gender = 1
     end
     TriggerServerEvent('qb-multicharacter:server:createCharacter', cData)
