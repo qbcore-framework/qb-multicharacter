@@ -1,7 +1,7 @@
 Translations = {
     notifications = {
         ["char_deleted"] = "¡Personaje eliminado!",
-        ["deleted_other_char"] = "Has borrado con éxito el personaje con id de ciudadano %{citizenid}",
+        ["deleted_other_char"] = "Has eliminado con éxito el personaje con id de ciudadano %{citizenid}",
         ["forgot_citizenid"] = "¡Olvidaste introducir un id de ciudadano!",
     },
 
@@ -9,30 +9,30 @@ Translations = {
         -- /deletechar
         ["deletechar_description"] = "Borra el personaje de otro jugador",
         ["citizenid"] = "ID del ciudadano",
-        ["citizenid_help"] = "El ID de ciudadano del personaje que quieres eliminar",
+        ["citizenid_help"] = "El ID del ciudadano del jugador que quieres eliminar",
 
         -- /logout
-        ["logout_description"] = "Cierre de sesión del personaje (sólo para el administrador)",
+        ["logout_description"] = "Cerrar sesión de personaje (solo administrador)",
 
         -- /closeNUI
         ["closeNUI_description"] = "Cerrar Multi NUI"
     },
 
     misc = {
-        ["droppedplayer"] = "Se ha desconectado de QBCore"
+        ["droppedplayer"] = "Te has desconectado de QBCore"
     },
 
     ui = {
         -- Main
         characters_header = "Mis personajes",
-        emptyslot = "Ranura vacía",
+        emptyslot = "Espacio vacío",
         play_button = "Jugar",
         create_button = "Crear personaje",
         delete_button = "Eliminar personaje",
 
         -- Character Information
         charinfo_header = "Información del personaje",
-        charinfo_description = "Selecciona una ranura de personaje para ver toda la información sobre tu personaje",
+        charinfo_description = "Selecciona un personaje para ver toda la información sobre el mismo",
         name = "Nombre",
         male = "Hombre",
         female = "Mujer",
@@ -42,7 +42,7 @@ Translations = {
         gender = "Género",
         birthdate = "Fecha de nacimiento",
         job = "Trabajo",
-        jobgrade = "Grado de trabajo",
+        jobgrade = "Puesto de trabajo",
         cash= "Dinero",
         bank = "Banco",
         phonenumber = "Número de teléfono",
@@ -51,8 +51,8 @@ Translations = {
         chardel_header = "Registro de personajes",
 
         -- Delete character
-        deletechar_header = "Borrar personaje",
-        deletechar_description = "¿Seguro que quieres borrar tu personaje?",
+        deletechar_header = "Eliminar personaje",
+        deletechar_description = "¿Estás seguro que quieres eliminar tu personaje?",
 
         -- Buttons
         cancel = "Cancelar",
@@ -62,12 +62,12 @@ Translations = {
         retrieving_playerdata = "Recuperando datos del jugador",
         validating_playerdata = "Validando los datos del jugador",
         retrieving_characters = "Recuperando personajes",
-        validating_characters = "Validación de personajes",
+        validating_characters = "Validando personajes",
 
         -- Notifications
-        ran_into_issue = "Nos encontramos con un problema",
-        profanity = "¡Parece que está intentando utilizar algún tipo de blasfemia / malas palabras en su nombre o nacionalidad!",
-        forgotten_field = "¡Parece que ha olvidado introducir uno o varios campos!"
+        ran_into_issue = "Tuvimos un problema",
+        profanity = "¡Parece que estás intentando utilizar algún tipo de blasfemia / mala(s) palabra(s) en tu nombre o nacionalidad!",
+        forgotten_field = "¡Parece que has olvidado introducir uno o varios campos!"
     }
 }
 
