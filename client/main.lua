@@ -149,7 +149,7 @@ RegisterNUICallback('cDataPed', function(nData, cb)
                             "mp_m_freemode_01",
                             "mp_f_freemode_01",
                         }
-                        model = joaat(randommodels[math.random(1, #randommodels)])
+                        local model = joaat(randommodels[math.random(1, #randommodels)])
                         RequestModel(model)
                         while not HasModelLoaded(model) do
                             Wait(0)
