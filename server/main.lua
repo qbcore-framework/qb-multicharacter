@@ -1,6 +1,11 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local hasDonePreloading = {}
 
+local clothingScript = "qb-clothing"
+if GetResourceState("fivem-appearance") == "started" then
+    clothingScript = "fivem-appearance"
+end
+
 -- Functions
 
 local function GiveStarterItems(source)
@@ -185,14 +190,25 @@ QBCore.Functions.CreateCallback("qb-multicharacter:server:setupCharacters", func
     end)
 end)
 
-QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, cb, cid)
-    local result = MySQL.query.await('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1})
-    if result[1] ~= nil then
-        cb(result[1].model, result[1].skin)
-    else
-        cb(nil)
-    end
-end)
+if clothingScript == "fivem-appearance" then
+    QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, cb, cid)
+        local result = MySQL.query.await('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1})
+        if result[1] ~= nil then
+            cb(json.decode(result[1].skin))
+        else
+            cb(nil)
+        end
+    end)
+else
+    QBCore.Functions.CreateCallback("qb-multicharacter:server:getSkin", function(_, cb, cid)
+        local result = MySQL.query.await('SELECT * FROM playerskins WHERE citizenid = ? AND active = ?', {cid, 1})
+        if result[1] ~= nil then
+            cb(result[1].model, result[1].skin)
+        else
+            cb(nil)
+        end
+    end)
+end
 
 QBCore.Commands.Add("deletechar", Lang:t("commands.deletechar_description"), {{name = Lang:t("commands.citizenid"), help = Lang:t("commands.citizenid_help")}}, false, function(source,args)
     if args and args[1] then
