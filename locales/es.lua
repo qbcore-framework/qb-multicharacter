@@ -8,8 +8,8 @@ Translations = {
     commands = {
         -- /deletechar
         ["deletechar_description"] = "Borra el personaje de otro jugador",
-        ["citizenid"] = "ID del ciudadano",
-        ["citizenid_help"] = "El ID del ciudadano del jugador que quieres eliminar",
+        ["citizenid"] = "ID de ciudadano",
+        ["citizenid_help"] = "El ID de ciudadano del personaje que quieres eliminar",
 
         -- /logout
         ["logout_description"] = "Cerrar sesión de personaje (solo administrador)",
