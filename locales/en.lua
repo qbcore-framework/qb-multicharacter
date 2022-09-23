@@ -1,4 +1,4 @@
-Translations = {
+Translations = Translations or {
     notifications = {
         ["char_deleted"] = "Character deleted!",
         ["deleted_other_char"] = "You successfully deleted the character with citizen id %{citizenid}.",
