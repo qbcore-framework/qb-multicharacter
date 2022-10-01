@@ -30,7 +30,7 @@
                         </div>
                     </div>
                     <div class="characters-list" :class="{'slide-top-left-fade-leave-active': show.characters == false, 'slide-top-left-fade-leave-to': show.characters == false}">
-                        <div class="character-list-header"><p>{{translations.characters_header}}</p></div>
+                        <div class="character-list-header"><p>{{translate('characters_header')}}</p></div>
                         <div class="characters">
                             <template
                                 v-for="index in characterAmount"
@@ -43,7 +43,7 @@
                                         data-cid=""
                                         @click="click_character(index, 'empty')"
                                 >
-                                    <span class="slot-name">{{translations.emptyslot}}
+                                    <span class="slot-name">{{translate('emptyslot')}}
                                     </span>
                                     <span class="cid"></span>
                                 </div>
@@ -64,56 +64,56 @@
                         </div>
                         <div class="character-btns" v-if="selectedCharacter !== -1">
                             <v-btn large class="character-btn" id="play" v-ripple @click="play_character">
-                                {{characters[selectedCharacter] !== undefined ? translations.play_button : translations.create_button}}
+                                {{characters[selectedCharacter] !== undefined ? translate('play_button') : translate('create_button')}}
                             </v-btn>
                             <v-btn large class="character-btn" id="delete" v-if="characters[selectedCharacter] !== undefined && allowDelete == true" v-ripple @click="delete_character">
-                                {{translations.delete_button}}
+                                {{translate('delete_button')}}
                             </v-btn>
                         </div>
                     </div>
 
                     <div class="character-info" :class="{'slide-top-right-fade-leave-active': show.characters == false, 'slide-top-right-fade-leave-to': show.characters == false}">
-                        <span class="char-info-header">{{translations.charinfo_header}}</span>
-                        <span class="no-char" v-if="characters[selectedCharacter] == undefined">{{translations.charinfo_description}}</span>
+                        <span class="char-info-header">{{translate('charinfo_header')}}</span>
+                        <span class="no-char" v-if="characters[selectedCharacter] == undefined">{{translate('charinfo_description')}}</span>
                         <table v-if="characters[selectedCharacter] !== undefined">
                             <tr>
-                                <td>{{translations.name}}:</td>
+                                <td>{{translate('name')}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.firstname}} {{characters[selectedCharacter].charinfo.lastname}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.birthdate}}:</td>
+                                <td>{{translate('birthdate')}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.birthdate}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.gender}}:</td>
-                                <td>{{characters[selectedCharacter].charinfo.gender == 0 ? translations.male : translations.female}}</td>
+                                <td>{{translate('gender')}}:</td>
+                                <td>{{characters[selectedCharacter].charinfo.gender == 0 ? translate('male') : translate('female')}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.nationality}}:</td>
+                                <td>{{translate('nationality')}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.nationality}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.job}}:</td>
+                                <td>{{translate('job')}}:</td>
                                 <td>{{characters[selectedCharacter].job.label}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.jobgrade}}:</td>
+                                <td>{{translate('jobgrade')}}:</td>
                                 <td>{{characters[selectedCharacter].job.grade.name}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.cash}}:</td>
+                                <td>{{translate('cash')}}:</td>
                                 <td>&#36; {{dollar.format(characters[selectedCharacter].money.cash)}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.bank}}:</td>
+                                <td>{{translate('bank')}}:</td>
                                 <td>&#36; {{dollar.format(characters[selectedCharacter].money.bank)}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.phonenumber}}:</td>
+                                <td>{{translate('phonenumber')}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.phone}}</td>
                             </tr>
                             <tr>
-                                <td>{{translations.accountnumber}}:</td>
+                                <td>{{translate('accountnumber')}}:</td>
                                 <td>{{characters[selectedCharacter].charinfo.account}}</td>
                             </tr>
                         </table>
@@ -121,12 +121,12 @@
 
                     <div class="character-register" :class="{'slide-top-fade-leave-active': show.register == false, 'slide-top-fade-leave-to': show.register == false}">
                         <div class="characters-register-block-header">
-                            <p>{{translations.chardel_header}}</p>
+                            <p>{{translate('chardel_header')}}</p>
                             <span class="material-symbols-outlined" id="close-reg" @click="() => {show.register = false; show.characters = true}">close</span>
                         </div>
                         <div class="char-register-inputs">
                             <v-text-field
-                                :placeholder="translations.firstname"
+                                :placeholder="translate('firstname')"
                                 solo
                                 hide-details="auto"
                                 background-color="#32456759"
@@ -134,7 +134,7 @@
                                 :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
-                                :placeholder="translations.lastname"
+                                :placeholder="translate('lastname')"
                                 solo
                                 hide-details="auto"
                                 background-color="#32456759"
@@ -142,7 +142,7 @@
                                 :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
-                                :placeholder="translations.nationality"
+                                :placeholder="translate('nationality')"
                                 solo
                                 hide-details="auto"
                                 background-color="#32456759"
@@ -151,8 +151,8 @@
                             ></v-text-field>
                             <v-select
                                 solo
-                                :placeholder="translations.gender"
-                                :items="[translations.male, translations.female]"
+                                :placeholder="translate('gender')"
+                                :items="[translate('male'), translate('female')]"
                                 hide-details="auto"
                                 background-color="#32456759"
                                 v-ripple
@@ -170,7 +170,7 @@
                                 <template v-slot:activator="{ on, attrs }">
                                     <v-text-field
                                         v-model="registerData.date"
-                                        label="translations.birthdate"
+                                        label="translate('birthdate')"
                                         readonly
                                         v-bind="attrs"
                                         v-on="on"
@@ -191,7 +191,7 @@
                                         @click="dataPickerMenu = false"
                                         :disabled="!show.register"
                                     >
-                                        {{translations.cancel}}
+                                        {{translate('cancel')}}
                                     </v-btn>
                                     <v-btn
                                         text
@@ -199,24 +199,24 @@
                                         @click="$refs.dialog.save(registerData.date)"
                                         :disabled="!show.register"
                                     >
-                                        {{translations.confirm}}
+                                        {{translate('confirm')}}
                                     </v-btn>
                                 </v-date-picker>
                             </v-dialog>
                         </div>
-                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>{{translations.create_button}}</v-btn>
+                        <v-btn :disabled="!show.register" class="character-reg-btn" color="#DC143C" v-ripple @click="create_character" large>{{translate('create_button')}}</v-btn>
                     </div>
 
                     <div class="character-delete" :class="{'slide-top-fade-leave-active': show.delete == false, 'slide-top-fade-leave-to': show.delete == false}">
                         <p class="characters-delete-block-header">
-                            {{translations.deletechar_header}}
+                            {{translate('deletechar_header')}}
                         </p>
 
-                        <p>{{translations.deletechar_description}}</p>
+                        <p>{{translate('deletechar_description')}}</p>
 
                         <div class="character-delete-btns">
-                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" @click="delete_character">{{translations.confirm}}</v-btn>
-                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" @click="() => {show.characters = true; show.delete = false}">{{translations.cancel}}</v-btn>
+                            <v-btn :disabled="!show.delete" color="#2f8643" v-ripple class="character-delete-btn" @click="delete_character">{{translate('confirm')}}</v-btn>
+                            <v-btn :disabled="!show.delete" color="#90293e" v-ripple class="character-delete-btn" @click="() => {show.characters = true; show.delete = false}">{{translate('cancel')}}</v-btn>
                         </div>
                     </div>
                 </div>
@@ -336,8 +336,8 @@
                         if (!profanityTest) {
                             Swal.fire({
                                 icon: 'error',
-                                title: viewmodel.translations.ran_into_issue,
-                                text: viewmodel.translations.profanity,
+                                title: viewmodel.translate('ran_into_issue'),
+                                text: viewmodel.translate('profanity'),
                                 timer: 5000,
                                 timerProgressBar: true,
                                 showConfirmButton: false
@@ -346,14 +346,18 @@
                         else {
                             Swal.fire({
                                 icon: 'error',
-                                title: viewmodel.translations.ran_into_issue,
-                                text: viewmodel.translations.forgotten_field,
+                                title: viewmodel.translate('ran_into_issue'),
+                                text: viewmodel.translate('forgotten_field'),
                                 timer: 5000,
                                 timerProgressBar: true,
                                 showConfirmButton: false
                             })
                         }
                     }
+                },
+
+                translate(phrase) {
+                    return viewmodel.translations[phrase] || phrase;
                 }
             },
             mounted () {
@@ -374,18 +378,18 @@
                             if (data.toggle) {
                                 viewmodel.show.loading = true
 
-                                viewmodel.loadingText = viewmodel.translations.retrieving_playerdata;
+                                viewmodel.loadingText = viewmodel.translate('retrieving_playerdata');
                                 var DotsInterval = setInterval(function () {
                                     loadingDots++;
                                     loadingProgress++;
                                     if (loadingProgress == 3) {
-                                        viewmodel.loadingText = viewmodel.translations.validating_playerdata
+                                        viewmodel.loadingText = viewmodel.translate('validating_playerdata')
                                     }
                                     if (loadingProgress == 4) {
-                                        viewmodel.loadingText = viewmodel.translations.retrieving_characters
+                                        viewmodel.loadingText = viewmodel.translate('retrieving_characters')
                                     }
                                     if (loadingProgress == 6) {
-                                        viewmodel.loadingText = viewmodel.translations.validating_characters
+                                        viewmodel.loadingText = viewmodel.translate('validating_characters')
                                     }
                                     if (loadingDots == 4) {
                                         loadingDots = 0;
@@ -397,7 +401,7 @@
                                     setTimeout(function () {
                                         clearInterval(DotsInterval);
                                         loadingProgress = 0;
-                                        viewmodel.loadingText = viewmodel.translations.retrieving_playerdata;
+                                        viewmodel.loadingText = viewmodel.translate('retrieving_playerdata');
                                         viewmodel.show.loading = false
                                         viewmodel.show.characters = true
                                         axios.post('https://qb-multicharacter/removeBlur');
