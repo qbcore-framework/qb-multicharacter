@@ -46,6 +46,7 @@ local function openCharMenu(bool)
         SetNuiFocus(bool, bool)
         SendNUIMessage({
             action = "ui",
+            customNationality = Config.customNationality,
             toggle = bool,
             nChar = result,
             enableDeleteButton = Config.EnableDeleteButton,

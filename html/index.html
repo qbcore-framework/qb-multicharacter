@@ -142,6 +142,7 @@
                                 :disabled="!show.register"
                             ></v-text-field>
                             <v-text-field
+                                v-if="customNationality"
                                 :placeholder="translations['nationality']"
                                 solo
                                 hide-details="auto"
@@ -149,6 +150,17 @@
                                 v-model="registerData.nationality"
                                 :disabled="!show.register"
                             ></v-text-field>
+                            <v-select
+                                v-else
+                                solo
+                                :placeholder="translations['nationality']"
+                                :items="nationalities"
+                                hide-details="auto"
+                                background-color="#32456759"
+                                v-ripple
+                                v-model="registerData.nationality"
+                                :disabled="!show.register"
+                            ></v-select>
                             <v-select
                                 solo
                                 :placeholder="translations['gender']"
@@ -255,9 +267,88 @@
                 loadingText: "",
                 selectedCharacter: -1,
                 dollar: Intl.NumberFormat('en-US'),
-                translations: {}
+                translations: {},
+                customNationality:false,
+                nationalities: []
+            },
+            mounted () {
+                this.fetchData()
+                var loadingProgress = 0;
+                var loadingDots = 0;
+                window.addEventListener('message', function (event) {
+                    var data = event.data;
+                    switch(data.action) {
+                        case "ui":
+                            viewmodel.customNationality = event.data.customNationality
+                            viewmodel.translations = event.data.translations
+                            viewmodel.characterAmount = data.nChar;
+                            viewmodel.selectedCharacter = -1
+                            viewmodel.show.register = false
+                            viewmodel.show.delete = false
+                            viewmodel.show.characters = false
+                            viewmodel.allowDelete = event.data.enableDeleteButton
+                            EnableDeleteButton = data.enableDeleteButton;
+                            if (data.toggle) {
+                                viewmodel.show.loading = true
+
+                                viewmodel.loadingText = viewmodel.translate('retrieving_playerdata');
+                                var DotsInterval = setInterval(function () {
+                                    loadingDots++;
+                                    loadingProgress++;
+                                    if (loadingProgress == 3) {
+                                        viewmodel.loadingText = viewmodel.translate('validating_playerdata')
+                                    }
+                                    if (loadingProgress == 4) {
+                                        viewmodel.loadingText = viewmodel.translate('retrieving_characters')
+                                    }
+                                    if (loadingProgress == 6) {
+                                        viewmodel.loadingText = viewmodel.translate('validating_characters')
+                                    }
+                                    if (loadingDots == 4) {
+                                        loadingDots = 0;
+                                    }
+                                }, 500);
+
+                                setTimeout(function () {
+                                    axios.post('https://qb-multicharacter/setupCharacters');
+                                    setTimeout(function () {
+                                        clearInterval(DotsInterval);
+                                        loadingProgress = 0;
+                                        viewmodel.loadingText = viewmodel.translate('retrieving_playerdata');
+                                        viewmodel.show.loading = false
+                                        viewmodel.show.characters = true
+                                        axios.post('https://qb-multicharacter/removeBlur');
+                                    }, 2000);
+                                }, 2000);
+                            }
+                            break;
+                        case "setupCharacters":
+                            var newChars = []
+                            for (var i = 0; i < event.data.characters.length; i++) {
+                                newChars[event.data.characters[i].cid] = event.data.characters[i]
+                            }
+                            viewmodel.characters = newChars
+                            break;
+                        case "setupCharInfo":
+                            viewmodel.chardata = event.data.chardata
+                            break;
+                    }
+                });
             },
             methods: {
+                async fetchData() {
+                    const response = await fetch('https://countriesnow.space/api/v0.1/countries/');
+                    if(response){
+                        const data = await response.json();
+                        const result = data.data;
+
+                        const selectDrop = document.getElementById('nationality');
+                        
+                        result.forEach(obj => {
+                            this.nationalities.push(obj.country);
+                        });
+                    }
+                },
                 click_character: function(idx, type) {
                     viewmodel.selectedCharacter = idx
 
@@ -360,68 +451,7 @@
                     return viewmodel.translations[phrase] || phrase;
                 }
             },
-            mounted () {
-                var loadingProgress = 0;
-                var loadingDots = 0;
-                window.addEventListener('message', function (event) {
-                    var data = event.data;
-                    switch(data.action) {
-                        case "ui":
-                            viewmodel.translations = event.data.translations
-                            viewmodel.characterAmount = data.nChar;
-                            viewmodel.selectedCharacter = -1
-                            viewmodel.show.register = false
-                            viewmodel.show.delete = false
-                            viewmodel.show.characters = false
-                            viewmodel.allowDelete = event.data.enableDeleteButton
-                            EnableDeleteButton = data.enableDeleteButton;
-                            if (data.toggle) {
-                                viewmodel.show.loading = true
-
-                                viewmodel.loadingText = viewmodel.translate('retrieving_playerdata');
-                                var DotsInterval = setInterval(function () {
-                                    loadingDots++;
-                                    loadingProgress++;
-                                    if (loadingProgress == 3) {
-                                        viewmodel.loadingText = viewmodel.translate('validating_playerdata')
-                                    }
-                                    if (loadingProgress == 4) {
-                                        viewmodel.loadingText = viewmodel.translate('retrieving_characters')
-                                    }
-                                    if (loadingProgress == 6) {
-                                        viewmodel.loadingText = viewmodel.translate('validating_characters')
-                                    }
-                                    if (loadingDots == 4) {
-                                        loadingDots = 0;
-                                    }
-                                }, 500);
-
-                                setTimeout(function () {
-                                    axios.post('https://qb-multicharacter/setupCharacters');
-                                    setTimeout(function () {
-                                        clearInterval(DotsInterval);
-                                        loadingProgress = 0;
-                                        viewmodel.loadingText = viewmodel.translate('retrieving_playerdata');
-                                        viewmodel.show.loading = false
-                                        viewmodel.show.characters = true
-                                        axios.post('https://qb-multicharacter/removeBlur');
-                                    }, 2000);
-                                }, 2000);
-                            }
-                            break;
-                        case "setupCharacters":
-                            var newChars = []
-                            for (var i = 0; i < event.data.characters.length; i++) {
-                                newChars[event.data.characters[i].cid] = event.data.characters[i]
-                            }
-                            viewmodel.characters = newChars
-                            break;
-                        case "setupCharInfo":
-                            viewmodel.chardata = event.data.chardata
-                            break;
-                    }
-                });
-            }
+            
         });
     </script>
 </html>
