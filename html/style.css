@@ -1,7 +1,7 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
 .characters::-webkit-scrollbar {
-    display: none;
+    display:none;
 } 
 
 .main-screen {
@@ -337,6 +337,11 @@
 
 .v-menu__content.theme--light.menuable__content__active {
     margin-top: 5vh;
+    overflow-y: scroll!important;
+    overflow-x: hidden!important;
+
+    -ms-overflow-style: none;
+    scrollbar-width: none;
 }
 
 .theme--light.v-list {
