@@ -57,6 +57,37 @@ local function loadHouseData(src)
     TriggerClientEvent("qb-houses:client:setHouseConfig", src, Houses)
 end
 
+local function ExtractIdentifiers(id)
+	local identifiers = {
+		steam = "",
+		ip = "",
+		discord = "",
+		license = "",
+		xbl = "",
+		live = ""
+	}
+
+	for i = 0, GetNumPlayerIdentifiers(id) - 1 do
+		local playerID = GetPlayerIdentifier(id, i)
+
+		if string.find(playerID, "steam") then
+			identifiers.steam = playerID
+		elseif string.find(playerID, "ip") then
+			identifiers.ip = playerID
+		elseif string.find(playerID, "discord") then
+			identifiers.discord = playerID
+		elseif string.find(playerID, "license") then
+			identifiers.license = playerID
+		elseif string.find(playerID, "xbl") then
+			identifiers.xbl = playerID
+		elseif string.find(playerID, "live") then
+			identifiers.live = playerID
+		end
+	end
+
+	return identifiers
+end
+
 -- Commands
 
 QBCore.Commands.Add("logout", Lang:t("commands.logout_description"), {}, false, function(source)
@@ -88,6 +119,7 @@ end)
 
 RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
     local src = source
+    local identifierlist = ExtractIdentifiers(src)
     if QBCore.Player.Login(src, cData.citizenid) then
         repeat
             Wait(10)
@@ -96,7 +128,7 @@ RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
         QBCore.Commands.Refresh(src)
         loadHouseData(src)
         TriggerClientEvent('apartments:client:setupSpawnUI', src, cData)
-        TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..(QBCore.Functions.GetIdentifier(src, 'discord') or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
+        TriggerEvent("qb-log:server:CreateLog", "joinleave", "Loaded", "green", "**".. GetPlayerName(src) .. "** ("..("<@"..identifierlist.discord:gsub("discord:", "")..">" or 'undefined') .." |  ||"  ..(QBCore.Functions.GetIdentifier(src, 'ip') or 'undefined') ..  "|| | " ..(QBCore.Functions.GetIdentifier(src, 'license') or 'undefined') .." | " ..cData.citizenid.." | "..src..") loaded..")
     end
 end)
 
