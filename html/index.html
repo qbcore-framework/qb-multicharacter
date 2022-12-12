@@ -286,11 +286,11 @@
                     }
                 },
                 click_character: function(idx, type) {
-                    viewmodel.selectedCharacter = idx
+                    this.selectedCharacter = idx
 
-                    if (viewmodel.characters[idx] !== undefined) {
+                    if (this.characters[idx] !== undefined) {
                         axios.post('https://qb-multicharacter/cDataPed', {
-                            cData: viewmodel.characters[idx]
+                            cData: this.characters[idx]
                         });
                     }
                     else {
@@ -303,52 +303,52 @@
                 },
 
                 delete_character: function() {
-                    if (viewmodel.show.delete == true) {
-                        viewmodel.show.delete = false
+                    if (this.show.delete == true) {
+                        this.show.delete = false
                         axios.post('https://qb-multicharacter/removeCharacter', {
-                            citizenid: viewmodel.characters[viewmodel.selectedCharacter].citizenid
+                            citizenid: this.characters[this.selectedCharacter].citizenid
                         });
                     }
                     else {
-                        if (viewmodel.show.characters == true && viewmodel.show.register == false) {
-                            viewmodel.show.characters = false
-                            viewmodel.show.delete = true
+                        if (this.show.characters == true && this.show.register == false) {
+                            this.show.characters = false
+                            this.show.delete = true
                         }
                     }
                 },
 
                 play_character: function() {
-                    if (viewmodel.selectedCharacter && viewmodel.selectedCharacter !== -1) {
-                        var data = viewmodel.characters[viewmodel.selectedCharacter]
+                    if (this.selectedCharacter && this.selectedCharacter !== -1) {
+                        var data = this.characters[this.selectedCharacter]
 
                         if (data !== undefined) {
                             axios.post('https://qb-multicharacter/selectCharacter', {
                                 cData: data
                             });
                             setTimeout(function() {
-                                viewmodel.show.characters = false
+                                this.show.characters = false
                             }, 500)
                         }
                         else {
-                            viewmodel.registerData.firstname = undefined
-                            viewmodel.registerData.lastname = undefined
-                            viewmodel.registerData.nationality = undefined
-                            viewmodel.registerData.gender = undefined
-                            viewmodel.registerData.date = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
+                            this.registerData.firstname = undefined
+                            this.registerData.lastname = undefined
+                            this.registerData.nationality = undefined
+                            this.registerData.gender = undefined
+                            this.registerData.date = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10)
 
-                            viewmodel.show.characters = false
-                            viewmodel.show.register = true
+                            this.show.characters = false
+                            this.show.register = true
                         }
                     }
 
                 },
 
                 create_character: function() {
-                    const registerData = viewmodel.registerData
+                    const registerData = this.registerData
                     var profanityTest = (!regTest.test(registerData.firstname) && !regTest.test(registerData.nationality) && !regTest.test(registerData.lastname))
 
                     if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
-                        viewmodel.show.register = false
+                        this.show.register = false
 
                         axios.post('https://qb-multicharacter/createNewCharacter', {
                             firstname: registerData.firstname,
@@ -356,15 +356,15 @@
                             nationality: registerData.nationality,
                             birthdate: registerData.date,
                             gender: registerData.gender,
-                            cid: viewmodel.selectedCharacter,
+                            cid: this.selectedCharacter,
                         });
                     }
                     else {
                         if (!profanityTest) {
                             Swal.fire({
                                 icon: 'error',
-                                title: viewmodel.translate('ran_into_issue'),
-                                text: viewmodel.translate('profanity'),
+                                title: this.translate('ran_into_issue'),
+                                text: this.translate('profanity'),
                                 timer: 5000,
                                 timerProgressBar: true,
                                 showConfirmButton: false
@@ -373,8 +373,8 @@
                         else {
                             Swal.fire({
                                 icon: 'error',
-                                title: viewmodel.translate('ran_into_issue'),
-                                text: viewmodel.translate('forgotten_field'),
+                                title: this.translate('ran_into_issue'),
+                                text: this.translate('forgotten_field'),
                                 timer: 5000,
                                 timerProgressBar: true,
                                 showConfirmButton: false
@@ -384,7 +384,7 @@
                 },
 
                 translate(phrase) {
-                    return viewmodel.translations[phrase] || phrase;
+                    return this.translations[phrase] || phrase;
                 }
             },
             mounted () {
