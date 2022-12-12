@@ -281,7 +281,7 @@
                         const selectDrop = document.getElementById('nationality');
                         
                         result.forEach(obj => {
-                            this.nationalities.push(obj.country);
+                            viewmodel.nationalities.push(obj.country);
                         });
                     }
                 },
@@ -326,7 +326,7 @@
                                 cData: data
                             });
                             setTimeout(function() {
-                                this.show.characters = false
+                                viewmodel.show.characters = false
                             }, 500)
                         }
                         else {
