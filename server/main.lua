@@ -57,37 +57,6 @@ local function loadHouseData(src)
     TriggerClientEvent("qb-houses:client:setHouseConfig", src, Houses)
 end
 
-local function ExtractIdentifiers(id)
-	local identifiers = {
-		steam = "",
-		ip = "",
-		discord = "",
-		license = "",
-		xbl = "",
-		live = ""
-	}
-
-	for i = 0, GetNumPlayerIdentifiers(id) - 1 do
-		local playerID = GetPlayerIdentifier(id, i)
-
-		if string.find(playerID, "steam") then
-			identifiers.steam = playerID
-		elseif string.find(playerID, "ip") then
-			identifiers.ip = playerID
-		elseif string.find(playerID, "discord") then
-			identifiers.discord = playerID
-		elseif string.find(playerID, "license") then
-			identifiers.license = playerID
-		elseif string.find(playerID, "xbl") then
-			identifiers.xbl = playerID
-		elseif string.find(playerID, "live") then
-			identifiers.live = playerID
-		end
-	end
-
-	return identifiers
-end
-
 -- Commands
 
 QBCore.Commands.Add("logout", Lang:t("commands.logout_description"), {}, false, function(source)
