@@ -88,7 +88,6 @@ end)
 
 RegisterNetEvent('qb-multicharacter:server:loadUserData', function(cData)
     local src = source
-    local identifierlist = ExtractIdentifiers(src)
     if QBCore.Player.Login(src, cData.citizenid) then
         repeat
             Wait(10)
