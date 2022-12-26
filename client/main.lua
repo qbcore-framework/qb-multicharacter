@@ -99,6 +99,21 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     openCharMenu(true)
 end)
 
+RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords)
+    local ped = PlayerPedId()
+    local coordsVec = vector3(coords.x, coords.y, coords.z)
+    local interior = GetInteriorAtCoords(coordsVec)
+    if interior ~= 0 then
+        PinInteriorInMemory(interior)
+    end
+    SetEntityCoords(ped, coordsVec)
+    FreezeEntityPosition(ped, false)
+    SetEntityVisible(ped, true)
+    TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
+    TriggerEvent('QBCore:Client:OnPlayerLoaded')
+    DoScreenFadeIn(250)
+end)
+
 -- NUI Callbacks
 
 RegisterNUICallback('closeUI', function(_, cb)
