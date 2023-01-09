@@ -1,8 +1,17 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
+html {
+    font-family: var(--font-family, 'Poppins', sans-serif);
+    color: var(--multichar-text-color, #ebebeb);
+}
+
+.theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
+    color: var(--multichar-text-color, #ebebeb) !important;
+}
+
 .characters::-webkit-scrollbar {
-    display:none;
-} 
+    display: none;
+}
 
 .main-screen {
     position: absolute;
@@ -14,49 +23,45 @@
 }
 
 .characters-list {
-    position: absolute;
-    min-width: 26%;
-    width: fit-content;
-    min-height: 50%;
-    height: fit-content;
-    max-height: 70%;
-    left: 14%;
-    top: 20%;
-    background-color: #161923f2;
-    border-radius: 5px;
-    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
-    padding: 30px;
-    transition: 400ms;
-
-    overflow-y: scroll!important;
-    overflow-x: hidden!important;
-
     -ms-overflow-style: none;
+    background-color: var(--multichar-bg-color, #161923f2);
+    border-radius: 5px;
+    box-shadow: var(--multichar-box-shadow, rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px);
+    height: fit-content;
+    left: 14%;
+    max-height: 70%;
+    min-height: 50%;
+    min-width: 26%;
+    overflow-x: hidden !important;
+    overflow-y: scroll !important;
+    padding: var(--multichar-padding, 30px);
+    position: absolute;
     scrollbar-width: none;
+    top: 20%;
+    transition: 400ms;
+    width: fit-content;
 }
 
 .characters-list::-webkit-scrollbar {
     display: none;
 }
-  
 
 .character-list-header {
-    text-transform: uppercase;
+    text-transform: var(--multichar-header-text-transform, uppercase);
     position: relative;
     top: -2vh;
     width: 100%;
     height: 10%;
     right: 0;
-} 
+}
 
 .character-list-header>p {
     text-align: center;
     font-size: 2vh;
     margin-top: 3.1vh;
-    font-family: 'Poppins', sans-serif;
     letter-spacing: .1vh;
     font-weight: 900;
-    color: #ededed;
+    color: var(--multichar-header-color, #ededed);
 }
 
 .characters {
@@ -69,7 +74,6 @@
     width: 100%;
     height: 7vh;
     margin-top: 1.25vh;
-    font-family: 'Poppins', sans-serif;
     border-bottom: 4px solid #74aa3200;
     transition: .1s linear;
     border-radius: .3vh;
@@ -79,20 +83,18 @@
 }
 
 .character:hover {
-    background-color: #a90d2ca6;
+    background-color: var(--multichar-character-bg-hover, #a90d2ca6);
     box-shadow: rgb(37 17 17 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18
 }
 
-.character>span {
-    color: #ededed;
+.character > span {
     font-weight: 900;
-    text-transform: uppercase;
+    text-transform: var(--multichar-character-text-transform, uppercase);
     letter-spacing: .1vh;
-    font-family: 'Poppins', sans-serif;
 }
 
 .cid {
-    color: #ededed;
+    color: inherit;
     position: relative;
     font-size: 1.5vh;
     flex: 0 0 40%;
@@ -101,16 +103,14 @@
 }
 
 .char-selected {
-    background-color: #a90d2ca6;
+    background-color: var(--multichar-character-bg-selected, #a90d2ca6);
     box-shadow: rgb(37 17 20 / 25%) 0px 30px 60px -12px inset, rgb(154 54 54 / 30%) 0px 18px 36px -18;
     transition: 250ms;
 }
 
 .slot-name {
     position: relative;
-    color: #ededed;
     font-size: 1.5vh;
-    font-family: 'Poppins', sans-serif;
     flex: 0 0 60%;
     padding-left: 10px;
 }
@@ -130,43 +130,45 @@
     overflow: visible !important;
 }
 
-#play {
-    background-color: rgb(47 134 67);
-    border-radius: .3vh;
-    transition: all 0.2s ease;
-}
-
+#play,
 #delete {
-    background-color: rgb(144 41 62);
-    border-radius: .3vh;
-    transition: all 0.2s ease;
+    border-radius: var(--button-border-radius, .3vh);
+    transition: var(--button-transition, all 0.2s ease);
 }
 
-#play:hover, #delete:hover {
+#play:hover,
+#delete:hover {
     box-shadow: rgb(17 17 37 / 25%) 0px 30px 60px -12px inset, rgb(54 80 154 / 30%) 0px 18px 36px -18px;
 }
 
+#play {
+    background-color: var(--button-bg-color, rgb(47 134 67));
+}
+
+#delete {
+    background-color: var(--button-cancel-bg-color, rgb(144 41 62));
+}
+
 .character-info {
-    min-width: 22.5%;
-    width: fit-content;
+    background-color: var(--multichar-bg-color, #161923f2);
+    border-radius: var(--border-radius, 5px);
+    box-shadow: var(--box-shadow, rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px);
+    height: fit-content;
     max-width: 27.5%;
     min-height: 50%;
-    height: fit-content;
-
+    min-width: 22.5%;
+    overflow: visible !important;
+    padding: var(--multichar-padding, 30px);
     position: absolute;
     right: 14%;
     top: 20%;
-    padding: 30px;
-    background-color: #161923f2;
-    border-radius: 5px;
-    box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
-    overflow: visible !important;
     transition: 400ms;
+    width: fit-content;
 }
 
 .char-info-header {
     display: block;
-    text-transform: uppercase;
+    text-transform: var(--multichar-header-text-transform, uppercase);
     width: 100%;
     text-align: center;
     font-size: 2vh;
@@ -193,7 +195,7 @@
     margin-top: 25px;
 }
 
-.character-info table, 
+.character-info table,
 .character-info tbody,
 .character-info tr,
 .character-info td {
@@ -217,48 +219,51 @@
 }
 
 .character-delete {
-    position: absolute;
-    width: 33vh;
-    padding: 30px;
-    font-family: 'Poppins', sans-serif;
-    color: #ededed;
-    background-color: rgb(27 33 49 / 95%);
+    background-color: var(--multichar-bg-color, rgb(27 33 49 / 95%));
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
-    font-family: 'Poppins', sans-serif;
-    top: 50%;
+    color: #ededed;
     left: 50%;
-    transform: translateX(-50%) translateY(-50%);
     overflow: visible !important;
+    padding: 30px;
+    position: absolute;
+    top: 50%;
+    transform: translateX(-50%) translateY(-50%);
+    width: 33vh;
 }
 
 .v-btn__content {
-    color: white!important;
-    font-weight: 600!important;
+    color: white !important;
+    font-weight: 600 !important;
 }
 
 .v-btn.v-size--large .v-btn__content {
-    font-size: 1.75vh!important;
+    font-size: 1.75vh !important;
 }
 
 .v-btn:not(.v-size--large) .v-btn__content {
-    font-size: 1rem!important;
+    font-size: 1rem !important;
+}
+
+.theme--light.v-input,
+.theme--light.v-input input,
+.theme--light.v-input,
+.theme--light.v-input input::placeholder,
+.v-list-item__title,
+.v-select__selection.v-select__selection--comma {
+    color: white !important;
 }
 
 .characters-delete-block-header {
-    width: 100%;
-    color: #ededed;
-    text-align: left;
-    font-size: 2vh!important;
+    font-size: 2vh !important;
     line-height: 29px;
-    font-family: 'Poppins', sans-serif;
     font-weight: 900;
-    text-transform: uppercase;
+    text-transform: var(--multichar-character-text-transform, uppercase);
     overflow: visible !important;
     margin-bottom: 5px;
 }
 
-.character-delete>p {
+.character-delete > p {
     font-size: 1.3vh;
     overflow: visible !important;
 }
@@ -282,20 +287,19 @@
 }
 
 .character-register {
-    position: relative;
-    width: 25%;
-    height: fit-content;
-    top: 50%;
-    transform: translateY(-50%);
-    margin-left: auto;
-    margin-right: auto;
-    left: 32px;
-    padding: 30px;
-    font-family: 'Poppins', sans-serif;
-    background-color: #161923f2;
+    background-color: var(--multichar-bg-color, rgb(27 33 49 / 95%));
     border-radius: 5px;
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
+    height: fit-content;
+    left: 32px;
+    margin-left: auto;
+    margin-right: auto;
+    padding: 30px;
+    position: relative;
+    top: 50%;
+    transform: translateY(-50%);
     transition: 400ms;
+    width: 25%;
 }
 
 #close-reg {
@@ -316,9 +320,8 @@
 }
 
 .characters-register-block-header {
-    text-transform: uppercase;
+    text-transform: var(--multichar-header-text-transform, uppercase);
     width: 100%;
-    color: #ededed;
     text-align: left;
     font-size: 2vh;
     font-weight: 900;
@@ -328,24 +331,18 @@
     overflow: visible !important;
 }
 
-.theme--light.v-input, .theme--light.v-input input,
-.theme--light.v-input, .theme--light.v-input input::placeholder,
-.v-list-item__title,
-.v-select__selection.v-select__selection--comma {
-    color: white!important;
-}
+
 
 .v-menu__content.theme--light.menuable__content__active {
-    margin-top: 5vh;
-    overflow-y: scroll!important;
-    overflow-x: hidden!important;
-
+    margin-top: var(--multichar-create-dropdown-margin-top, 48px);
+    overflow-y: scroll !important;
+    overflow-x: hidden !important;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
 
 .theme--light.v-list {
-    background: #182131!important;
+    background: #182131 !important;
 }
 
 select {
@@ -362,10 +359,7 @@ select {
     max-width: 100%;
     padding: 4px;
     border-radius: .3vh;
-    font-family: 'Poppins', sans-serif;
     text-align-last: center;
-    -webkit-appearance: none;
-    -moz-appearance: none;
     text-indent: 1px;
     text-overflow: '';
     transition: all 0.2s ease-in-out;
@@ -389,7 +383,6 @@ select::-ms-expand {
 }
 
 input[type="date"] {
-    color: #ededed;
     text-align: center;
 }
 
@@ -417,33 +410,29 @@ input[type="date"]::-webkit-clear-button {
     margin-top: 25px;
 }
 
-.character-reg-btn>p {
+.character-reg-btn > p {
     text-align: center;
     line-height: 4vh;
-    color: #ededed;
-    text-transform: uppercase;
-    font-family: 'Poppins', sans-serif;
+    text-transform: var(--multichar-button-text-transform, uppercase);
     font-size: 2vh;
-    font-weight: 900;
 }
 
 .loading-container {
-    position: absolute;
-    margin: 0 auto;
-    left: 0;
-    right: 0;
-    top: 50%;
-    width: 150px;
     height: 150px;
-    transform: translateY(-50%);
-    text-align: center;
+    left: 0;
+    margin: 0 auto;
     padding: 1vh;
+    position: absolute;
+    right: 0;
+    text-align: center;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 150px;
 }
 
 .loading-container > p {
-    color: white;
+    color: var(--multichar-loading-text-color, #ededed);
     margin-top: 1vh;
-    font-family: 'Poppins', sans-serif;
     text-shadow: 1px 1px 0px #00000085;
 }
 
@@ -482,6 +471,7 @@ input[type="date"]::-webkit-clear-button {
     0% {
         transform: rotate(0deg);
     }
+
     100% {
         transform: rotate(360deg);
     }
@@ -504,52 +494,47 @@ input[type="date"]::-webkit-clear-button {
 .slide-top-left-fade-enter-from,
 .slide-top-left-fade-leave-to {
     transform: translateX(-10%) translateY(-10%);
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 .slide-top-right-fade-enter-from,
 .slide-top-right-fade-leave-to {
     transform: translateX(10%) translateY(-10%);
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 .slide-top-fade-enter-from,
 .slide-top-fade-leave-to {
     transform: translateY(-10%);
-    opacity: 0!important;
+    opacity: 0 !important;
 }
 
 .char-register-inputs div:not(:first-child) {
     margin-top: 10px;
 }
 
+.v-btn {
+   text-transform: var(--multichar-button-text-transform, uppercase) !important; 
+}
+
 .v-date-picker-table .v-btn--active {
-    background: #DC143C;
+    background: var(--primary, #DC143C) !important;
 }
 
 .theme--light.v-picker__body {
-    background: #161923f2!important;
+    background: var(--multichar-bg-color, #161923f2) !important;
 }
 
 .v-picker__actions.v-card__actions {
-    background: rgb(24 29 41 / 95%)!important
+    background: rgb(24 29 41 / 95%) !important
 }
 
 .v-picker__title.primary {
-    background: #DC143C!important;
+    background: var(--primary, #DC143C) !important;
 }
 
-.theme--light.v-date-picker-header .v-date-picker-header__value:not(.v-date-picker-header__value--disabled) button:not(:hover):not(:focus) {
-    color: white!important;
-}
-
-.v-date-picker-table .v-btn__content,
-.v-picker__actions .v-btn__content,
-.theme--light.v-date-picker-table .v-date-picker-table--date__week, .theme--light.v-date-picker-table th,
-.v-date-picker-header__value button,
-.v-date-picker-header__value button:hover,
-.v-date-picker-years li {
-    color: white!important;
+.theme--light.v-btn.v-btn--icon, .theme--light {
+    color: inherit !important;
 }
 
 button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--light.accent--text {
@@ -557,7 +542,7 @@ button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--
 }
 
 .v-date-picker-years {
-    overflow: scroll!important;
+    overflow: scroll !important;
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
@@ -569,9 +554,9 @@ button.v-btn.v-date-picker-table__current.v-btn--rounded.v-btn--outlined.theme--
 .v-input--is-disabled.v-text-field .v-input__control .v-input__slot,
 .v-input--is-disabled.v-text-field .v-input__control input[role=button],
 .character-delete>p {
-    cursor: default!important;
+    cursor: default !important;
 }
 
 .v-btn:not(.v-btn--round).v-size--large {
-    height: 3.5vh!important;
+    height: 3.5vh !important;
 }
