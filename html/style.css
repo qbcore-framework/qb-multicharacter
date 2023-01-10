@@ -1,9 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@100&display=swap');
 
-.characters::-webkit-scrollbar {
-    display:none;
-} 
-
 .main-screen {
     position: absolute;
     height: 100vh;
@@ -27,18 +23,9 @@
     box-shadow: rgb(0 0 0 / 16%) 0px 3px 6px, rgb(0 0 0 / 23%) 0px 3px 6px;
     padding: 30px;
     transition: 400ms;
-
-    overflow-y: scroll!important;
-    overflow-x: hidden!important;
-
-    -ms-overflow-style: none;
-    scrollbar-width: none;
 }
 
-.characters-list::-webkit-scrollbar {
-    display: none;
-}
-  
+
 
 .character-list-header {
     text-transform: uppercase;
@@ -47,7 +34,7 @@
     width: 100%;
     height: 10%;
     right: 0;
-} 
+}
 
 .character-list-header>p {
     text-align: center;
@@ -61,7 +48,14 @@
 
 .characters {
     width: 100%;
-    height: 72.5%;
+    height: 32vh;
+    overflow-y: scroll!important;
+    overflow-x: hidden!important;
+    -ms-overflow-style: none;
+}
+
+.characters::-webkit-scrollbar {
+    display: none;
 }
 
 .character {
@@ -193,7 +187,7 @@
     margin-top: 25px;
 }
 
-.character-info table, 
+.character-info table,
 .character-info tbody,
 .character-info tr,
 .character-info td {
