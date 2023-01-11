@@ -12,7 +12,7 @@
 .characters-list {
     position: absolute;
     min-width: 26%;
-    width: fit-content;
+    width: fit-contents;
     min-height: 50%;
     height: fit-content;
     max-height: 70%;
@@ -49,15 +49,28 @@
 .characters {
     width: 100%;
     height: 32vh;
-    overflow-y: scroll!important;
+    overflow-y: auto!important;
     overflow-x: hidden!important;
     -ms-overflow-style: none;
 }
 
 .characters::-webkit-scrollbar {
-    display: none;
+    display: auto;
 }
 
+.characters::-webkit-scrollbar {
+    width:1vh;
+}
+.characters::-webkit-scrollbar-track {
+    border-radius:20px;
+    border:1px solid #000000;
+    background:#000000;
+}
+.characters::-webkit-scrollbar-thumb {
+    border-radius:20px;
+    border:1px solid #000000;
+    background-color:#a90d2ca6;
+}
 .character {
     position: relative;
     width: 100%;
