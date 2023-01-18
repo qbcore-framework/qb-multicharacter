@@ -52,6 +52,7 @@
     overflow-y: auto!important;
     overflow-x: hidden!important;
     -ms-overflow-style: none;
+    padding-right: 10px;
 }
 
 .characters::-webkit-scrollbar {
