@@ -12,9 +12,9 @@
 .characters-list {
     position: absolute;
     min-width: 26%;
-    width: fit-contentss;
+    width: fit-content;
     min-height: 50%;
-    height: fit-contents;
+    height: fit-content;
     max-height: 70%;
     left: 14%;
     top: 20%;
@@ -155,10 +155,10 @@
 
 .character-info {
     min-width: 22.5%;
-    width: fit-contents;
+    width: fit-content;
     max-width: 27.5%;
     min-height: 50%;
-    height: fit-contents;
+    height: fit-content;
 
     position: absolute;
     right: 14%;
@@ -291,7 +291,7 @@
 .character-register {
     position: relative;
     width: 25%;
-    height: fit-contents;
+    height: fit-content;
     top: 50%;
     transform: translateY(-50%);
     margin-left: auto;
