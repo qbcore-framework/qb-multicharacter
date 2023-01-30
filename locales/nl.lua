@@ -59,7 +59,7 @@ local Translations = {
         confirm = "Bevestig",
 
         -- Loading Text
-        retrieving_playerdata = "spelergegevens ophalen",
+        retrieving_playerdata = "Spelergegevens ophalen",
         validating_playerdata = "Gegevens valideren",
         retrieving_characters = "Ophalen van personages",
         validating_characters = "Karakters valideren",
@@ -71,7 +71,10 @@ local Translations = {
     }
 }
 
-Lang = Lang or Locale:new({
-    phrases = Translations,
-    warnOnMissing = true
-})
+if GetConvar('qb_locale', 'en') == 'nl' then
+    Lang = Locale:new({
+        phrases = Translations,
+        warnOnMissing = true,
+        fallbackLang = Lang,
+    })
+end
