@@ -8,14 +8,14 @@ local Translations = {
     commands = {
         -- /deletechar
         ["deletechar_description"] = "Apaga o personagem de outro jogador",
-		["citizenid"] = "ID de cidadão",
-		["citizenid_help"] = "O ID de cidadão do personagem que pretende apagar",
+	["citizenid"] = "ID de cidadão",
+	["citizenid_help"] = "O ID de cidadão do personagem que pretende apagar",
 
         - /logout
-    ["logout_description"] = "Desconectar de personagem (Apenas administrador)",
+     	["logout_description"] = "Desconectar de personagem (Apenas administrador)",
 
-    -- /closeNUI
-    ["closeNUI_description"] = "Fechar Multi NUI"
+    	-- /closeNUI
+    	["closeNUI_description"] = "Fechar Multi NUI"
     },
 
     misc = {
@@ -52,7 +52,7 @@ local Translations = {
 
         -- Delete character
         deletechar_header = "Apagar Personagem",
-		deletechar_description = "Tem a certeza de que pretende apagar o seu personagem?",
+	deletechar_description = "Tem a certeza de que pretende apagar o seu personagem?",
 
         -- Buttons
         cancel = "Cancelar",
@@ -60,14 +60,14 @@ local Translations = {
 
         -- Loading Text
         retrieving_playerdata = "A obter dados do jogador",
-		validating_playerdata = "A validar dados do jogador",
-		retrieving_characters = "A obter personagens",
-		validating_characters = "A validar personagens"
+	validating_playerdata = "A validar dados do jogador",
+	retrieving_characters = "A obter personagens",
+	validating_characters = "A validar personagens"
 
         -- Notifications
         ran_into_issue = "Encontrámos um problema",
-		profanity = "Parece que está a tentar usar algum tipo de palavrão/palavras más no seu nome ou na sua nacionalidade!",
-		forgotten_field = "Parece que se esqueceu de inserir um ou vários dos campos!"
+	profanity = "Parece que está a tentar usar algum tipo de palavrão/palavras más no seu nome ou na sua nacionalidade!",
+	forgotten_field = "Parece que se esqueceu de inserir um ou vários dos campos!"
     }
 }
 
