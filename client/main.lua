@@ -104,6 +104,17 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     openCharMenu(true)
 end)
 
+RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords)
+    local ped = PlayerPedId()
+    SetEntityCoords(ped, coords.x, coords.y, coords.z)
+    SetEntityHeading(ped, coords.w)
+    FreezeEntityPosition(ped, false)
+    SetEntityVisible(ped, true)
+    TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
+    TriggerEvent('QBCore:Client:OnPlayerLoaded')
+    DoScreenFadeIn(250)
+end)
+
 -- NUI Callbacks
 
 RegisterNUICallback('closeUI', function(_, cb)
@@ -122,9 +133,14 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     local cData = data.cData
     DoScreenFadeOut(10)
     TriggerServerEvent('qb-multicharacter:server:loadUserData', cData)
-    openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
+    if Config.SkipSelection then
+        SetNuiFocus(false, false)
+        skyCam(false)
+    else
+        openCharMenu(false)
+    end
     cb("ok")
 end)
 
