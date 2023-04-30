@@ -1,5 +1,6 @@
 local cam = nil
 local charPed = nil
+local loadScreenCheckState = false
 local QBCore = exports['qb-core']:GetCoreObject()
 
 local clothingScript = "qb-clothing"
@@ -58,6 +59,10 @@ local function openCharMenu(bool)
             translations = translations
         })
         skyCam(bool)
+        if not loadScreenCheckState then
+            ShutdownLoadingScreenNui()
+            loadScreenCheckState = true
+        end
     end)
 end
 
