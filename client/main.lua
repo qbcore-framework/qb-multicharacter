@@ -106,12 +106,24 @@ end)
 
 RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords)
     local ped = PlayerPedId()
-    SetEntityCoords(ped, coords.x, coords.y, coords.z)
-    SetEntityHeading(ped, coords.w)
-    FreezeEntityPosition(ped, false)
-    SetEntityVisible(ped, true)
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    local insideMeta = PlayerData.metadata["inside"]
+    DoScreenFadeOut(500)
+
+    if insideMeta.house then
+        TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
+    elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
+        TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
+    else
+        SetEntityCoords(ped, coords.x, coords.y, coords.z)
+        SetEntityHeading(ped, coords.w)
+        FreezeEntityPosition(ped, false)
+        SetEntityVisible(ped, true)
+    end
+
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
     TriggerEvent('QBCore:Client:OnPlayerLoaded')
+    Wait(2000)
     DoScreenFadeIn(250)
 end)
 
