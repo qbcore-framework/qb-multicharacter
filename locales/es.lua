@@ -66,6 +66,8 @@ local Translations = {
 
         -- Notifications
         ran_into_issue = "Nos encontramos con un problema",
+        wrong_firstname = "El nombre sólo puede contener letras y debe tener al menos 3 caracteres",
+        wrong_lastname = "El apellido sólo puede contener letras y un espacio como máximo, y debe tener al menos 3 caracteres",
         profanity = "¡Parece que está intentando utilizar algún tipo de blasfemia / malas palabras en su nombre o nacionalidad!",
         forgotten_field = "¡Parece que ha olvidado introducir uno o varios campos!"
     }

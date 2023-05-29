@@ -66,6 +66,8 @@ local Translations = {
 
         -- Notifications
         ran_into_issue = "Vi stötte på ett problem",
+        wrong_firstname = "Förnamnet får endast innehålla bokstäver och måste vara minst 3 tecken långt",
+        wrong_lastname = "Efternamnet får endast innehålla bokstäver och max ett mellanslag, och måste vara minst 3 tecken långt",
         profanity = "Du verkar ha försökt använda någon sorts svordom eller fult ord i ditt namn eller nationalitet!",
         forgotten_field = "Det verkar som att du glömt fylla i någon utav fälten!"
     }

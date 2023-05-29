@@ -279,7 +279,7 @@
                         const result = data.data;
 
                         const selectDrop = document.getElementById('nationality');
-                        
+
                         result.forEach(obj => {
                             viewmodel.nationalities.push(obj.country);
                         });
@@ -345,14 +345,16 @@
 
                 create_character: function() {
                     const registerData = this.registerData
+                    var firstnameTest = (registerData.firstname !== undefined && /^[a-zA-Z]{3,}$/.test(registerData.firstname))
+                    var lastnameTest = (registerData.lastname !== undefined && /^[a-zA-Z]{2,}(?:\s[a-zA-Z]+)?$/.test(registerData.lastname))
                     var profanityTest = (!regTest.test(registerData.firstname) && !regTest.test(registerData.nationality) && !regTest.test(registerData.lastname))
 
-                    if (profanityTest && registerData.firstname !== undefined && registerData.firstname !== "" && registerData.lastname !== undefined && registerData.lastname !== "" && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
+                    if (firstnameTest && lastnameTest && profanityTest && registerData.gender !== undefined && registerData.nationality !== undefined && registerData.nationality !== "" && registerData.date !== undefined) {
                         this.show.register = false
 
                         axios.post('https://qb-multicharacter/createNewCharacter', {
-                            firstname: registerData.firstname,
-                            lastname: registerData.lastname,
+                            firstname: registerData.firstname.trim(),
+                            lastname: registerData.lastname.trim(),
                             nationality: registerData.nationality,
                             birthdate: registerData.date,
                             gender: registerData.gender,
@@ -360,7 +362,27 @@
                         });
                     }
                     else {
-                        if (!profanityTest) {
+                        if (!firstnameTest) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: this.translate('ran_into_issue'),
+                                text: this.translate('wrong_firstname'),
+                                timer: 5000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                            })
+                        }
+                        else if (!lastnameTest) {
+                            Swal.fire({
+                                icon: 'error',
+                                title: this.translate('ran_into_issue'),
+                                text: this.translate('wrong_lastname'),
+                                timer: 5000,
+                                timerProgressBar: true,
+                                showConfirmButton: false
+                            })
+                        }
+                        else if (!profanityTest) {
                             Swal.fire({
                                 icon: 'error',
                                 title: this.translate('ran_into_issue'),
@@ -451,7 +473,7 @@
                     }
                 });
             }
-            
+
         });
     </script>
 </html>

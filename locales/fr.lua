@@ -32,7 +32,7 @@ local Translations = {
 
         -- Character Information
         charinfo_header = "Informations Personnage",
-        charinfo_description = "Sélectionnez un slot pour voir toutes les informations a propos du personnage.",
+        charinfo_description = "Sélectionnez un slot pour voir toutes les informations à propos du personnage",
         name = "Nom",
         male = "Homme",
         female = "Femme",
@@ -43,7 +43,7 @@ local Translations = {
         birthdate = "Date de Naissance",
         job = "Travail",
         jobgrade = "Grade",
-        cash = "Cash",
+        cash = "Liquide",
         bank = "Banque",
         phonenumber = "Numéro de téléphone",
         accountnumber = "Numéro banquaire",
@@ -66,6 +66,8 @@ local Translations = {
 
         -- Notifications
         ran_into_issue = "Nous avons rencontré un problème",
+        wrong_firstname = "Le prénom ne peut contenir que des lettres et doit faire au moins 3 caractères",
+        wrong_lastname = "Le nom ne peut contenir que des lettres et un espace au maximum, et doit faire au moins 3 caractères",
         profanity = "Il semblerait que vous essayez d'utiliser une profanité / gros mot dans votre nom / nationalité!",
         forgotten_field = "Il semblerait que vous avez oublié de remplir un ou plusieurs champ(s)!"
     }

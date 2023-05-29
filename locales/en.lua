@@ -66,6 +66,8 @@ local Translations = {
 
         -- Notifications
         ran_into_issue = "We ran into an issue",
+        wrong_firstname = "The firstname can only contain letters and must be at least 3 characters long",
+        wrong_lastname = "The name can only contain letters and a space at most, and must be at least 3 characters long",
         profanity = "It seems like you are trying to use some type of profanity / bad words in your name or nationality!",
         forgotten_field = "It seems like you have forgotten to input one or multiple of the fields!"
     }

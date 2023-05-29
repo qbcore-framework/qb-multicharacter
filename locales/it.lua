@@ -66,6 +66,8 @@ local Translations = {
 
         -- Notifications
         ran_into_issue = "Abbiamo riscontrato un problema, contatta lo staff",
+        wrong_firstname = "Il nome può contenere solo lettere e deve essere lungo almeno 3 caratteri",
+        wrong_lastname = "Il cognome può contenere solo lettere e un massimo di uno spazio e deve essere lungo almeno 3 caratteri",
         profanity = "Sembra che tu stia usando qualche parola non consentita nella creazione del personaggio!",
         forgotten_field = "Tutti i campi devono essere compialti!"
     }
