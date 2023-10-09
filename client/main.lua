@@ -106,10 +106,53 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
     openCharMenu(true)
 end)
 
+RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, cData)
+    QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
+        if result then
+            TriggerEvent("apartments:client:SetHomeBlip", result.type)
+            local ped = PlayerPedId()
+            SetEntityCoords(ped, coords.x, coords.y, coords.z)
+            SetEntityHeading(ped, coords.w)
+            FreezeEntityPosition(ped, false)
+            SetEntityVisible(ped, true)
+            local PlayerData = QBCore.Functions.GetPlayerData()
+            local insideMeta = PlayerData.metadata["inside"]
+            DoScreenFadeOut(500)
+
+            if insideMeta.house then
+                TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
+            elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
+                TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
+            else
+                SetEntityCoords(ped, coords.x, coords.y, coords.z)
+                SetEntityHeading(ped, coords.w)
+                FreezeEntityPosition(ped, false)
+                SetEntityVisible(ped, true)
+            end
+
+            TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
+            TriggerEvent('QBCore:Client:OnPlayerLoaded')
+            Wait(2000)
+            DoScreenFadeIn(250)
+        end
+    end, cData.citizenid)
+end)
+
 -- NUI Callbacks
 
 RegisterNUICallback('closeUI', function(_, cb)
+    local cData = data.cData
+    DoScreenFadeOut(10)
+    TriggerServerEvent('qb-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
+    SetEntityAsMissionEntity(charPed, true, true)
+    DeleteEntity(charPed)
+    if Config.SkipSelection then
+        SetNuiFocus(false, false)
+        skyCam(false)
+    else
+        openCharMenu(false)
+    end
     cb("ok")
 end)
 
