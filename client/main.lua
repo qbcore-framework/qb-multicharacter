@@ -2,8 +2,12 @@ local cam = nil
 local charPed = nil
 local loadScreenCheckState = false
 local QBCore = exports['qb-core']:GetCoreObject()
-
 local cached_player_skins = {}
+
+local randommodels = { -- models possible to load when choosing empty slot
+    'mp_m_freemode_01',
+    'mp_f_freemode_01',
+}
 
 -- Main Thread
 
@@ -18,6 +22,32 @@ CreateThread(function()
 end)
 
 -- Functions
+
+local function loadModel(model)
+    RequestModel(model)
+    while not HasModelLoaded(model) do
+        Wait(0)
+    end
+end
+
+
+local function initializePedModel(model, data)
+    CreateThread(function()
+        if not model then
+            model = joaat(randommodels[math.random(#randommodels)])
+        end
+        loadModel(model)
+        charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
+        SetPedComponentVariation(charPed, 0, 0, 0, 2)
+        FreezeEntityPosition(charPed, false)
+        SetEntityInvincible(charPed, true)
+        PlaceObjectOnGroundProperly(charPed)
+        SetBlockingOfNonTemporaryEvents(charPed, true)
+        if data then
+            TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
+        end
+    end)
+end
 
 local function skyCam(bool)
     TriggerEvent('qb-weathersync:client:DisableSync')
@@ -172,35 +202,6 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     DeleteEntity(charPed)
     cb("ok")
 end)
-
-local function loadModel(model)
-    RequestModel(model)
-    while not HasModelLoaded(model) do
-        Wait(0)
-    end
-end
-
-local randommodels = {
-    "mp_m_freemode_01",
-    "mp_f_freemode_01",
-}
-local function initializePedModel(model, data)
-    CreateThread(function()
-        if not model then
-            model = joaat(randommodels[math.random(#randommodels)])
-        end
-        loadModel(model)
-        charPed = CreatePed(2, model, Config.PedCoords.x, Config.PedCoords.y, Config.PedCoords.z - 0.98, Config.PedCoords.w, false, true)
-        SetPedComponentVariation(charPed, 0, 0, 0, 2)
-        FreezeEntityPosition(charPed, false)
-        SetEntityInvincible(charPed, true)
-        PlaceObjectOnGroundProperly(charPed)
-        SetBlockingOfNonTemporaryEvents(charPed, true)
-        if data then
-            TriggerEvent('qb-clothing:client:loadPlayerClothing', data, charPed)
-        end
-    end)
-end
 
 RegisterNUICallback('cDataPed', function(nData, cb)
     local cData = nData.cData
