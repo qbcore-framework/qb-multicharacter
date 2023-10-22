@@ -155,11 +155,6 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
         		TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
    		elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
         		TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
-    		else
-        		SetEntityCoords(ped, coords.x, coords.y, coords.z)
-        		SetEntityHeading(ped, coords.w)
-        		FreezeEntityPosition(ped, false)
-        		SetEntityVisible(ped, true)
     		end
 
     		TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
