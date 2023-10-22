@@ -137,31 +137,31 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
 end)
 
 RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, cData)
-	QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
-		if result then
-			TriggerEvent("apartments:client:SetHomeBlip", result.type)
-		end
-				
-		local ped = PlayerPedId()
-		SetEntityCoords(ped, coords.x, coords.y, coords.z)
-		SetEntityHeading(ped, coords.w)
-		FreezeEntityPosition(ped, false)
-		SetEntityVisible(ped, true)
-		local PlayerData = QBCore.Functions.GetPlayerData()
-		local insideMeta = PlayerData.metadata["inside"]
-		DoScreenFadeOut(500)
+    QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
+        if result then
+            TriggerEvent("apartments:client:SetHomeBlip", result.type)
+        end
 
-    		if insideMeta.house then
-        		TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
-   		elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
-        		TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
-    		end
+        local ped = PlayerPedId()
+        SetEntityCoords(ped, coords.x, coords.y, coords.z)
+        SetEntityHeading(ped, coords.w)
+        FreezeEntityPosition(ped, false)
+        SetEntityVisible(ped, true)
+        local PlayerData = QBCore.Functions.GetPlayerData()
+        local insideMeta = PlayerData.metadata["inside"]
+        DoScreenFadeOut(500)
 
-    		TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
-    		TriggerEvent('QBCore:Client:OnPlayerLoaded')
-   		Wait(2000)
-    		DoScreenFadeIn(250)
-	end, cData.citizenid)
+        if insideMeta.house then
+            TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
+        elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
+            TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
+        end
+        
+        TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
+        TriggerEvent('QBCore:Client:OnPlayerLoaded')
+        Wait(2000)
+        DoScreenFadeIn(250)
+    end, cData.citizenid)  
 end)
 
 -- NUI Callbacks
