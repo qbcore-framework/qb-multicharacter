@@ -161,7 +161,7 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
         Wait(2000)
         DoScreenFadeIn(250)
-    end, cData.citizenid)  
+    end, cData.citizenid)
 end)
 
 -- NUI Callbacks
