@@ -19,7 +19,7 @@ local Translations = {
     },
 
     misc = {
-        ["droppedplayer"] = "U bent weggegaan van BrusselRP"
+        ["droppedplayer"] = "U bent weggegaan van QBCore"
     },
 
     ui = {
