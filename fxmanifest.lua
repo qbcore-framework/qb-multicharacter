@@ -1,7 +1,8 @@
 fx_version 'cerulean'
 game 'gta5'
-
-description 'QB-Multicharacter'
+lua54 'yes'
+author 'Kakarot'
+description 'Allows players to create multiple characters'
 version '1.2.0'
 
 shared_scripts {
@@ -15,7 +16,7 @@ client_scripts {
     'client/main.lua'
 }
 
-server_scripts  {
+server_scripts {
     '@oxmysql/lib/MySQL.lua',
     '@qb-apartments/config.lua',
     'server/main.lua'
@@ -36,5 +37,3 @@ dependencies {
     'qb-core',
     'qb-spawn'
 }
-
-lua54 'yes'
