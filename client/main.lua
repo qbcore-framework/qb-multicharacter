@@ -137,10 +137,10 @@ RegisterNetEvent('qb-multicharacter:client:chooseChar', function()
 end)
 
 RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, cData)
+	local ped = PlayerPedId()
     QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
         if result then
             TriggerEvent("apartments:client:SetHomeBlip", result.type)
-            local ped = PlayerPedId()
             SetEntityCoords(ped, coords.x, coords.y, coords.z)
             SetEntityHeading(ped, coords.w)
             FreezeEntityPosition(ped, false)
@@ -160,6 +160,16 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
                 SetEntityVisible(ped, true)
             end
 
+            TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
+            TriggerEvent('QBCore:Client:OnPlayerLoaded')
+            Wait(2000)
+            DoScreenFadeIn(250)
+	else    
+	    DoScreenFadeOut(500)
+            SetEntityCoords(ped, coords.x, coords.y, coords.z, false, false, false, true)
+            SetEntityHeading(ped, coords.w)
+            FreezeEntityPosition(ped, false)
+            SetEntityVisible(ped, true, false)
             TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
             TriggerEvent('QBCore:Client:OnPlayerLoaded')
             Wait(2000)
