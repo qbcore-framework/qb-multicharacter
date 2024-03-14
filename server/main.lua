@@ -164,19 +164,15 @@ end)
 QBCore.Functions.CreateCallback("qb-multicharacter:server:GetNumberOfCharacters", function(source, cb)
     local src = source
     local license = QBCore.Functions.GetIdentifier(src, 'license')
-    local numOfChars = 0
+    local numOfChars = Config.DefaultNumberOfCharacters
 
     if next(Config.PlayersNumberOfCharacters) then
         for _, v in pairs(Config.PlayersNumberOfCharacters) do
             if v.license == license then
                 numOfChars = v.numberOfChars
                 break
-            else
-                numOfChars = Config.DefaultNumberOfCharacters
             end
         end
-    else
-        numOfChars = Config.DefaultNumberOfCharacters
     end
     cb(numOfChars)
 end)
