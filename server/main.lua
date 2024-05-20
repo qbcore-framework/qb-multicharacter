@@ -6,7 +6,6 @@ local hasDonePreloading = {}
 local function GiveStarterItems(source)
     local src = source
     local Player = QBCore.Functions.GetPlayer(src)
-
     for _, v in pairs(QBCore.Shared.StarterItems) do
         local info = {}
         if v.item == "id_card" then
@@ -22,7 +21,7 @@ local function GiveStarterItems(source)
             info.birthdate = Player.PlayerData.charinfo.birthdate
             info.type = "Class C Driver License"
         end
-        Player.Functions.AddItem(v.item, v.amount, false, info)
+        exports['qb-inventory']:AddItem(src, v.item, v.amount, false, info, 'qb-multicharacter:GiveStarterItems')
     end
 end
 
