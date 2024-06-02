@@ -142,25 +142,23 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
     SetEntityHeading(ped, coords.w)
     FreezeEntityPosition(ped, false)
     SetEntityVisible(ped, true)
+    local PlayerData = QBCore.Functions.GetPlayerData()
+    local insideMeta = PlayerData.metadata["inside"]
+    DoScreenFadeOut(500)
+
+    local isInsideProperty = function()
+        return insideMeta.house or (insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId)
+    end
+
+    local handleLocation = function()
+        if insideMeta.house then
+            TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
+        elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
+            TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
+        end
+    end
 
     QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
-        local PlayerData = QBCore.Functions.GetPlayerData()
-        local insideMeta = PlayerData.metadata["inside"]
-
-        DoScreenFadeOut(500)
-
-        local function isInsideProperty()
-            return insideMeta.house or (insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId)
-        end
-
-        local function handleLocation()
-            if insideMeta.house then
-                TriggerEvent('qb-houses:client:LastLocationHouse', insideMeta.house)
-            elseif insideMeta.apartment.apartmentType and insideMeta.apartment.apartmentId then
-                TriggerEvent('qb-apartments:client:LastLocationHouse', insideMeta.apartment.apartmentType, insideMeta.apartment.apartmentId)
-            end
-        end
-
         if result then
             TriggerEvent("apartments:client:SetHomeBlip", result.type)
         end
@@ -171,7 +169,6 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
 
         TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
         TriggerEvent('QBCore:Client:OnPlayerLoaded')
-
         Wait(2000)
         DoScreenFadeIn(250)
     end, cData.citizenid)
