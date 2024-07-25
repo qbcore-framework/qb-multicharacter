@@ -133,6 +133,7 @@ RegisterNetEvent('qb-multicharacter:server:createCharacter', function(data)
             loadHouseData(src)
             TriggerClientEvent("qb-multicharacter:client:closeNUIdefault", src)
             GiveStarterItems(src)
+            TriggerEvent('apartments:client:SetHomeBlip', nil)
         end
     end
 end)
