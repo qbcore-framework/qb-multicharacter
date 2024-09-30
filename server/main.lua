@@ -140,6 +140,7 @@ end)
 
 RegisterNetEvent('qb-multicharacter:server:deleteCharacter', function(citizenid)
     local src = source
+    if not Config.EnableDeleteButton then return end
     QBCore.Player.DeleteCharacter(src, citizenid)
     TriggerClientEvent('QBCore:Notify', src, Lang:t("notifications.char_deleted") , "success")
 end)
