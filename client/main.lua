@@ -170,9 +170,10 @@ end)
 
 -- NUI Callbacks
 
-RegisterNUICallback('closeUI', function(_, cb)
+RegisterNUICallback('closeUI', function(data, cb)
     local cData = data.cData
-    DoScreenFadeOut(10)
+    DoScreenFadeOut(500)
+    Wait(500)
     TriggerServerEvent('qb-multicharacter:server:loadUserData', cData)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
@@ -180,9 +181,14 @@ RegisterNUICallback('closeUI', function(_, cb)
     if Config.SkipSelection then
         SetNuiFocus(false, false)
         skyCam(false)
+                Wait(1000)
+        if not IsScreenFadedIn() then
+            DoScreenFadeIn(1000)
+        end
     else
         openCharMenu(false)
     end
+
     cb("ok")
 end)
 
