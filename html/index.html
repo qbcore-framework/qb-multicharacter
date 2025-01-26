@@ -278,8 +278,6 @@
                         const countries = await response.json();
                         const result = countries.sort((a, b) => (a.name.common > b.name.common ? 1 : -1));
 
-                        const selectDrop = document.getElementById("nationality");
-
                         result.forEach((obj) => {
                             viewmodel.nationalities.push(obj.name.common);
                         });
