@@ -12,13 +12,13 @@ local randommodels = { -- models possible to load when choosing empty slot
 -- Main Thread
 
 CreateThread(function()
-	while true do
-		Wait(0)
-		if NetworkIsSessionStarted() then
-			TriggerEvent('qb-multicharacter:client:chooseChar')
-			return
-		end
-	end
+    while true do
+        Wait(0)
+        if NetworkIsSessionStarted() then
+            TriggerEvent('qb-multicharacter:client:chooseChar')
+            return
+        end
+    end
 end)
 
 -- Functions
@@ -29,7 +29,6 @@ local function loadModel(model)
         Wait(0)
     end
 end
-
 
 local function initializePedModel(model, data)
     CreateThread(function()
@@ -56,7 +55,7 @@ local function skyCam(bool)
         SetTimecycleModifier('hud_def_blur')
         SetTimecycleModifierStrength(1.0)
         FreezeEntityPosition(PlayerPedId(), false)
-        cam = CreateCamWithParams("DEFAULT_SCRIPTED_CAMERA", Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, 0.0 ,0.0, Config.CamCoords.w, 60.00, false, 0)
+        cam = CreateCamWithParams('DEFAULT_SCRIPTED_CAMERA', Config.CamCoords.x, Config.CamCoords.y, Config.CamCoords.z, 0.0, 0.0, Config.CamCoords.w, 60.00, false, 0)
         SetCamActive(cam, true)
         RenderScriptCams(true, false, 1, true, true)
     else
@@ -69,7 +68,7 @@ local function skyCam(bool)
 end
 
 local function openCharMenu(bool)
-    QBCore.Functions.TriggerCallback("qb-multicharacter:server:GetNumberOfCharacters", function(result)
+    QBCore.Functions.TriggerCallback('qb-multicharacter:server:GetNumberOfCharacters', function(result)
         local translations = {}
         for k in pairs(Lang.fallback and Lang.fallback.phrases or Lang.phrases) do
             if k:sub(0, ('ui.'):len()) then
@@ -78,7 +77,7 @@ local function openCharMenu(bool)
         end
         SetNuiFocus(bool, bool)
         SendNUIMessage({
-            action = "ui",
+            action = 'ui',
             customNationality = Config.customNationality,
             toggle = bool,
             nChar = result,
@@ -139,14 +138,14 @@ end)
 RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, cData)
     QBCore.Functions.TriggerCallback('apartments:GetOwnedApartment', function(result)
         if result then
-            TriggerEvent("apartments:client:SetHomeBlip", result.type)
+            TriggerEvent('apartments:client:SetHomeBlip', result.type)
             local ped = PlayerPedId()
             SetEntityCoords(ped, coords.x, coords.y, coords.z)
             SetEntityHeading(ped, coords.w)
             FreezeEntityPosition(ped, false)
             SetEntityVisible(ped, true)
             local PlayerData = QBCore.Functions.GetPlayerData()
-            local insideMeta = PlayerData.metadata["inside"]
+            local insideMeta = PlayerData.metadata['inside']
             DoScreenFadeOut(500)
 
             if insideMeta.house then
@@ -183,14 +182,14 @@ RegisterNUICallback('closeUI', function(_, cb)
     else
         openCharMenu(false)
     end
-    cb("ok")
+    cb('ok')
 end)
 
 RegisterNUICallback('disconnectButton', function(_, cb)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
     TriggerServerEvent('qb-multicharacter:server:disconnect')
-    cb("ok")
+    cb('ok')
 end)
 
 RegisterNUICallback('selectCharacter', function(data, cb)
@@ -200,7 +199,7 @@ RegisterNUICallback('selectCharacter', function(data, cb)
     openCharMenu(false)
     SetEntityAsMissionEntity(charPed, true, true)
     DeleteEntity(charPed)
-    cb("ok")
+    cb('ok')
 end)
 
 RegisterNUICallback('cDataPed', function(nData, cb)
@@ -220,7 +219,7 @@ RegisterNUICallback('cDataPed', function(nData, cb)
             local resolved_model = Citizen.Await(temp_model)
             local resolved_data = Citizen.Await(temp_data)
 
-            cached_player_skins[cData.citizenid] = {model = resolved_model, data = resolved_data}
+            cached_player_skins[cData.citizenid] = { model = resolved_model, data = resolved_data }
         end
 
         local model = cached_player_skins[cData.citizenid].model
@@ -233,45 +232,45 @@ RegisterNUICallback('cDataPed', function(nData, cb)
         else
             initializePedModel()
         end
-        cb("ok")
+        cb('ok')
     else
         initializePedModel()
-        cb("ok")
+        cb('ok')
     end
 end)
 
 RegisterNUICallback('setupCharacters', function(_, cb)
-    QBCore.Functions.TriggerCallback("qb-multicharacter:server:setupCharacters", function(result)
-	cached_player_skins = {}
+    QBCore.Functions.TriggerCallback('qb-multicharacter:server:setupCharacters', function(result)
+        cached_player_skins = {}
         SendNUIMessage({
-            action = "setupCharacters",
+            action = 'setupCharacters',
             characters = result
         })
-        cb("ok")
+        cb('ok')
     end)
 end)
 
 RegisterNUICallback('removeBlur', function(_, cb)
     SetTimecycleModifier('default')
-    cb("ok")
+    cb('ok')
 end)
 
 RegisterNUICallback('createNewCharacter', function(data, cb)
     local cData = data
     DoScreenFadeOut(150)
-    if cData.gender == Lang:t("ui.male") then
+    if cData.gender == Lang:t('ui.male') then
         cData.gender = 0
-    elseif cData.gender == Lang:t("ui.female") then
+    elseif cData.gender == Lang:t('ui.female') then
         cData.gender = 1
     end
     TriggerServerEvent('qb-multicharacter:server:createCharacter', cData)
     Wait(500)
-    cb("ok")
+    cb('ok')
 end)
 
 RegisterNUICallback('removeCharacter', function(data, cb)
     TriggerServerEvent('qb-multicharacter:server:deleteCharacter', data.citizenid)
     DeletePed(charPed)
     TriggerEvent('qb-multicharacter:client:chooseChar')
-    cb("ok")
+    cb('ok')
 end)
