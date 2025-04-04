@@ -1,5 +1,6 @@
 local QBCore = exports['qb-core']:GetCoreObject()
 local hasDonePreloading = {}
+local Countries = json.decode(LoadResourceFile(GetCurrentResourceName(), '/countries.json'))
 
 -- Functions
 
@@ -179,7 +180,7 @@ QBCore.Functions.CreateCallback('qb-multicharacter:server:GetNumberOfCharacters'
     else
         numOfChars = Config.DefaultNumberOfCharacters
     end
-    cb(numOfChars)
+    cb(numOfChars, Countries)
 end)
 
 QBCore.Functions.CreateCallback('qb-multicharacter:server:setupCharacters', function(source, cb)

@@ -32,17 +32,6 @@ document.addEventListener("DOMContentLoaded", () => {
             nationalities: [],
         },
         methods: {
-            async fetchData() {
-                const response = await fetch("https://restcountries.com/v3.1/all");
-                if (response.ok) {
-                    const countries = await response.json();
-                    const result = countries.sort((a, b) => (a.name.common > b.name.common ? 1 : -1));
-
-                    result.forEach((obj) => {
-                        this.nationalities.push(obj.name.common);
-                    });
-                }
-            },
             click_character: function (idx, type) {
                 this.selectedCharacter = idx;
 
@@ -156,7 +145,6 @@ document.addEventListener("DOMContentLoaded", () => {
             },
         },
         mounted() {
-            this.fetchData();
             initializeValidator();
             var loadingProgress = 0;
             var loadingDots = 0;
@@ -167,6 +155,7 @@ document.addEventListener("DOMContentLoaded", () => {
                         this.customNationality = event.data.customNationality;
                         translationManager.setTranslations(event.data.translations);
                         this.translations = event.data.translations;
+                        this.nationalities = event.data.countries;
                         this.characterAmount = data.nChar;
                         this.selectedCharacter = -1;
                         this.show.register = false;

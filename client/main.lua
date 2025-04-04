@@ -68,7 +68,7 @@ local function skyCam(bool)
 end
 
 local function openCharMenu(bool)
-    QBCore.Functions.TriggerCallback('qb-multicharacter:server:GetNumberOfCharacters', function(result)
+    QBCore.Functions.TriggerCallback('qb-multicharacter:server:GetNumberOfCharacters', function(result, countries)
         local translations = {}
         for k in pairs(Lang.fallback and Lang.fallback.phrases or Lang.phrases) do
             if k:sub(0, ('ui.'):len()) then
@@ -82,7 +82,8 @@ local function openCharMenu(bool)
             toggle = bool,
             nChar = result,
             enableDeleteButton = Config.EnableDeleteButton,
-            translations = translations
+            translations = translations,
+            countries = countries,
         })
         skyCam(bool)
         if not loadScreenCheckState then
