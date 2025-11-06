@@ -168,6 +168,7 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
             end
         end, cData.citizenid)
     else
+        local ped = PlayerPedId()
         SetEntityCoords(ped, coords.x, coords.y, coords.z)
         SetEntityHeading(ped, coords.w)
         FreezeEntityPosition(ped, false)
