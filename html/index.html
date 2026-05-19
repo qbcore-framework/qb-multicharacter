@@ -106,7 +106,7 @@
                                         <template v-slot:activator="{ on, attrs }">
                                             <v-text-field v-model="registerData.date" :label="translate('birthdate')" readonly v-bind="attrs" v-on="on" solo></v-text-field>
                                         </template>
-                                        <v-date-picker v-model="registerData.date" min="1900-01-01" max="2100-12-31">
+                                        <v-date-picker v-model="registerData.date" :min="minDOB" :max="maxDOB" >
                                             <v-spacer></v-spacer>
                                             <v-btn text class="date-cancel-btn" @click="dataPickerMenu = false">{{translate('cancel')}}</v-btn>
                                             <v-btn text class="date-confirm-btn" @click="$refs.dialog.save(registerData.date)">{{translate('confirm')}}</v-btn>

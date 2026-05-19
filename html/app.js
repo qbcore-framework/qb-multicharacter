@@ -15,6 +15,7 @@ document.addEventListener("DOMContentLoaded", () => {
                 delete: false,
             },
             registerData: {
+                // will be overridden to a sensible default in mounted()
                 date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
                 firstname: undefined,
                 lastname: undefined,
@@ -31,7 +32,36 @@ document.addEventListener("DOMContentLoaded", () => {
             customNationality: false,
             nationalities: [],
         },
+
+        computed: {
+            // Allowed DOB window: [today - 100 years, today - 8 years]
+            minDOB() { return this.yearsAgo(100); },
+            maxDOB() { return this.yearsAgo(8); },
+        },
+
+        watch: {
+            // Clamp any manual edits/pastes into the allowed range
+            "registerData.date"(val) {
+                if (!val) return;
+                if (val < this.minDOB) this.registerData.date = this.minDOB;
+                else if (val > this.maxDOB) this.registerData.date = this.maxDOB;
+            },
+        },
+
         methods: {
+            // --- helpers for safe, local YYYY-MM-DD strings ---
+            localISO(date) {
+                return new Date(date.getTime() - date.getTimezoneOffset() * 60000)
+                    .toISOString()
+                    .slice(0, 10);
+            },
+            yearsAgo(years) {
+                const d = new Date();
+                d.setFullYear(d.getFullYear() - years);
+                return this.localISO(d);
+            },
+
+            // --- existing handlers (unchanged logic) ---
             click_character: function (idx, type) {
                 this.selectedCharacter = idx;
 
@@ -94,7 +124,8 @@ document.addEventListener("DOMContentLoaded", () => {
                 this.show.characters = false;
                 this.show.register = true;
                 this.registerData = {
-                    date: new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10),
+                    // sensible default (21yo) that’s within the allowed window
+                    date: this.yearsAgo(21),
                     firstname: undefined,
                     lastname: undefined,
                     nationality: undefined,
@@ -144,8 +175,13 @@ document.addEventListener("DOMContentLoaded", () => {
                 return translationManager.translate(key);
             },
         },
+
         mounted() {
             initializeValidator();
+
+            // Force a safe default DOB when the app boots
+            this.registerData.date = this.yearsAgo(21);
+
             var loadingProgress = 0;
             var loadingDots = 0;
             window.addEventListener("message", (event) => {

@@ -41,6 +41,8 @@ class TranslationManager {
             invalid_date: "Please enter a valid date of birth.",
             date: "Date of Birth",
             field: "Field",
+            age_too_young: "Birthdate must make your character at least 8 years old.",
+            age_too_old: "Birthdate cannot make your character older than 100 years.",
         };
     }
 
