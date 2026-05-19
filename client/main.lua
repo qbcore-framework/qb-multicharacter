@@ -102,7 +102,6 @@ RegisterNetEvent('qb-multicharacter:client:closeNUIdefault', function() -- This 
     Wait(2000)
     SetEntityCoords(PlayerPedId(), Config.DefaultSpawn.x, Config.DefaultSpawn.y, Config.DefaultSpawn.z)
     TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
-    TriggerEvent('QBCore:Client:OnPlayerLoaded')
     TriggerServerEvent('qb-houses:server:SetInsideMeta', 0, false)
     TriggerServerEvent('qb-apartments:server:SetInsideMeta', 0, 0, false)
     Wait(500)
@@ -161,7 +160,6 @@ RegisterNetEvent('qb-multicharacter:client:spawnLastLocation', function(coords, 
             end
 
             TriggerServerEvent('QBCore:Server:OnPlayerLoaded')
-            TriggerEvent('QBCore:Client:OnPlayerLoaded')
             Wait(2000)
             DoScreenFadeIn(250)
         end
