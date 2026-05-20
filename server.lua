@@ -1,4 +1,5 @@
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject({ 'Functions', 'Commands', 'Player' })
+local sharedStarterItems = exports['qb-core']:GetShared('StarterItems')
 local hasDonePreloading = {}
 local Countries = json.decode(LoadResourceFile(GetCurrentResourceName(), '/countries.json'))
 
@@ -6,8 +7,8 @@ local Countries = json.decode(LoadResourceFile(GetCurrentResourceName(), '/count
 
 local function GiveStarterItems(source)
     local src = source
-    local Player = QBCore.Functions.GetPlayer(src)
-    for _, v in pairs(QBCore.Shared.StarterItems) do
+    local Player = exports['qb-core']:GetPlayer(src)
+    for _, v in pairs(sharedStarterItems) do
         local info = {}
         if v.item == 'id_card' then
             info.citizenid = Player.PlayerData.citizenid

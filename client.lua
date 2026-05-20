@@ -1,7 +1,7 @@
 local cam = nil
 local charPed = nil
 local loadScreenCheckState = false
-local QBCore = exports['qb-core']:GetCoreObject()
+local QBCore = exports['qb-core']:GetCoreObject({ 'Functions' })
 local cached_player_skins = {}
 
 local randommodels = { -- models possible to load when choosing empty slot
