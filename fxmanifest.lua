@@ -38,5 +38,7 @@ files {
 
 dependencies {
     'qb-core',
-    'qb-spawn'
+    'qb-spawn',
+    'qb-apartments',
+    'oxmysql'
 }
